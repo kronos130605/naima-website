@@ -13,10 +13,46 @@ server {
     gzip_comp_level 6;
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
 
+    # Built assets (npm run build)
+    location ^~ /build/ {
+        alias __PROJECT_ROOT__/public/build/;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+
+    # Vite dev server (npm run dev) - optional
+    location /@vite/ {
+        proxy_pass http://127.0.0.1:5173/@vite/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    location /@fs/ {
+        proxy_pass http://127.0.0.1:5173/@fs/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    location /resources/ {
+        proxy_pass http://127.0.0.1:5173/resources/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    # Main Laravel application
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
+    # PHP processing
     location ~ \.php$ {
         include fastcgi_params;
         fastcgi_index index.php;
@@ -27,6 +63,7 @@ server {
         fastcgi_send_timeout 300;
     }
 
+    # Deny access to hidden files
     location ~ /\.(?!well-known).* {
         deny all;
     }

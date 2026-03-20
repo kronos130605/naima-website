@@ -9,67 +9,54 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gradient-to-br from-blue-50 via-white to-indigo-50 text-slate-900 min-h-screen">
-    <header class="bg-white/80 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50">
-        <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-4">
-            <a href="/{{ $locale }}" class="font-bold text-xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                {{ $brand['name'] ?? 'FrenchBoost' }}
-            </a>
+    @php
+        $path = request()->path();
+        $segments = array_values(array_filter(explode('/', trim($path, '/')), fn ($s) => $s !== ''));
+        $maybeLocale = $segments[0] ?? null;
+        if ($maybeLocale && in_array($maybeLocale, $locales, true)) {
+            array_shift($segments);
+        }
+        $pathWithoutLocale = implode('/', $segments);
+        $localeFlag = [
+            'en' => '🇨🇦',
+            'fr' => '🇫🇷',
+        ];
+    @endphp
 
-            <div class="flex items-center gap-3">
-                <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
-                    <a class="hover:text-blue-600 transition-colors" href="#about">About</a>
-                    <a class="hover:text-blue-600 transition-colors" href="#strategy">Strategy</a>
-                    <a class="hover:text-blue-600 transition-colors" href="#pricing">Pricing</a>
-                    <a class="hover:text-blue-600 transition-colors" href="#faq">FAQ</a>
-                    <a class="hover:text-blue-600 transition-colors" href="#contact">Contact</a>
-                </nav>
-
-                <div class="flex items-center gap-2 text-sm">
-                    @foreach($locales as $l)
-                        <a
-                            href="/{{ $l }}"
-                            class="px-2 py-1 rounded-lg border transition-all {{ $l === $locale ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-600' : 'border-blue-200 hover:border-blue-400 hover:bg-blue-50' }}"
-                        >
-                            {{ strtoupper($l) }}
-                        </a>
-                    @endforeach
-                </div>
-
-                <a
-                    href="{{ $cta['booking_url'] ?? '#' }}"
-                    class="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
-                >
-                    Book free assessment
-                </a>
-            </div>
-        </div>
-    </header>
+    <x-site.header
+        :brand="$brand"
+        :cta="$cta"
+        :locale="$locale"
+        :locales="$locales"
+        :locale-flag="$localeFlag"
+        :path-without-locale="$pathWithoutLocale"
+    />
 
     <main>
         <section class="mx-auto max-w-6xl px-4 py-24">
             <div class="grid gap-12 md:grid-cols-2 md:items-center">
                 <div class="space-y-6">
                     <div class="inline-flex items-center rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 px-4 py-2 text-sm font-semibold text-blue-800">
-                        🎯 FrenchBoost
+                        {{ __('site.hero.badge') }}
                     </div>
                     <h1 class="text-5xl md:text-6xl font-bold leading-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                        Boost your French,<br>Boost your potential.
+                        {!! __('site.hero.title_html') !!}
                     </h1>
                     <p class="text-lg text-slate-600 leading-relaxed">
-                        Online French tutoring designed to help learners build confidence and meaningful progress through personalized lessons and proven methods.
+                        {{ __('site.hero.subtitle') }}
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <a
                             href="{{ $cta['booking_url'] ?? '#' }}"
                             class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-xl hover:shadow-2xl transition-all hover:scale-105"
                         >
-                            Book a free assessment
+                            {{ __('site.cta.book_free_assessment') }}
                         </a>
                         <a
                             href="#pricing"
                             class="inline-flex items-center justify-center rounded-xl border-2 border-blue-200 bg-white/80 backdrop-blur px-6 py-3 text-base font-semibold text-blue-600 hover:border-blue-400 hover:bg-blue-50 transition-all"
                         >
-                            See pricing
+                            {{ __('site.cta.see_pricing') }}
                         </a>
                     </div>
                 </div>
@@ -107,7 +94,7 @@
                     {{ $about['title'] }}
                 </h2>
                 <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-                    Meet your dedicated French tutor and discover the personalized approach that sets FrenchBoost apart
+                    {{ __('site.about.subtitle') }}
                 </p>
             </div>
             <div class="grid gap-8 md:grid-cols-3 items-center">
@@ -127,15 +114,15 @@
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">🎓</div>
                             <div>
-                                <p class="font-semibold">Certified Instructor</p>
-                                <p class="text-sm text-slate-600">Professional French teaching credentials</p>
+                                <p class="font-semibold">{{ __('site.about.highlight_1_title') }}</p>
+                                <p class="text-sm text-slate-600">{{ __('site.about.highlight_1_body') }}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">💝</div>
                             <div>
-                                <p class="font-semibold">Passionate Teaching</p>
-                                <p class="text-sm text-slate-600">Dedicated to student success</p>
+                                <p class="font-semibold">{{ __('site.about.highlight_2_title') }}</p>
+                                <p class="text-sm text-slate-600">{{ __('site.about.highlight_2_body') }}</p>
                             </div>
                         </div>
                     </div>
@@ -150,7 +137,7 @@
                         {{ $strategy['title'] }}
                     </h2>
                     <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-                        Our proven methodology combines traditional techniques with modern learning approaches
+                        {{ __('site.strategy.subtitle') }}
                     </p>
                 </div>
                 <div class="grid gap-8 md:grid-cols-3">
@@ -176,7 +163,7 @@
                     {{ $benefits['title'] }}
                 </h2>
                 <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-                    Discover the advantages that make FrenchBoost the ideal choice for your French learning journey
+                    {{ __('site.benefits.subtitle') }}
                 </p>
             </div>
             <div class="grid gap-8 md:grid-cols-3">
@@ -213,14 +200,14 @@
                                 @if($index === 1)
                                     <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
                                         <span class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                                            Most Popular
+                                            {{ __('site.pricing.most_popular') }}
                                         </span>
                                     </div>
                                 @endif
                                 <h3 class="text-2xl font-bold text-slate-900 mb-2">{{ $package['name'] }}</h3>
                                 <div class="mb-6">
                                     <span class="text-3xl font-bold text-blue-600">${{ $package['price'] ?? '0' }}</span>
-                                    <span class="text-slate-600">/session</span>
+                                    <span class="text-slate-600">{{ __('site.pricing.per_session') }}</span>
                                 </div>
                                 <ul class="space-y-3 mb-8">
                                     @foreach(($package['details'] ?? []) as $d)
@@ -234,7 +221,7 @@
                                     href="{{ $cta['booking_url'] ?? '#' }}"
                                     class="w-full inline-flex items-center justify-center rounded-xl {{ $index === 1 ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white' : 'bg-blue-100 text-blue-600 hover:bg-blue-200' }} px-6 py-3 font-semibold transition-all hover:scale-105"
                                 >
-                                    Choose {{ $package['name'] }}
+                                    {{ __('site.pricing.choose', ['package' => $package['name']]) }}
                                 </a>
                             </div>
                         </div>
@@ -249,7 +236,7 @@
                     {{ $faq['title'] }}
                 </h2>
                 <p class="text-lg text-slate-600">
-                    Find answers to common questions about French tutoring
+                    {{ __('site.faq.subtitle') }}
                 </p>
             </div>
             <div class="space-y-4">
@@ -274,7 +261,7 @@
                         {{ $contact['title'] }}
                     </h2>
                     <p class="text-lg text-slate-600">
-                        Ready to start your French learning journey? Get in touch today!
+                        {{ __('site.contact.subtitle') }}
                     </p>
                 </div>
                 <div class="bg-white rounded-3xl shadow-xl p-8 border border-blue-100">
@@ -283,26 +270,26 @@
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">📧</div>
                                 <div>
-                                    <p class="font-semibold text-slate-900">Email</p>
+                                    <p class="font-semibold text-slate-900">{{ __('site.contact.email_label') }}</p>
                                     <p class="text-slate-600">{{ $contact['email'] ?? 'contact@frenchboost.com' }}</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">📱</div>
                                 <div>
-                                    <p class="font-semibold text-slate-900">Phone</p>
+                                    <p class="font-semibold text-slate-900">{{ __('site.contact.phone_label') }}</p>
                                     <p class="text-slate-600">{{ $contact['phone'] ?? '+1 (555) 123-4567' }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="space-y-4">
-                            <h3 class="font-semibold text-slate-900">Send us a message</h3>
+                            <h3 class="font-semibold text-slate-900">{{ __('site.contact.form_title') }}</h3>
                             <form class="space-y-4">
-                                <input type="text" placeholder="Your name" class="w-full px-4 py-3 rounded-xl border border-blue-200 focus:border-blue-500 focus:outline-none">
-                                <input type="email" placeholder="Your email" class="w-full px-4 py-3 rounded-xl border border-blue-200 focus:border-blue-500 focus:outline-none">
-                                <textarea placeholder="Your message" rows="4" class="w-full px-4 py-3 rounded-xl border border-blue-200 focus:border-blue-500 focus:outline-none resize-none"></textarea>
+                                <input type="text" placeholder="{{ __('site.contact.form_name_placeholder') }}" class="w-full px-4 py-3 rounded-xl border border-blue-200 focus:border-blue-500 focus:outline-none">
+                                <input type="email" placeholder="{{ __('site.contact.form_email_placeholder') }}" class="w-full px-4 py-3 rounded-xl border border-blue-200 focus:border-blue-500 focus:outline-none">
+                                <textarea placeholder="{{ __('site.contact.form_message_placeholder') }}" rows="4" class="w-full px-4 py-3 rounded-xl border border-blue-200 focus:border-blue-500 focus:outline-none resize-none"></textarea>
                                 <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold px-6 py-3 rounded-xl hover:shadow-lg transition-all hover:scale-105">
-                                    Send Message
+                                    {{ __('site.contact.form_submit') }}
                                 </button>
                             </form>
                         </div>
@@ -316,11 +303,11 @@
         <div class="mx-auto max-w-6xl px-4 py-8">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 <p class="text-slate-600">
-                    © {{ date('Y') }} {{ $brand['name'] ?? 'FrenchBoost' }} - Empowering French learners worldwide
+                    {{ __('site.footer.copyright', ['year' => date('Y'), 'brand' => ($brand['name'] ?? 'FrenchBoost')]) }}
                 </p>
                 <div class="flex items-center gap-6">
-                    <a href="#" class="text-slate-600 hover:text-blue-600 transition-colors">Privacy</a>
-                    <a href="#" class="text-slate-600 hover:text-blue-600 transition-colors">Terms</a>
+                    <a href="#" class="text-slate-600 hover:text-blue-600 transition-colors">{{ __('site.footer.privacy') }}</a>
+                    <a href="#" class="text-slate-600 hover:text-blue-600 transition-colors">{{ __('site.footer.terms') }}</a>
                     <div class="flex items-center gap-3">
                         <a href="#" class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-200 transition-colors">📘</a>
                         <a href="#" class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 hover:bg-blue-200 transition-colors">🐦</a>

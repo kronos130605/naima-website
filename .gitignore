@@ -22,6 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-/.windsurf/
-/scripts/
-/deploy/
+/.windsurf/*
+!/.windsurf/workflows/
+!/.windsurf/workflows/**
