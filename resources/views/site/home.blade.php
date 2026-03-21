@@ -35,11 +35,19 @@
     <main>
         <x-site.hero :cta="$cta" :testimonials="$testimonials" />
 
+        <x-site.stats :stats="$stats" />
+
         <x-site.about :about="$about" />
+
+        <x-site.programs :programs="$programs" />
 
         <x-site.strategy :strategy="$strategy" />
 
         <x-site.benefits :benefits="$benefits" />
+
+        <x-site.testimonials :testimonials="$testimonials" />
+
+        <x-site.resources :resources="$resources" />
 
         <x-site.pricing :pricing="$pricing" :cta="$cta" />
 

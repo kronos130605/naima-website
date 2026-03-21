@@ -10,7 +10,10 @@ return [
     ],
     'nav' => [
         'about' => 'À propos',
+        'programs' => 'Programmes',
         'strategy' => 'Méthode',
+        'testimonials' => 'Témoignages',
+        'resources' => 'Ressources',
         'pricing' => 'Tarifs',
         'faq' => 'FAQ',
         'contact' => 'Contact',
@@ -33,6 +36,17 @@ return [
         'highlight_2_body' => 'Engagée dans la réussite de ses élèves',
     ],
 
+    'stats' => [
+        'label_hours'    => 'Heures de tutorat',
+        'label_grades'   => 'Niveaux scolaires',
+        'label_online'   => '100 % en ligne',
+        'label_rating'   => 'Note moyenne',
+    ],
+
+    'programs' => [
+        'subtitle' => 'Des cours de français personnalisés pour chaque groupe d\'âge et niveau scolaire, des premiers mots à la littérature avancée.',
+    ],
+
     'strategy' => [
         'subtitle' => 'Une méthode éprouvée qui combine des techniques traditionnelles et des approches modernes.',
     ],
@@ -41,10 +55,23 @@ return [
         'subtitle' => 'Les avantages qui font de FrenchBoost le choix idéal pour votre parcours d’apprentissage du français.',
     ],
 
+    'testimonials' => [
+        'subtitle' => 'Des centaines d\'élèves ont déjà boosté leur français. Voici ce que leurs familles en disent.',
+    ],
+
     'pricing' => [
         'most_popular' => 'Le plus populaire',
         'per_session' => '/séance',
         'choose' => 'Choisir :package',
+    ],
+
+    'resources' => [
+        'badge'               => '🎁 Ressources gratuites',
+        'subtitle'            => 'Téléchargez gratuitement des cartes mentales, des fiches d\'exercices et des guides d\'étude pour progresser entre les séances.',
+        'download'            => 'Télécharger',
+        'coming_soon_title'   => 'Ressources bientôt disponibles !',
+        'coming_soon_body'    => 'Inscrivez-vous pour être averti(e) dès que les premières ressources gratuites seront disponibles.',
+        'notify_me'           => 'Me notifier',
     ],
 
     'faq' => [
@@ -63,8 +90,12 @@ return [
     ],
 
     'footer' => [
-        'copyright' => '© :year :brand - Accompagner les apprenants de français partout dans le monde',
-        'privacy' => 'Confidentialité',
-        'terms' => 'Conditions',
+        'tagline'          => 'Cours de français en ligne pour les niveaux K–12. Personnalisés, flexibles et axés sur les résultats.',
+        'nav_title'        => 'Navigation',
+        'contact_title'    => 'Nous contacter',
+        'online_worldwide' => 'En ligne — élèves du monde entier',
+        'copyright'        => '© :year :brand — Accompagner les apprenants de français partout dans le monde',
+        'privacy'          => 'Confidentialité',
+        'terms'            => 'Conditions',
     ],
 ];

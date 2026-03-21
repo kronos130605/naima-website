@@ -34,17 +34,20 @@ Construir el sitio informativo de la tutora de francés **FrenchBoost** con sopo
 - **Colores guía:** Blue, Yellow, Purple, White
 - **Logo:** pendiente elegir variante final (por ahora texto en header)
 
-## Contenido / Home (MVP)
-Secciones (single page):
-- Hero (slogan + CTA)
-- Who I am (About)
-- Learning Strategy: Learn / Apply / Grow
-- Benefits (3 items)
-- Pricing (3 paquetes)
-- Testimonials
-- Mind maps & related documents (resources)
-- FAQ
-- Contact
+## Contenido / Home (implementado)
+Secciones (single page, en orden):
+1. Hero (slogan + CTA + testimonial card)
+2. Stats bar (4,000+ horas · K–12 · 100% online · 5★) — `x-site.stats`
+3. About (Naima, bio, highlights) — `x-site.about`
+4. Programs / Levels (Beginner K-3, Intermediate 4-8, Advanced 9-12) — `x-site.programs`
+5. Learning Strategy: Learn / Apply / Grow — `x-site.strategy`
+6. Benefits (3 items) — `x-site.benefits`
+7. Testimonials (6 reseñas, grid 3 col) — `x-site.testimonials`
+8. Resources (mind maps, fichas; muestra "coming soon" cuando items=[]) — `x-site.resources`
+9. Pricing (3 paquetes: Tartelette, Macaron, Croissant) — `x-site.pricing`
+10. FAQ (accordion, 8 preguntas) — `x-site.faq`
+11. Contact (info + form) — `x-site.contact`
+12. Footer (3 col: brand+social, nav, contact) — `x-site.footer`
 
 ## Puntos por confirmar (bloquean copy final, no bloquean estructura)
 1) Público objetivo: ¿solo K-12 o también adultos?
@@ -63,12 +66,15 @@ Estructura propuesta:
 - `app/Services/Site/SiteContentService.php`
 - `app/Repositories/Site/*Repository.php`
 
-# Workflow de trabajo (actualizar este archivo cuando definamos algo)
-1. Implementar infraestructura i18n (rutas, middleware, selector)
-2. Implementar layout base (header/footer)
-3. Implementar Home con secciones y datos placeholder
-4. Refinar copy EN y traducir FR (cuando estén confirmaciones)
-5. Ajustar estilos/branding (colores y logo final)
+# Workflow de trabajo
+1. ✅ Implementar infraestructura i18n (rutas, middleware, selector)
+2. ✅ Implementar layout base (header/footer)
+3. ✅ Implementar Home con todas las secciones (12 secciones, datos placeholder EN)
+4. ⬜ Confirmar puntos pendientes (público, CTA booking, moneda, idioma default)
+5. ⬜ Refinar copy EN y traducir FR completo (cuando estén confirmaciones)
+6. ⬜ Ajustar estilos/branding (colores, logo final, foto de Naima)
+7. ⬜ Conectar CTA booking (Calendly / WhatsApp / formulario)
+8. ⬜ Poblar sección Resources con mind maps y fichas reales
 
 # Comandos útiles
 - Nginx en WSL sirve la app (no es necesario `php artisan serve` para el flujo normal)

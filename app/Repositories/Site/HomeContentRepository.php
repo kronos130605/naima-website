@@ -87,20 +87,80 @@ class HomeContentRepository
                     ],
                 ],
             ],
-            'testimonials' => [
-                'title' => 'Review from happy customer',
+            'stats' => [
+                'items' => [
+                    ['value' => '4,000+', 'lang_key' => 'label_hours'],
+                    ['value' => 'K–12',   'lang_key' => 'label_grades'],
+                    ['value' => '100%',   'lang_key' => 'label_online'],
+                    ['value' => '5★',     'lang_key' => 'label_rating'],
+                ],
+            ],
+            'programs' => [
+                'title' => 'Programs for Every Level',
                 'items' => [
                     [
-                        'name' => 'Student',
+                        'title'  => 'Beginner',
+                        'grades' => 'Kindergarten – Grade 3',
+                        'body'   => 'A playful, immersive introduction to French — alphabet, colours, numbers, greetings and simple sentences in a fun, stress-free environment.',
+                        'tags'   => ['Vocabulary', 'Pronunciation', 'Phonics', 'Songs & Games'],
+                    ],
+                    [
+                        'title'  => 'Intermediate',
+                        'grades' => 'Grade 4 – Grade 8',
+                        'body'   => 'Structured grammar, reading comprehension and oral expression to help students build fluency and excel in school French programs.',
+                        'tags'   => ['Grammar', 'Reading', 'Writing', 'Oral Skills'],
+                    ],
+                    [
+                        'title'  => 'Advanced',
+                        'grades' => 'Grade 9 – Grade 12',
+                        'body'   => 'Targeted preparation for high-school exams and provincial assessments, with focus on essay writing, literary analysis and advanced conversation.',
+                        'tags'   => ['Exam Prep', 'Essay Writing', 'Literature', 'Debate'],
+                    ],
+                ],
+            ],
+            'testimonials' => [
+                'title' => 'What Families Are Saying',
+                'items' => [
+                    [
+                        'name'   => 'Sarah M.',
+                        'role'   => 'Parent of a Grade 5 student',
                         'rating' => 5,
-                        'body' => 'Naima is great! The lessons are clear, personalized, and motivating.',
+                        'body'   => 'Naima is absolutely wonderful! My daughter went from dreading French class to looking forward to every lesson. Her grades improved significantly within two months.',
+                    ],
+                    [
+                        'name'   => 'James T.',
+                        'role'   => 'Parent of a Grade 10 student',
+                        'rating' => 5,
+                        'body'   => 'The personalized approach made all the difference. Naima identified exactly where my son was struggling and created a plan that worked. He passed his provincial exam with flying colours.',
+                    ],
+                    [
+                        'name'   => 'Priya K.',
+                        'role'   => 'Parent of a Grade 2 student',
+                        'rating' => 5,
+                        'body'   => 'Naima is great! The lessons are clear, personalized, and motivating. My child is always excited to learn new French words and songs.',
+                    ],
+                    [
+                        'name'   => 'Marc D.',
+                        'role'   => 'Grade 12 student',
+                        'rating' => 5,
+                        'body'   => 'I was completely lost in my French class and Naima helped me get back on track fast. Her teaching style is patient and super clear. Best investment before my finals.',
+                    ],
+                    [
+                        'name'   => 'Linda C.',
+                        'role'   => 'Parent of a Grade 7 student',
+                        'rating' => 5,
+                        'body'   => 'Flexible scheduling and outstanding quality. Naima accommodates our busy schedule and always comes prepared with engaging activities. Highly recommend!',
+                    ],
+                    [
+                        'name'   => 'Aisha R.',
+                        'role'   => 'Parent of two students',
+                        'rating' => 5,
+                        'body'   => 'Both of my children have lessons with Naima and the results have been remarkable for both of them, even though they are at very different levels. She adapts so well.',
                     ],
                 ],
             ],
             'resources' => [
-                'title' => 'Mind map and related documents',
-                'search_placeholder' => 'Search',
-                'subject_placeholder' => 'Subject',
+                'title' => 'Free Learning Resources',
                 'items' => [],
             ],
             'faq' => [

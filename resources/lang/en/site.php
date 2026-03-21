@@ -10,7 +10,10 @@ return [
     ],
     'nav' => [
         'about' => 'About',
-        'strategy' => 'Strategy',
+        'programs' => 'Programs',
+        'strategy' => 'Method',
+        'testimonials' => 'Testimonials',
+        'resources' => 'Resources',
         'pricing' => 'Pricing',
         'faq' => 'FAQ',
         'contact' => 'Contact',
@@ -33,6 +36,17 @@ return [
         'highlight_2_body' => 'Dedicated to student success',
     ],
 
+    'stats' => [
+        'label_hours'    => 'Tutoring hours',
+        'label_grades'   => 'Grades served',
+        'label_online'   => 'Online & flexible',
+        'label_rating'   => 'Average rating',
+    ],
+
+    'programs' => [
+        'subtitle' => 'Personalized French lessons for every age group and school level, from first words to advanced literature.',
+    ],
+
     'strategy' => [
         'subtitle' => 'Our proven methodology combines traditional techniques with modern learning approaches',
     ],
@@ -41,10 +55,23 @@ return [
         'subtitle' => 'Discover the advantages that make FrenchBoost the ideal choice for your French learning journey',
     ],
 
+    'testimonials' => [
+        'subtitle' => 'Hundreds of students have already boosted their French. Here is what their families say.',
+    ],
+
     'pricing' => [
         'most_popular' => 'Most Popular',
         'per_session' => '/session',
         'choose' => 'Choose :package',
+    ],
+
+    'resources' => [
+        'badge'               => '🎁 Free resources',
+        'subtitle'            => 'Download free mind maps, worksheets and study guides to support your learning between sessions.',
+        'download'            => 'Download',
+        'coming_soon_title'   => 'Resources coming soon!',
+        'coming_soon_body'    => 'Sign up to be notified as soon as the first free resources are available.',
+        'notify_me'           => 'Notify me',
     ],
 
     'faq' => [
@@ -63,8 +90,12 @@ return [
     ],
 
     'footer' => [
-        'copyright' => '© :year :brand - Empowering French learners worldwide',
-        'privacy' => 'Privacy',
-        'terms' => 'Terms',
+        'tagline'         => 'Online French tutoring for Grades K–12. Personalized, flexible, and results-driven.',
+        'nav_title'       => 'Navigation',
+        'contact_title'   => 'Get in touch',
+        'online_worldwide' => 'Online — serving students worldwide',
+        'copyright'       => '© :year :brand — Empowering French learners worldwide',
+        'privacy'         => 'Privacy',
+        'terms'           => 'Terms',
     ],
 ];

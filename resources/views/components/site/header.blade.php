@@ -29,7 +29,9 @@
         <div class="hidden md:flex items-center gap-3 min-w-0">
             <nav class="hidden lg:flex items-center gap-6 text-sm font-medium dark:text-slate-200">
                 <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#about">{{ __('site.nav.about') }}</a>
+                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#programs">{{ __('site.nav.programs') }}</a>
                 <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#strategy">{{ __('site.nav.strategy') }}</a>
+                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#resources">{{ __('site.nav.resources') }}</a>
                 <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#pricing">{{ __('site.nav.pricing') }}</a>
                 <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#faq">{{ __('site.nav.faq') }}</a>
                 <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#contact">{{ __('site.nav.contact') }}</a>
@@ -201,7 +203,10 @@
 
                 <nav class="mt-8 space-y-2">
                     <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#about" @click="mobileOpen = false">{{ __('site.nav.about') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#programs" @click="mobileOpen = false">{{ __('site.nav.programs') }}</a>
                     <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#strategy" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#testimonials" @click="mobileOpen = false">{{ __('site.nav.testimonials') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#resources" @click="mobileOpen = false">{{ __('site.nav.resources') }}</a>
                     <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#pricing" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
                     <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#faq" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
                     <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#contact" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
