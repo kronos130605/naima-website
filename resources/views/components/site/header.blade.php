@@ -1,184 +1,180 @@
 <header
     class="bg-white/80 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50 dark:bg-slate-950/80 dark:border-slate-800"
     x-data="{ mobileOpen: false, localeOpen: false, accountOpen: false }"
-    @keydown.escape.window="mobileOpen = false; localeOpen = false"
+    @keydown.escape.window="mobileOpen = false; localeOpen = false; accountOpen = false"
 >
-    <div class="mx-auto max-w-6xl px-4 py-4 flex flex-nowrap items-center justify-between gap-4">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-4">
+
+        {{-- LEFT: hamburger (mobile-only) + logo --}}
         <div class="flex items-center gap-3">
             <button
                 type="button"
-                class="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-slate-700 hover:bg-blue-50 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
+                class="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 p-2 text-slate-700 hover:bg-blue-50 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
                 aria-label="{{ __('site.header.open_menu') }}"
                 :aria-expanded="mobileOpen.toString()"
                 @click="mobileOpen = true"
             >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
             </button>
 
-            <a href="/{{ $locale }}" class="flex items-center gap-3 font-bold text-xl dark:text-slate-100">
-                <img
-                    src="{{ Vite::asset('resources/images/logo/logo_1.png') }}"
-                    alt="{{ $brand['name'] ?? 'FrenchBoost' }}"
-                    class="h-8 w-auto object-contain"
-                />
+            <a href="/{{ $locale }}" class="flex items-center gap-2 shrink-0">
+                <img src="{{ Vite::asset('resources/images/logo/logo_1_light.png') }}" alt="{{ $brand['name'] ?? 'FrenchBoost' }}" class="h-8 w-auto object-contain dark:hidden" />
+                <img src="{{ Vite::asset('resources/images/logo/logo_1_dark.png') }}" alt="{{ $brand['name'] ?? 'FrenchBoost' }}" class="h-8 w-auto object-contain hidden dark:block" />
             </a>
         </div>
 
-        <div class="hidden md:flex items-center gap-3 min-w-0">
-            <nav class="hidden lg:flex items-center gap-6 text-sm font-medium dark:text-slate-200">
-                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#about">{{ __('site.nav.about') }}</a>
-                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#programs">{{ __('site.nav.programs') }}</a>
-                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#strategy">{{ __('site.nav.strategy') }}</a>
-                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#resources">{{ __('site.nav.resources') }}</a>
-                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#pricing">{{ __('site.nav.pricing') }}</a>
-                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#faq">{{ __('site.nav.faq') }}</a>
-                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#contact">{{ __('site.nav.contact') }}</a>
-            </nav>
+        {{-- CENTER: desktop nav --}}
+        <nav class="hidden lg:flex items-center gap-1 text-sm font-medium text-slate-700 dark:text-slate-200">
+            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#about">{{ __('site.nav.about') }}</a>
+            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#programs">{{ __('site.nav.programs') }}</a>
+            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#strategy">{{ __('site.nav.strategy') }}</a>
+            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#resources">{{ __('site.nav.resources') }}</a>
+            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#pricing">{{ __('site.nav.pricing') }}</a>
+            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#faq">{{ __('site.nav.faq') }}</a>
+            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#contact">{{ __('site.nav.contact') }}</a>
+        </nav>
 
+        {{-- RIGHT: utility buttons --}}
+        <div class="flex items-center gap-2 shrink-0">
+
+            {{-- Theme toggle --}}
             <button
                 type="button"
-                class="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-slate-700 hover:bg-blue-50 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
+                class="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 p-2 text-slate-700 hover:bg-blue-50 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
                 aria-label="Toggle theme"
                 @click="window.__theme?.toggle()"
             >
-                <svg class="h-5 w-5 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0-1.414-1.414M7.05 7.05 5.636 5.636M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" />
+                <svg class="h-4 w-4 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0-1.414-1.414M7.05 7.05 5.636 5.636M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/>
                 </svg>
-                <svg class="h-5 w-5 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 1 0 9.79 9.79Z" />
+                <svg class="h-4 w-4 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 1 0 9.79 9.79Z"/>
                 </svg>
             </button>
 
+            {{-- Locale switcher --}}
             <div class="relative" @click.outside="localeOpen = false">
                 <button
                     type="button"
-                    class="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-blue-50 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
+                    class="inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-white/80 px-2.5 py-2 text-sm font-medium text-slate-700 hover:bg-blue-50 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
                     aria-label="{{ __('site.header.select_language') }}"
                     :aria-expanded="localeOpen.toString()"
                     @click="localeOpen = !localeOpen"
                 >
                     <span aria-hidden="true">{{ ($localeFlag[$locale] ?? '🌐') }}</span>
                     <span>{{ strtoupper($locale) }}</span>
-                    <span class="text-xs" aria-hidden="true">▼</span>
+                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </button>
 
                 <div
-                    class="absolute right-0 mt-2 w-40 rounded-xl border border-blue-100 bg-white shadow-xl p-1 dark:border-slate-700 dark:bg-slate-900"
-                    x-cloak
-                    x-show="localeOpen"
-                    x-transition.origin.top.right
+                    class="absolute right-0 mt-2 w-36 rounded-xl border border-blue-100 bg-white shadow-xl p-1 dark:border-slate-700 dark:bg-slate-900"
+                    x-cloak x-show="localeOpen" x-transition.origin.top.right
                 >
                     @foreach($locales as $l)
-                        @php
-                            $switchPath = $pathWithoutLocale !== '' ? '/' . $l . '/' . $pathWithoutLocale : '/' . $l;
-                        @endphp
+                        @php $switchPath = $pathWithoutLocale !== '' ? '/' . $l . '/' . $pathWithoutLocale : '/' . $l; @endphp
                         <a
                             href="{{ $switchPath }}"
                             onclick="try{sessionStorage.setItem('restoreScroll','1');sessionStorage.setItem('restoreScrollX',String(window.scrollX||0));sessionStorage.setItem('restoreScrollY',String(window.scrollY||0));}catch(e){};event.preventDefault();window.location.href=this.href+(window.location.hash||'');"
-                            class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 {{ $l === $locale ? 'bg-blue-50 dark:bg-slate-800' : '' }}"
+                            class="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 {{ $l === $locale ? 'bg-blue-50 dark:bg-slate-800' : '' }}"
                         >
                             <span class="flex items-center gap-2">
                                 <span aria-hidden="true">{{ ($localeFlag[$l] ?? '🌐') }}</span>
                                 <span>{{ strtoupper($l) }}</span>
                             </span>
-                            @if($l === $locale)
-                                <span class="text-blue-600 dark:text-blue-400" aria-hidden="true">✓</span>
-                            @endif
+                            @if($l === $locale)<span class="text-blue-600 dark:text-blue-400 text-xs">✓</span>@endif
                         </a>
                     @endforeach
                 </div>
             </div>
 
             @auth
-                @php
-                    $initial = strtoupper(mb_substr(Auth::user()->name ?? 'U', 0, 1));
-                @endphp
+                @php $initial = strtoupper(mb_substr(Auth::user()->name ?? 'U', 0, 1)); @endphp
                 <div class="relative" @click.outside="accountOpen = false">
                     <button
                         type="button"
-                        class="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-all hover:bg-blue-50 hover:border-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800 dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950"
-                        aria-label="Account menu"
+                        class="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white/80 px-2.5 py-2 text-sm font-semibold text-slate-900 hover:bg-blue-50 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800"
                         :aria-expanded="accountOpen.toString()"
                         @click="accountOpen = !accountOpen"
                     >
-                        <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-xs font-bold text-white">
-                            {{ $initial }}
-                        </span>
-                        <span class="hidden lg:block max-w-[10rem] truncate">{{ Auth::user()->name }}</span>
-                        <span class="text-xs" aria-hidden="true">▼</span>
+                        <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-xs font-bold text-white">{{ $initial }}</span>
+                        <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
 
                     <div
-                        class="absolute right-0 mt-2 w-56 rounded-xl border border-blue-100 bg-white shadow-xl p-1 dark:border-slate-700 dark:bg-slate-900"
-                        x-cloak
-                        x-show="accountOpen"
-                        x-transition.origin.top.right
+                        class="absolute right-0 mt-2 w-52 rounded-xl border border-blue-100 bg-white shadow-xl p-1 dark:border-slate-700 dark:bg-slate-900"
+                        x-cloak x-show="accountOpen" x-transition.origin.top.right
                     >
-                        <div class="px-3 py-2">
-                            <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ Auth::user()->name }}</div>
-                            <div class="text-xs text-slate-500 dark:text-slate-400">{{ Auth::user()->email }}</div>
+                        <div class="px-3 py-2 border-b border-blue-50 dark:border-slate-800 mb-1">
+                            <div class="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">{{ Auth::user()->name }}</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 truncate">{{ Auth::user()->email }}</div>
                         </div>
-                        <div class="h-px bg-blue-100 dark:bg-slate-800 my-1"></div>
-                        <a href="{{ route('dashboard', ['locale' => $locale]) }}" class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800">
-                            <span>{{ __('Dashboard') }}</span>
-                            <span aria-hidden="true">→</span>
-                        </a>
-                        <a href="{{ route('profile.edit', ['locale' => $locale]) }}" class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800">
-                            <span>{{ __('Profile') }}</span>
-                            <span aria-hidden="true">→</span>
-                        </a>
-                        <form method="POST" action="{{ route('logout', ['locale' => $locale]) }}" class="px-1">
+                        @if(Auth::user()->isAdmin())
+                            <a href="{{ route('dashboard', ['locale' => $locale]) }}" class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800">
+                                <span>{{ __('Dashboard') }}</span><span aria-hidden="true">→</span>
+                            </a>
+                            <a href="{{ route('profile.edit', ['locale' => $locale]) }}" class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800">
+                                <span>{{ __('Profile') }}</span><span aria-hidden="true">→</span>
+                            </a>
+                        @endif
+                        <form method="POST" action="{{ route('logout', ['locale' => $locale]) }}" class="px-1 pt-1 border-t border-blue-50 dark:border-slate-800 mt-1">
                             @csrf
-                            <button type="submit" class="w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors text-slate-900 dark:text-slate-200 dark:hover:bg-slate-800">
-                                <span>{{ __('Log Out') }}</span>
-                                <span aria-hidden="true">⎋</span>
+                            <button type="submit" class="w-full flex items-center justify-between gap-3 rounded-lg px-2 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors dark:text-red-400 dark:hover:bg-red-950/30">
+                                <span>{{ __('Log Out') }}</span><span aria-hidden="true">⎋</span>
                             </button>
                         </form>
                     </div>
                 </div>
             @else
+                {{-- Login / Register for guests (desktop only) --}}
                 <a
                     href="{{ route('login', ['locale' => $locale]) }}"
-                    class="hidden lg:inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-all hover:bg-blue-50 hover:border-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800 dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950"
+                    class="hidden lg:inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/80 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:border-blue-300 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
                 >
                     {{ __('Log in') }}
                 </a>
                 <a
                     href="{{ route('register', ['locale' => $locale]) }}"
-                    class="hidden lg:inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.99] dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950"
+                    class="hidden lg:inline-flex items-center justify-center rounded-lg border border-blue-600 bg-white/80 px-3 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 transition-colors dark:border-blue-500 dark:bg-slate-900/80 dark:text-blue-400 dark:hover:bg-slate-800"
                 >
                     {{ __('Register') }}
                 </a>
             @endauth
 
+            {{-- CTA (desktop only) --}}
             <a
-                href="{{ $cta['booking_url'] ?? '#' }}"
-                class="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                href="{{ $cta['booking_url'] ?? '#contact' }}"
+                class="hidden lg:inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:shadow-lg transition-all hover:scale-[1.02] whitespace-nowrap"
             >
                 {{ __('site.cta.book_free_assessment') }}
             </a>
         </div>
     </div>
 
+    {{-- Mobile sidebar --}}
     <template x-teleport="body">
         <div
             class="fixed inset-0 z-[9999]"
-            x-cloak
-            x-show="mobileOpen"
-            x-transition.opacity.duration.200ms
+            x-cloak x-show="mobileOpen"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
         >
+            {{-- Backdrop --}}
             <button
                 type="button"
-                class="absolute inset-0"
-                style="background-color: rgb(15 23 42 / 0.95);"
+                class="absolute inset-0 bg-slate-900/80"
                 aria-label="{{ __('site.header.close_menu') }}"
                 @click="mobileOpen = false"
             ></button>
 
+            {{-- Drawer --}}
             <div
-                class="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] shadow-2xl border-r border-blue-100 p-6 bg-white dark:border-slate-700 dark:bg-slate-900"
+                class="absolute left-0 top-0 h-full w-72 max-w-[85vw] flex flex-col bg-white shadow-2xl dark:bg-slate-900"
                 x-show="mobileOpen"
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="-translate-x-full"
@@ -188,84 +184,103 @@
                 x-transition:leave-end="-translate-x-full"
                 x-trap.noscroll="mobileOpen"
             >
-                <div class="flex items-center justify-between">
-                    <a href="/{{ $locale }}" class="flex items-center gap-3">
-                        <img
-                            src="{{ Vite::asset('resources/images/logo/logo_1.png') }}"
-                            alt="{{ $brand['name'] ?? 'FrenchBoost' }}"
-                            class="h-8 w-auto object-contain"
-                        />
+                {{-- Drawer header --}}
+                <div class="flex items-center justify-between px-5 py-4 border-b border-blue-100 dark:border-slate-700">
+                    <a href="/{{ $locale }}" @click="mobileOpen = false">
+                        <img src="{{ Vite::asset('resources/images/logo/logo_1_light.png') }}" alt="{{ $brand['name'] ?? 'FrenchBoost' }}" class="h-7 w-auto object-contain dark:hidden" />
+                        <img src="{{ Vite::asset('resources/images/logo/logo_1_dark.png') }}" alt="{{ $brand['name'] ?? 'FrenchBoost' }}" class="h-7 w-auto object-contain hidden dark:block" />
                     </a>
-                    <button type="button" class="rounded-lg border border-blue-200 px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800" @click="mobileOpen = false">
-                        {{ __('site.header.close') }}
+                    <button
+                        type="button"
+                        class="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+                        @click="mobileOpen = false"
+                        aria-label="{{ __('site.header.close') }}"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
 
-                <nav class="mt-8 space-y-2">
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#about" @click="mobileOpen = false">{{ __('site.nav.about') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#programs" @click="mobileOpen = false">{{ __('site.nav.programs') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#strategy" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#testimonials" @click="mobileOpen = false">{{ __('site.nav.testimonials') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#resources" @click="mobileOpen = false">{{ __('site.nav.resources') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#pricing" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#faq" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#contact" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
+                {{-- Nav links (scrollable) --}}
+                <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-0.5">
+                    {{-- Home page sections --}}
+                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#about" @click="mobileOpen = false">{{ __('site.nav.about') }}</a>
+                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#programs" @click="mobileOpen = false">{{ __('site.nav.programs') }}</a>
+                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#strategy" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
+                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#testimonials" @click="mobileOpen = false">{{ __('site.nav.testimonials') }}</a>
+                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#pricing" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
+                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#faq" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
+
+                    {{-- Resources section divider --}}
+                    <div class="pt-3 pb-1 px-4">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{{ __('site.sidebar.resources_title') }}</p>
+                    </div>
+                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.mind-maps', ['locale' => $locale]) }}" @click="mobileOpen = false">
+                        <span class="text-base">🗺</span> {{ __('site.sidebar.mind_maps') }}
+                    </a>
+                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.videos', ['locale' => $locale]) }}" @click="mobileOpen = false">
+                        <span class="text-base">🎬</span> {{ __('site.sidebar.videos') }}
+                    </a>
+                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.worksheets', ['locale' => $locale]) }}" @click="mobileOpen = false">
+                        <span class="text-base">📄</span> {{ __('site.sidebar.worksheets') }}
+                    </a>
+                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#contact" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
                 </nav>
 
-                <div class="mt-8 flex items-center gap-2">
-                    @foreach($locales as $l)
-                        @php
-                            $switchPath = $pathWithoutLocale !== '' ? '/' . $l . '/' . $pathWithoutLocale : '/' . $l;
-                        @endphp
-                        <a
-                            href="{{ $switchPath }}"
-                            onclick="try{sessionStorage.setItem('restoreScroll','1');sessionStorage.setItem('restoreScrollX',String(window.scrollX||0));sessionStorage.setItem('restoreScrollY',String(window.scrollY||0));}catch(e){};event.preventDefault();window.location.href=this.href+(window.location.hash||'');"
-                            class="flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors dark:text-slate-200 {{ $l === $locale ? 'border-blue-600 bg-blue-50 dark:border-blue-500 dark:bg-slate-800' : 'border-blue-200 hover:bg-blue-50 dark:border-slate-700 dark:hover:bg-slate-800' }}"
-                        >
-                            <span aria-hidden="true">{{ ($localeFlag[$l] ?? '🌐') }}</span>
-                            <span>{{ strtoupper($l) }}</span>
-                        </a>
-                    @endforeach
-                </div>
+                {{-- Drawer footer --}}
+                <div class="px-5 py-4 border-t border-blue-100 dark:border-slate-700 space-y-3">
 
-                <div class="mt-6 space-y-3">
+                    {{-- Locale switcher --}}
+                    <div class="flex items-center gap-2">
+                        @foreach($locales as $l)
+                            @php $switchPath = $pathWithoutLocale !== '' ? '/' . $l . '/' . $pathWithoutLocale : '/' . $l; @endphp
+                            <a
+                                href="{{ $switchPath }}"
+                                onclick="try{sessionStorage.setItem('restoreScroll','1');sessionStorage.setItem('restoreScrollX',String(window.scrollX||0));sessionStorage.setItem('restoreScrollY',String(window.scrollY||0));}catch(e){};event.preventDefault();window.location.href=this.href+(window.location.hash||'');"
+                                class="flex-1 flex items-center justify-center gap-2 rounded-lg border py-2 text-sm font-medium transition-colors dark:text-slate-200 {{ $l === $locale ? 'border-blue-600 bg-blue-50 text-blue-700 dark:border-blue-500 dark:bg-slate-800' : 'border-slate-200 text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800' }}"
+                            >
+                                <span aria-hidden="true">{{ ($localeFlag[$l] ?? '🌐') }}</span>
+                                <span>{{ strtoupper($l) }}</span>
+                            </a>
+                        @endforeach
+                    </div>
+
+                    {{-- Auth state --}}
                     @auth
-                        <div class="rounded-xl border border-blue-100 bg-white/70 px-4 py-3 dark:border-slate-800 dark:bg-slate-950/60">
-                            <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ Auth::user()->name }}</div>
-                            <div class="text-xs text-slate-500 dark:text-slate-400">{{ Auth::user()->email }}</div>
+                        <div class="rounded-xl border border-blue-100 bg-blue-50/50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/50 flex items-center justify-between gap-3">
+                            <div class="min-w-0">
+                                <div class="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">{{ Auth::user()->name }}</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 truncate">{{ Auth::user()->email }}</div>
+                            </div>
+                            @if(Auth::user()->isAdmin())
+                                <a href="{{ route('dashboard', ['locale' => $locale]) }}" class="shrink-0 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 transition-colors">
+                                    {{ __('Dashboard') }}
+                                </a>
+                            @endif
                         </div>
-
-                        <a href="{{ route('dashboard', ['locale' => $locale]) }}" class="block w-full rounded-xl border border-blue-200 bg-white/80 px-4 py-3 text-center text-sm font-semibold text-slate-900 transition-colors hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800">
-                            {{ __('Dashboard') }}
-                        </a>
-
-                        <a href="{{ route('profile.edit', ['locale' => $locale]) }}" class="block w-full rounded-xl border border-blue-200 bg-white/80 px-4 py-3 text-center text-sm font-semibold text-slate-900 transition-colors hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800">
-                            {{ __('Profile') }}
-                        </a>
-
                         <form method="POST" action="{{ route('logout', ['locale' => $locale]) }}">
                             @csrf
-                            <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl">
+                            <button type="submit" class="w-full rounded-xl border border-red-200 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950/30">
                                 {{ __('Log Out') }}
                             </button>
                         </form>
                     @else
-                        <a href="{{ route('login', ['locale' => $locale]) }}" class="block w-full rounded-xl border border-blue-200 bg-white/80 px-4 py-3 text-center text-sm font-semibold text-slate-900 transition-colors hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800">
+                        <a href="{{ route('login', ['locale' => $locale]) }}" class="block w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-center text-sm font-medium text-slate-700 hover:bg-blue-50 hover:border-blue-300 transition-colors dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800" @click="mobileOpen = false">
                             {{ __('Log in') }}
                         </a>
-                        <a href="{{ route('register', ['locale' => $locale]) }}" class="block w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl">
+                        <a href="{{ route('register', ['locale' => $locale]) }}" class="block w-full rounded-xl border border-blue-600 px-4 py-2.5 text-center text-sm font-medium text-blue-700 hover:bg-blue-50 transition-colors dark:border-blue-500 dark:text-blue-400 dark:hover:bg-slate-800" @click="mobileOpen = false">
                             {{ __('Register') }}
                         </a>
                     @endauth
-                </div>
 
-                <a
-                    href="{{ $cta['booking_url'] ?? '#' }}"
-                    class="mt-6 w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02]"
-                    @click="mobileOpen = false"
-                >
-                    {{ __('site.cta.book_free_assessment') }}
-                </a>
+                    {{-- CTA --}}
+                    <a
+                        href="{{ $cta['booking_url'] ?? '#contact' }}"
+                        class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl transition-all hover:scale-[1.01]"
+                        @click="mobileOpen = false"
+                    >
+                        {{ __('site.cta.book_free_assessment') }}
+                    </a>
+                </div>
             </div>
         </div>
     </template>

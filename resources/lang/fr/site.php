@@ -89,6 +89,33 @@ return [
         'form_submit' => 'Envoyer',
     ],
 
+    'mind_maps' => [
+        'page_title'          => 'Cartes Mentales',
+        'badge'               => 'Ressources gratuites',
+        'title'               => 'Cartes Mentales & Guides d\'étude',
+        'subtitle'            => 'Des cartes mentales visuelles organisées par niveau scolaire pour aider les élèves à comprendre et retenir les notions clés de français.',
+        'view'                => 'Voir',
+        'download'            => 'Télécharger le PDF',
+        'coming_soon'         => 'Bientôt disponible',
+        'close'               => 'Fermer',
+        'empty'               => 'Aucune carte mentale disponible pour ce niveau.',
+        'preview_soon'        => 'Aperçu bientôt disponible',
+        'modal_preview_soon'  => 'L\'aperçu de cette carte mentale sera disponible prochainement. Vous pourrez la télécharger dès que le fichier sera prêt.',
+    ],
+
+    'coming_soon' => [
+        'title'     => 'Bientôt disponible',
+        'subtitle'  => 'Cette section est en cours de construction. Revenez bientôt pour du nouveau contenu !',
+        'back_home' => 'Retour à l\'accueil',
+    ],
+
+    'sidebar' => [
+        'resources_title' => 'Ressources',
+        'mind_maps'       => 'Cartes mentales',
+        'videos'          => 'Vidéos',
+        'worksheets'      => 'Fiches',
+    ],
+
     'footer' => [
         'tagline'          => 'Cours de français en ligne pour les niveaux K–12. Personnalisés, flexibles et axés sur les résultats.',
         'nav_title'        => 'Navigation',

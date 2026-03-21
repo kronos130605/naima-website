@@ -55,26 +55,81 @@ Secciones (single page, en orden):
 3) Moneda: USD vs CAD
 4) Idioma por defecto: EN vs FR
 
-# Arquitectura (patrones)
-- **Controllers**: solo HTTP + delegación
-- **Services**: orquestación y view-models
-- **Repositories**: acceso a datos (por ahora en memoria / config)
+# Arquitectura (patrones — fuente de verdad)
 
-Estructura propuesta:
-- `app/Http/Controllers/Site/HomeController.php`
-- `app/Http/Middleware/SetLocaleFromRoute.php`
-- `app/Services/Site/SiteContentService.php`
-- `app/Repositories/Site/*Repository.php`
+## Regla general
+**Controllers** → delgados, solo HTTP (reciben request, devuelven response, delegan todo).
+**Services** → orquestación y lógica de negocio. Usan repositorios y traits.
+**Repositories** → acceso a datos (Eloquent). Sin lógica de negocio.
+**Traits** → funciones reutilizables entre servicios (ej: uploads de archivos).
+**Form Requests** → validación y autorización fuera del controlador.
+
+## Estructura de directorios
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Admin/          ← CRUD del panel de administración
+│   │   │   └── MindMapController.php
+│   │   ├── Auth/           ← Auth (Breeze)
+│   │   ├── Site/           ← Páginas públicas del sitio
+│   │   │   ├── HomeController.php
+│   │   │   └── MindMapController.php
+│   │   └── ProfileController.php
+│   ├── Middleware/
+│   │   ├── EnsureUserIsAdmin.php
+│   │   └── SetLocaleFromRoute.php
+│   └── Requests/
+│       └── Admin/
+│           ├── StoreMindMapRequest.php
+│           └── UpdateMindMapRequest.php
+├── Models/
+│   ├── MindMap.php
+│   └── User.php
+├── Repositories/
+│   ├── MindMapRepository.php   ← Eloquent queries
+│   └── Site/
+│       └── HomeContentRepository.php  ← Datos estáticos home
+├── Services/
+│   ├── MindMapService.php      ← Lógica mind maps + uploads
+│   └── Site/
+│       └── SiteContentService.php
+├── Traits/
+│   └── HandlesFileUploads.php  ← storeUpload, deleteUpload, replaceUpload
+└── View/
+    └── Components/
+        ├── GuestLayout.php
+        └── SiteLayout.php
+```
+
+## Acceso al panel admin
+- Solo el usuario con `is_admin = true` puede acceder a `/{locale}/dashboard` y `/{locale}/admin/*`
+- Middleware: `EnsureUserIsAdmin` (alias `admin`) aplicado a todas las rutas admin
+- Post-login: admin → dashboard, usuario normal → home
+
+## Flujo de datos (ejemplo MindMaps)
+```
+Request → MindMapController (HTTP) → MindMapService (lógica) → MindMapRepository (BD)
+                                          ↕ usa HandlesFileUploads (trait)
+                                          ↕ usa StoreMindMapRequest (validación)
+```
 
 # Workflow de trabajo
 1. ✅ Implementar infraestructura i18n (rutas, middleware, selector)
-2. ✅ Implementar layout base (header/footer)
-3. ✅ Implementar Home con todas las secciones (12 secciones, datos placeholder EN)
-4. ⬜ Confirmar puntos pendientes (público, CTA booking, moneda, idioma default)
-5. ⬜ Refinar copy EN y traducir FR completo (cuando estén confirmaciones)
-6. ⬜ Ajustar estilos/branding (colores, logo final, foto de Naima)
-7. ⬜ Conectar CTA booking (Calendly / WhatsApp / formulario)
-8. ⬜ Poblar sección Resources con mind maps y fichas reales
+2. ✅ Implementar layout base (header/footer, sidebar)
+3. ✅ Implementar Home con todas las secciones (12 secciones)
+4. ✅ Auth pages rediseñadas (guest layout 2 columnas)
+5. ✅ Admin access: columna `is_admin`, middleware, redirect post-login
+6. ✅ Páginas internas: layout `SiteLayout`, mind maps (grid + modal Alpine.js), videos/worksheets (coming soon)
+7. ✅ Mind maps dinámicos: migración, modelo, repositorio, servicio, CRUD admin, form requests, trait uploads
+8. ⬜ Confirmar puntos pendientes (público K-12 o adultos, CTA booking, moneda, idioma default)
+9. ⬜ Refinar copy EN y traducir FR completo
+10. ⬜ Ajustar branding (colores finales, logo final, foto de Naima)
+11. ⬜ Conectar CTA booking (Calendly / WhatsApp / formulario)
+12. ⬜ Subir archivos reales: imágenes preview + PDFs de mind maps
+13. ⬜ Sección Videos: implementar (YouTube embeds por nivel/tema)
+14. ⬜ Sección Fiches/Worksheets: implementar
 
 # Comandos útiles
 - Nginx en WSL sirve la app (no es necesario `php artisan serve` para el flujo normal)

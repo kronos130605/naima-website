@@ -28,7 +28,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $locale = $request->route('locale') ?? app()->getLocale();
+
+        if (Auth::user()->isAdmin()) {
+            return redirect()->intended(route('dashboard', ['locale' => $locale]));
+        }
+
+        return redirect()->route('site.home', ['locale' => $locale]);
     }
 
     /**
@@ -42,6 +48,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        $locale = $request->route('locale') ?? app()->getLocale();
+
+        return redirect()->route('site.home', ['locale' => $locale]);
     }
 }

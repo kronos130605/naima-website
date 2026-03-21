@@ -89,6 +89,33 @@ return [
         'form_submit' => 'Send Message',
     ],
 
+    'mind_maps' => [
+        'page_title'          => 'Mind Maps',
+        'badge'               => 'Free Resources',
+        'title'               => 'Mind Maps & Study Guides',
+        'subtitle'            => 'Visual mind maps organized by grade level to help students understand and remember key French concepts.',
+        'view'                => 'View',
+        'download'            => 'Download PDF',
+        'coming_soon'         => 'Coming soon',
+        'close'               => 'Close',
+        'empty'               => 'No mind maps found for this level yet.',
+        'preview_soon'        => 'Preview coming soon',
+        'modal_preview_soon'  => 'The preview for this mind map will be available soon. You can still download it when the file is ready.',
+    ],
+
+    'coming_soon' => [
+        'title'     => 'Coming Soon',
+        'subtitle'  => 'This section is under construction. Check back soon for new content!',
+        'back_home' => 'Back to home',
+    ],
+
+    'sidebar' => [
+        'resources_title' => 'Resources',
+        'mind_maps'       => 'Mind Maps',
+        'videos'          => 'Videos',
+        'worksheets'      => 'Worksheets',
+    ],
+
     'footer' => [
         'tagline'         => 'Online French tutoring for Grades K–12. Personalized, flexible, and results-driven.',
         'nav_title'       => 'Navigation',
