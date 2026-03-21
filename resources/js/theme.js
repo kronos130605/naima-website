@@ -12,6 +12,9 @@ function getPreferredTheme() {
 function applyTheme(theme) {
     const isDark = theme === 'dark';
     document.documentElement.classList.toggle('dark', isDark);
+    if (document.body) {
+        document.body.classList.toggle('dark', isDark);
+    }
 }
 
 function setTheme(theme) {

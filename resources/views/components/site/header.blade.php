@@ -1,5 +1,5 @@
 <header
-    class="bg-white/80 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50"
+    class="bg-white/80 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50 dark:bg-slate-950/80 dark:border-slate-800"
     x-data="{ mobileOpen: false, localeOpen: false }"
     @keydown.escape.window="mobileOpen = false; localeOpen = false"
 >
@@ -7,7 +7,7 @@
         <div class="flex items-center gap-3">
             <button
                 type="button"
-                class="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-slate-700 hover:bg-blue-50 transition-colors"
+                class="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-slate-700 hover:bg-blue-50 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
                 aria-label="{{ __('site.header.open_menu') }}"
                 :aria-expanded="mobileOpen.toString()"
                 @click="mobileOpen = true"
@@ -17,7 +17,7 @@
                 </svg>
             </button>
 
-            <a href="/{{ $locale }}" class="flex items-center gap-3 font-bold text-xl">
+            <a href="/{{ $locale }}" class="flex items-center gap-3 font-bold text-xl dark:text-slate-100">
                 <img
                     src="{{ Vite::asset('resources/images/logo/logo_1.png') }}"
                     alt="{{ $brand['name'] ?? 'FrenchBoost' }}"
@@ -27,24 +27,24 @@
         </div>
 
         <div class="hidden md:flex items-center gap-3 min-w-0">
-            <nav class="hidden lg:flex items-center gap-6 text-sm font-medium">
-                <a class="hover:text-blue-600 transition-colors" href="#about">{{ __('site.nav.about') }}</a>
-                <a class="hover:text-blue-600 transition-colors" href="#strategy">{{ __('site.nav.strategy') }}</a>
-                <a class="hover:text-blue-600 transition-colors" href="#pricing">{{ __('site.nav.pricing') }}</a>
-                <a class="hover:text-blue-600 transition-colors" href="#faq">{{ __('site.nav.faq') }}</a>
-                <a class="hover:text-blue-600 transition-colors" href="#contact">{{ __('site.nav.contact') }}</a>
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-medium dark:text-slate-200">
+                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#about">{{ __('site.nav.about') }}</a>
+                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#strategy">{{ __('site.nav.strategy') }}</a>
+                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#pricing">{{ __('site.nav.pricing') }}</a>
+                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#faq">{{ __('site.nav.faq') }}</a>
+                <a class="hover:text-blue-600 transition-colors dark:hover:text-blue-400" href="#contact">{{ __('site.nav.contact') }}</a>
             </nav>
 
             <button
                 type="button"
-                class="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-slate-700 hover:bg-blue-50 transition-colors"
+                class="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-slate-700 hover:bg-blue-50 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
                 aria-label="Toggle theme"
                 @click="window.__theme?.toggle()"
             >
-                <svg class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <svg class="h-5 w-5 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0-1.414-1.414M7.05 7.05 5.636 5.636M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" />
                 </svg>
-                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <svg class="h-5 w-5 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 1 0 9.79 9.79Z" />
                 </svg>
             </button>
@@ -52,7 +52,7 @@
             <div class="relative" @click.outside="localeOpen = false">
                 <button
                     type="button"
-                    class="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-blue-50 transition-colors"
+                    class="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-blue-50 transition-colors dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800"
                     aria-label="{{ __('site.header.select_language') }}"
                     :aria-expanded="localeOpen.toString()"
                     @click="localeOpen = !localeOpen"
@@ -63,7 +63,7 @@
                 </button>
 
                 <div
-                    class="absolute right-0 mt-2 w-40 rounded-xl border border-blue-100 bg-white shadow-xl p-1"
+                    class="absolute right-0 mt-2 w-40 rounded-xl border border-blue-100 bg-white shadow-xl p-1 dark:border-slate-700 dark:bg-slate-900"
                     x-cloak
                     x-show="localeOpen"
                     x-transition.origin.top.right
@@ -74,14 +74,14 @@
                         @endphp
                         <a
                             href="{{ $switchPath }}"
-                            class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors {{ $l === $locale ? 'bg-blue-50' : '' }}"
+                            class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 {{ $l === $locale ? 'bg-blue-50 dark:bg-slate-800' : '' }}"
                         >
                             <span class="flex items-center gap-2">
                                 <span aria-hidden="true">{{ ($localeFlag[$l] ?? '🌐') }}</span>
                                 <span>{{ strtoupper($l) }}</span>
                             </span>
                             @if($l === $locale)
-                                <span class="text-blue-600" aria-hidden="true">✓</span>
+                                <span class="text-blue-600 dark:text-blue-400" aria-hidden="true">✓</span>
                             @endif
                         </a>
                     @endforeach
@@ -113,7 +113,7 @@
             ></button>
 
             <div
-                class="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] shadow-2xl border-r border-blue-100 p-6 bg-white"
+                class="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] shadow-2xl border-r border-blue-100 p-6 bg-white dark:border-slate-700 dark:bg-slate-900"
                 x-show="mobileOpen"
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="-translate-x-full"
@@ -131,17 +131,17 @@
                             class="h-8 w-auto object-contain"
                         />
                     </a>
-                    <button type="button" class="rounded-lg border border-blue-200 px-3 py-2 text-sm hover:bg-blue-50 transition-colors" @click="mobileOpen = false">
+                    <button type="button" class="rounded-lg border border-blue-200 px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800" @click="mobileOpen = false">
                         {{ __('site.header.close') }}
                     </button>
                 </div>
 
                 <nav class="mt-8 space-y-2">
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#about" @click="mobileOpen = false">{{ __('site.nav.about') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#strategy" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#pricing" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#faq" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
-                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#contact" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#about" @click="mobileOpen = false">{{ __('site.nav.about') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#strategy" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#pricing" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#faq" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800" href="#contact" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
                 </nav>
 
                 <div class="mt-8 flex items-center gap-2">
@@ -151,7 +151,7 @@
                         @endphp
                         <a
                             href="{{ $switchPath }}"
-                            class="flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors {{ $l === $locale ? 'border-blue-600 bg-blue-50' : 'border-blue-200 hover:bg-blue-50' }}"
+                            class="flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors dark:text-slate-200 {{ $l === $locale ? 'border-blue-600 bg-blue-50 dark:border-blue-500 dark:bg-slate-800' : 'border-blue-200 hover:bg-blue-50 dark:border-slate-700 dark:hover:bg-slate-800' }}"
                         >
                             <span aria-hidden="true">{{ ($localeFlag[$l] ?? '🌐') }}</span>
                             <span>{{ strtoupper($l) }}</span>

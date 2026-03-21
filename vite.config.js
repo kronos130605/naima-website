@@ -20,11 +20,14 @@ export default defineConfig({
         host: '0.0.0.0',
         port: 5173,
         cors: true,
+        origin: 'http://localhost:8081',
 
         hmr: {
             host: 'localhost',
             port: 5173,
+            clientPort: 8081,
             protocol: 'ws',
+            path: '/@vite',
         },
     },
 });
