@@ -40,6 +40,19 @@ sudo ln -s "$TARGET_AVAILABLE" "$TARGET_ENABLED"
 sudo nginx -t
 sudo systemctl reload nginx || sudo service nginx reload
 
+MANIFEST_SRC="${PROJECT_ROOT}/public/build/.vite/manifest.json"
+MANIFEST_DEST_DIR="${PROJECT_ROOT}/public/build"
+MANIFEST_DEST="${MANIFEST_DEST_DIR}/manifest.json"
+
+if [[ ! -f "$MANIFEST_SRC" ]]; then
+  echo "Vite manifest not found: $MANIFEST_SRC" >&2
+  echo "Run 'npm run build' first to generate it." >&2
+  exit 1
+fi
+
+mkdir -p "$MANIFEST_DEST_DIR"
+cp "$MANIFEST_SRC" "$MANIFEST_DEST"
+
 echo "Installed Nginx site: $SITE_NAME"
 echo "- Available: $TARGET_AVAILABLE"
 echo "- Enabled:   $TARGET_ENABLED"

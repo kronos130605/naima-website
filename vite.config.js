@@ -5,33 +5,26 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: [
+                'resources/css/app.css',
+                'resources/js/theme.js',
+                'resources/js/app.js',
+            ],
             refresh: true,
-            hotFile: 'storage/vite.hot', // fuerza la ruta correcta
+            hotFile: 'storage/vite.hot',
         }),
         tailwindcss(),
     ],
-    build: {
-        manifest: true,
-        outDir: 'public/build',
-        manifestDir: '',
-        input: [
-            'resources/css/app.css',
-            'resources/js/app.js',
-        ],
-        emptyOutDir: true,
-    },
+
     server: {
-        host: 'localhost',
+        host: '0.0.0.0',
         port: 5173,
         cors: true,
+
         hmr: {
             host: 'localhost',
             port: 5173,
-            protocol: 'ws'
+            protocol: 'ws',
         },
-        watch: {
-            ignored: ['**/storage/framework/views/**'],
-        },
-    }
+    },
 });

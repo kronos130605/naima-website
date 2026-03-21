@@ -12,9 +12,9 @@
                 :aria-expanded="mobileOpen.toString()"
                 @click="mobileOpen = true"
             >
-                <span class="block h-0.5 w-5 bg-current"></span>
-                <span class="mt-1 block h-0.5 w-5 bg-current"></span>
-                <span class="mt-1 block h-0.5 w-5 bg-current"></span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
             </button>
 
             <a href="/{{ $locale }}" class="flex items-center gap-3 font-bold text-xl">
@@ -34,6 +34,20 @@
                 <a class="hover:text-blue-600 transition-colors" href="#faq">{{ __('site.nav.faq') }}</a>
                 <a class="hover:text-blue-600 transition-colors" href="#contact">{{ __('site.nav.contact') }}</a>
             </nav>
+
+            <button
+                type="button"
+                class="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-slate-700 hover:bg-blue-50 transition-colors"
+                aria-label="Toggle theme"
+                @click="window.__theme?.toggle()"
+            >
+                <svg class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0-1.414-1.414M7.05 7.05 5.636 5.636M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" />
+                </svg>
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 1 0 9.79 9.79Z" />
+                </svg>
+            </button>
 
             <div class="relative" @click.outside="localeOpen = false">
                 <button
@@ -83,64 +97,76 @@
         </div>
     </div>
 
-    <div
-        class="fixed inset-0 z-50"
-        x-cloak
-        x-show="mobileOpen"
-        x-transition.opacity.duration.200ms
-        @click.self="mobileOpen = false"
-    >
-        <button type="button" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" aria-label="{{ __('site.header.close_menu') }}" @click="mobileOpen = false"></button>
+    <template x-teleport="body">
         <div
-            class="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-2xl border-r border-blue-100 p-6"
+            class="fixed inset-0 z-[9999]"
+            x-cloak
             x-show="mobileOpen"
-            x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="-translate-x-full"
-            x-transition:enter-end="translate-x-0"
-            x-transition:leave="transition ease-in duration-200"
-            x-transition:leave-start="translate-x-0"
-            x-transition:leave-end="-translate-x-full"
-            x-trap.noscroll="mobileOpen"
+            x-transition.opacity.duration.200ms
         >
-            <div class="flex items-center justify-between">
-                <span class="font-bold text-lg bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                    {{ $brand['name'] ?? 'FrenchBoost' }}
-                </span>
-                <button type="button" class="rounded-lg border border-blue-200 px-3 py-2 text-sm hover:bg-blue-50 transition-colors" @click="mobileOpen = false">
-                    {{ __('site.header.close') }}
-                </button>
-            </div>
-
-            <nav class="mt-8 space-y-2">
-                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#about" @click="mobileOpen = false">{{ __('site.nav.about') }}</a>
-                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#strategy" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
-                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#pricing" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
-                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#faq" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
-                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#contact" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
-            </nav>
-
-            <div class="mt-8 flex items-center gap-2">
-                @foreach($locales as $l)
-                    @php
-                        $switchPath = $pathWithoutLocale !== '' ? '/' . $l . '/' . $pathWithoutLocale : '/' . $l;
-                    @endphp
-                    <a
-                        href="{{ $switchPath }}"
-                        class="flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors {{ $l === $locale ? 'border-blue-600 bg-blue-50' : 'border-blue-200 hover:bg-blue-50' }}"
-                    >
-                        <span aria-hidden="true">{{ ($localeFlag[$l] ?? '🌐') }}</span>
-                        <span>{{ strtoupper($l) }}</span>
-                    </a>
-                @endforeach
-            </div>
-
-            <a
-                href="{{ $cta['booking_url'] ?? '#' }}"
-                class="mt-6 w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02]"
+            <button
+                type="button"
+                class="absolute inset-0"
+                style="background-color: rgb(15 23 42 / 0.95);"
+                aria-label="{{ __('site.header.close_menu') }}"
                 @click="mobileOpen = false"
+            ></button>
+
+            <div
+                class="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] shadow-2xl border-r border-blue-100 p-6 bg-white"
+                x-show="mobileOpen"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="-translate-x-full"
+                x-transition:enter-end="translate-x-0"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="translate-x-0"
+                x-transition:leave-end="-translate-x-full"
+                x-trap.noscroll="mobileOpen"
             >
-                {{ __('site.cta.book_free_assessment') }}
-            </a>
+                <div class="flex items-center justify-between">
+                    <a href="/{{ $locale }}" class="flex items-center gap-3">
+                        <img
+                            src="{{ Vite::asset('resources/images/logo/logo_1.png') }}"
+                            alt="{{ $brand['name'] ?? 'FrenchBoost' }}"
+                            class="h-8 w-auto object-contain"
+                        />
+                    </a>
+                    <button type="button" class="rounded-lg border border-blue-200 px-3 py-2 text-sm hover:bg-blue-50 transition-colors" @click="mobileOpen = false">
+                        {{ __('site.header.close') }}
+                    </button>
+                </div>
+
+                <nav class="mt-8 space-y-2">
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#about" @click="mobileOpen = false">{{ __('site.nav.about') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#strategy" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#pricing" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#faq" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
+                    <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#contact" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
+                </nav>
+
+                <div class="mt-8 flex items-center gap-2">
+                    @foreach($locales as $l)
+                        @php
+                            $switchPath = $pathWithoutLocale !== '' ? '/' . $l . '/' . $pathWithoutLocale : '/' . $l;
+                        @endphp
+                        <a
+                            href="{{ $switchPath }}"
+                            class="flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors {{ $l === $locale ? 'border-blue-600 bg-blue-50' : 'border-blue-200 hover:bg-blue-50' }}"
+                        >
+                            <span aria-hidden="true">{{ ($localeFlag[$l] ?? '🌐') }}</span>
+                            <span>{{ strtoupper($l) }}</span>
+                        </a>
+                    @endforeach
+                </div>
+
+                <a
+                    href="{{ $cta['booking_url'] ?? '#' }}"
+                    class="mt-6 w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02]"
+                    @click="mobileOpen = false"
+                >
+                    {{ __('site.cta.book_free_assessment') }}
+                </a>
+            </div>
         </div>
-    </div>
+    </template>
 </header>

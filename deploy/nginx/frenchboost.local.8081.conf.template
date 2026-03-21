@@ -13,7 +13,9 @@ server {
     gzip_comp_level 6;
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
 
-    # Built assets (npm run build)
+    # ---------------------------
+    # BUILT ASSETS (npm run build)
+    # ---------------------------
     location ^~ /build/ {
         alias __PROJECT_ROOT__/public/build/;
         expires 1y;
@@ -21,51 +23,64 @@ server {
         try_files $uri =404;
     }
 
-    # Vite dev server (npm run dev) - optional
-    location /@vite/ {
-        proxy_pass http://127.0.0.1:5173/@vite/;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-
-    location /@fs/ {
-        proxy_pass http://127.0.0.1:5173/@fs/;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-
-    location /resources/ {
-        proxy_pass http://127.0.0.1:5173/resources/;
-        proxy_http_version 1.1;
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-
-    # Main Laravel application
+    # ---------------------------
+    # LARAVEL (PRIMERO)
+    # ---------------------------
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
-    # PHP processing
+    # PHP
     location ~ \.php$ {
         include fastcgi_params;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         fastcgi_pass unix:/run/php/php8.3-fpm.sock;
-
-        fastcgi_read_timeout 300;
-        fastcgi_send_timeout 300;
     }
 
-    # Deny access to hidden files
+    # Deny hidden files
     location ~ /\.(?!well-known).* {
         deny all;
+    }
+
+    # ---------------------------
+    # VITE DEV SERVER (DESPUÉS)
+    # ---------------------------
+
+    # Vite client (CRÍTICO)
+    location /@vite/client {
+        proxy_pass http://127.0.0.1:5173/@vite/client;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    # Vite HMR
+    location /@vite/ {
+        proxy_pass http://127.0.0.1:5173/@vite/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    # Vite filesystem
+    location /@fs/ {
+        proxy_pass http://127.0.0.1:5173/@fs/;
+    }
+
+    # Vite module resolution
+    location /@id/ {
+        proxy_pass http://127.0.0.1:5173/@id/;
+    }
+
+    # Vite resources
+    location /resources/ {
+        proxy_pass http://127.0.0.1:5173/resources/;
+    }
+
+    # Vite ping
+    location /__vite_ping {
+        proxy_pass http://127.0.0.1:5173/__vite_ping;
     }
 
     server_tokens off;

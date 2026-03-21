@@ -6,7 +6,7 @@
 
     <title>{{ $brand['name'] ?? 'FrenchBoost' }}</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/theme.js', 'resources/js/app.js'])
 </head>
 <body class="bg-gradient-to-br from-blue-50 via-white to-indigo-50 text-slate-900 min-h-screen">
     @php
