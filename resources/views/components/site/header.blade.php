@@ -1,6 +1,6 @@
 <header
     class="bg-white/80 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50 dark:bg-slate-950/80 dark:border-slate-800"
-    x-data="{ mobileOpen: false, localeOpen: false }"
+    x-data="{ mobileOpen: false, localeOpen: false, accountOpen: false }"
     @keydown.escape.window="mobileOpen = false; localeOpen = false"
 >
     <div class="mx-auto max-w-6xl px-4 py-4 flex flex-nowrap items-center justify-between gap-4">
@@ -74,6 +74,7 @@
                         @endphp
                         <a
                             href="{{ $switchPath }}"
+                            onclick="try{sessionStorage.setItem('restoreScroll','1');sessionStorage.setItem('restoreScrollX',String(window.scrollX||0));sessionStorage.setItem('restoreScrollY',String(window.scrollY||0));}catch(e){};event.preventDefault();window.location.href=this.href+(window.location.hash||'');"
                             class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 {{ $l === $locale ? 'bg-blue-50 dark:bg-slate-800' : '' }}"
                         >
                             <span class="flex items-center gap-2">
@@ -87,6 +88,68 @@
                     @endforeach
                 </div>
             </div>
+
+            @auth
+                @php
+                    $initial = strtoupper(mb_substr(Auth::user()->name ?? 'U', 0, 1));
+                @endphp
+                <div class="relative" @click.outside="accountOpen = false">
+                    <button
+                        type="button"
+                        class="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-all hover:bg-blue-50 hover:border-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800 dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950"
+                        aria-label="Account menu"
+                        :aria-expanded="accountOpen.toString()"
+                        @click="accountOpen = !accountOpen"
+                    >
+                        <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-xs font-bold text-white">
+                            {{ $initial }}
+                        </span>
+                        <span class="hidden lg:block max-w-[10rem] truncate">{{ Auth::user()->name }}</span>
+                        <span class="text-xs" aria-hidden="true">▼</span>
+                    </button>
+
+                    <div
+                        class="absolute right-0 mt-2 w-56 rounded-xl border border-blue-100 bg-white shadow-xl p-1 dark:border-slate-700 dark:bg-slate-900"
+                        x-cloak
+                        x-show="accountOpen"
+                        x-transition.origin.top.right
+                    >
+                        <div class="px-3 py-2">
+                            <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ Auth::user()->name }}</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">{{ Auth::user()->email }}</div>
+                        </div>
+                        <div class="h-px bg-blue-100 dark:bg-slate-800 my-1"></div>
+                        <a href="{{ route('dashboard', ['locale' => $locale]) }}" class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800">
+                            <span>{{ __('Dashboard') }}</span>
+                            <span aria-hidden="true">→</span>
+                        </a>
+                        <a href="{{ route('profile.edit', ['locale' => $locale]) }}" class="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors dark:text-slate-200 dark:hover:bg-slate-800">
+                            <span>{{ __('Profile') }}</span>
+                            <span aria-hidden="true">→</span>
+                        </a>
+                        <form method="POST" action="{{ route('logout', ['locale' => $locale]) }}" class="px-1">
+                            @csrf
+                            <button type="submit" class="w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm hover:bg-blue-50 transition-colors text-slate-900 dark:text-slate-200 dark:hover:bg-slate-800">
+                                <span>{{ __('Log Out') }}</span>
+                                <span aria-hidden="true">⎋</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @else
+                <a
+                    href="{{ route('login', ['locale' => $locale]) }}"
+                    class="hidden lg:inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-all hover:bg-blue-50 hover:border-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800 dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950"
+                >
+                    {{ __('Log in') }}
+                </a>
+                <a
+                    href="{{ route('register', ['locale' => $locale]) }}"
+                    class="hidden lg:inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.99] dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950"
+                >
+                    {{ __('Register') }}
+                </a>
+            @endauth
 
             <a
                 href="{{ $cta['booking_url'] ?? '#' }}"
@@ -151,12 +214,44 @@
                         @endphp
                         <a
                             href="{{ $switchPath }}"
+                            onclick="try{sessionStorage.setItem('restoreScroll','1');sessionStorage.setItem('restoreScrollX',String(window.scrollX||0));sessionStorage.setItem('restoreScrollY',String(window.scrollY||0));}catch(e){};event.preventDefault();window.location.href=this.href+(window.location.hash||'');"
                             class="flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors dark:text-slate-200 {{ $l === $locale ? 'border-blue-600 bg-blue-50 dark:border-blue-500 dark:bg-slate-800' : 'border-blue-200 hover:bg-blue-50 dark:border-slate-700 dark:hover:bg-slate-800' }}"
                         >
                             <span aria-hidden="true">{{ ($localeFlag[$l] ?? '🌐') }}</span>
                             <span>{{ strtoupper($l) }}</span>
                         </a>
                     @endforeach
+                </div>
+
+                <div class="mt-6 space-y-3">
+                    @auth
+                        <div class="rounded-xl border border-blue-100 bg-white/70 px-4 py-3 dark:border-slate-800 dark:bg-slate-950/60">
+                            <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ Auth::user()->name }}</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">{{ Auth::user()->email }}</div>
+                        </div>
+
+                        <a href="{{ route('dashboard', ['locale' => $locale]) }}" class="block w-full rounded-xl border border-blue-200 bg-white/80 px-4 py-3 text-center text-sm font-semibold text-slate-900 transition-colors hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800">
+                            {{ __('Dashboard') }}
+                        </a>
+
+                        <a href="{{ route('profile.edit', ['locale' => $locale]) }}" class="block w-full rounded-xl border border-blue-200 bg-white/80 px-4 py-3 text-center text-sm font-semibold text-slate-900 transition-colors hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800">
+                            {{ __('Profile') }}
+                        </a>
+
+                        <form method="POST" action="{{ route('logout', ['locale' => $locale]) }}">
+                            @csrf
+                            <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl">
+                                {{ __('Log Out') }}
+                            </button>
+                        </form>
+                    @else
+                        <a href="{{ route('login', ['locale' => $locale]) }}" class="block w-full rounded-xl border border-blue-200 bg-white/80 px-4 py-3 text-center text-sm font-semibold text-slate-900 transition-colors hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:hover:bg-slate-800">
+                            {{ __('Log in') }}
+                        </a>
+                        <a href="{{ route('register', ['locale' => $locale]) }}" class="block w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl">
+                            {{ __('Register') }}
+                        </a>
+                    @endauth
                 </div>
 
                 <a

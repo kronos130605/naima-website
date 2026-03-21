@@ -9,8 +9,8 @@
     </div>
     <div class="space-y-4">
         @foreach(($faq['items'] ?? []) as $index => $item)
-            <details class="group bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden hover:shadow-xl transition-all">
-                <summary class="cursor-pointer p-6 font-semibold text-lg text-slate-900 hover:bg-blue-50 transition-colors list-none flex items-center justify-between">
+            <details class="group bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden hover:shadow-xl transition-all focus-within:ring-2 focus-within:ring-blue-500/30 focus-within:ring-offset-2 focus-within:ring-offset-white">
+                <summary class="cursor-pointer p-6 font-semibold text-lg text-slate-900 hover:bg-blue-50 transition-colors list-none flex items-center justify-between outline-none">
                     <span>{{ $item['q'] }}</span>
                     <span class="text-blue-600 transform transition-transform group-open:rotate-180">▼</span>
                 </summary>

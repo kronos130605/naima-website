@@ -14,5 +14,18 @@ window.Alpine = Alpine;
 Alpine.start();
 
 document.addEventListener('DOMContentLoaded', () => {
+    try {
+        const shouldRestore = sessionStorage.getItem('restoreScroll') === '1';
+        if (shouldRestore) {
+            const x = Number(sessionStorage.getItem('restoreScrollX') || '0');
+            const y = Number(sessionStorage.getItem('restoreScrollY') || '0');
+            sessionStorage.removeItem('restoreScroll');
+            sessionStorage.removeItem('restoreScrollX');
+            sessionStorage.removeItem('restoreScrollY');
+            window.scrollTo({ left: x, top: y, behavior: 'auto' });
+        }
+    } catch (e) {
+    }
+
     initSmoothScroll();
 });

@@ -24,25 +24,33 @@
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
-                        <a
-                            href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Dashboard
+                        <div class="hidden sm:flex flex-col items-end leading-tight">
+                            <span class="font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ Auth::user()->name }}</span>
+                            <span class="text-[12px] text-[#706f6c] dark:text-[#A1A09A]">{{ Auth::user()->email }}</span>
+                        </div>
+
+                        <a href="{{ route('dashboard') }}" class="inline-flex items-center justify-center rounded-xl border border-blue-200 bg-white/80 backdrop-blur px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-all hover:bg-blue-50 hover:border-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-100 dark:hover:bg-slate-900 dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950">
+                            {{ __('Dashboard') }}
                         </a>
+
+                        <a href="{{ route('profile.edit') }}" class="inline-flex items-center justify-center rounded-xl border border-blue-200 bg-white/80 backdrop-blur px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-all hover:bg-blue-50 hover:border-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-100 dark:hover:bg-slate-900 dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950">
+                            {{ __('Profile') }}
+                        </a>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.99] dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950">
+                                {{ __('Log Out') }}
+                            </button>
+                        </form>
                     @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
+                        <a href="{{ route('login') }}" class="inline-flex items-center justify-center rounded-xl border border-blue-200 bg-white/80 backdrop-blur px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-all hover:bg-blue-50 hover:border-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-100 dark:hover:bg-slate-900 dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950">
+                            {{ __('Log in') }}
                         </a>
 
                         @if (Route::has('register'))
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
+                            <a href="{{ route('register') }}" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.01] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-[0.99] dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950">
+                                {{ __('Register') }}
                             </a>
                         @endif
                     @endauth

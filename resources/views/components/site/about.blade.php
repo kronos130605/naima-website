@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="md:col-span-2 space-y-6">
-            <div class="bg-white rounded-2xl shadow-lg p-8 border border-blue-100">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border border-blue-100 overflow-hidden hover:shadow-xl transition-all focus-within:ring-2 focus-within:ring-blue-500/30 focus-within:ring-offset-2 focus-within:ring-offset-white">
                 <p class="text-lg leading-relaxed text-slate-700 whitespace-pre-line">{{ $about['body'] }}</p>
             </div>
             <div class="grid gap-4 md:grid-cols-2">
