@@ -1,11 +1,16 @@
-<header class="bg-white/80 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50">
+<header
+    class="bg-white/80 backdrop-blur-md border-b border-blue-100 sticky top-0 z-50"
+    x-data="{ mobileOpen: false, localeOpen: false }"
+    @keydown.escape.window="mobileOpen = false; localeOpen = false"
+>
     <div class="mx-auto max-w-6xl px-4 py-4 flex flex-nowrap items-center justify-between gap-4">
         <div class="flex items-center gap-3">
             <button
                 type="button"
-                data-mobile-nav-toggle
                 class="inline-flex items-center justify-center rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-slate-700 hover:bg-blue-50 transition-colors"
                 aria-label="{{ __('site.header.open_menu') }}"
+                :aria-expanded="mobileOpen.toString()"
+                @click="mobileOpen = true"
             >
                 <span class="block h-0.5 w-5 bg-current"></span>
                 <span class="mt-1 block h-0.5 w-5 bg-current"></span>
@@ -30,19 +35,25 @@
                 <a class="hover:text-blue-600 transition-colors" href="#contact">{{ __('site.nav.contact') }}</a>
             </nav>
 
-            <div class="relative" data-locale-dropdown>
+            <div class="relative" @click.outside="localeOpen = false">
                 <button
                     type="button"
                     class="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white/80 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-blue-50 transition-colors"
-                    data-locale-dropdown-button
                     aria-label="{{ __('site.header.select_language') }}"
+                    :aria-expanded="localeOpen.toString()"
+                    @click="localeOpen = !localeOpen"
                 >
                     <span aria-hidden="true">{{ ($localeFlag[$locale] ?? '🌐') }}</span>
                     <span>{{ strtoupper($locale) }}</span>
                     <span class="text-xs" aria-hidden="true">▼</span>
                 </button>
 
-                <div class="hidden absolute right-0 mt-2 w-40 rounded-xl border border-blue-100 bg-white shadow-xl p-1" data-locale-dropdown-menu>
+                <div
+                    class="absolute right-0 mt-2 w-40 rounded-xl border border-blue-100 bg-white shadow-xl p-1"
+                    x-cloak
+                    x-show="localeOpen"
+                    x-transition.origin.top.right
+                >
                     @foreach($locales as $l)
                         @php
                             $switchPath = $pathWithoutLocale !== '' ? '/' . $l . '/' . $pathWithoutLocale : '/' . $l;
@@ -72,24 +83,40 @@
         </div>
     </div>
 
-    <div class="fixed inset-0 z-50 pointer-events-none opacity-0 transition-opacity duration-300 ease-out" data-mobile-nav>
-        <button type="button" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" data-mobile-nav-close aria-label="{{ __('site.header.close_menu') }}"></button>
-        <div class="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-2xl border-r border-blue-100 p-6 translate-x-[-100%] transition-transform duration-300 ease-out" data-mobile-nav-panel>
+    <div
+        class="fixed inset-0 z-50"
+        x-cloak
+        x-show="mobileOpen"
+        x-transition.opacity.duration.200ms
+        @click.self="mobileOpen = false"
+    >
+        <button type="button" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" aria-label="{{ __('site.header.close_menu') }}" @click="mobileOpen = false"></button>
+        <div
+            class="absolute left-0 top-0 h-full w-[320px] max-w-[85vw] bg-white shadow-2xl border-r border-blue-100 p-6"
+            x-show="mobileOpen"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="-translate-x-full"
+            x-transition:enter-end="translate-x-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="-translate-x-full"
+            x-trap.noscroll="mobileOpen"
+        >
             <div class="flex items-center justify-between">
                 <span class="font-bold text-lg bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                     {{ $brand['name'] ?? 'FrenchBoost' }}
                 </span>
-                <button type="button" class="rounded-lg border border-blue-200 px-3 py-2 text-sm hover:bg-blue-50 transition-colors" data-mobile-nav-close>
+                <button type="button" class="rounded-lg border border-blue-200 px-3 py-2 text-sm hover:bg-blue-50 transition-colors" @click="mobileOpen = false">
                     {{ __('site.header.close') }}
                 </button>
             </div>
 
             <nav class="mt-8 space-y-2">
-                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#about">{{ __('site.nav.about') }}</a>
-                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#strategy">{{ __('site.nav.strategy') }}</a>
-                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#pricing">{{ __('site.nav.pricing') }}</a>
-                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#faq">{{ __('site.nav.faq') }}</a>
-                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#contact">{{ __('site.nav.contact') }}</a>
+                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#about" @click="mobileOpen = false">{{ __('site.nav.about') }}</a>
+                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#strategy" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
+                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#pricing" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
+                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#faq" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
+                <a class="block rounded-xl px-4 py-3 text-slate-800 hover:bg-blue-50 transition-colors" href="#contact" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
             </nav>
 
             <div class="mt-8 flex items-center gap-2">
@@ -110,6 +137,7 @@
             <a
                 href="{{ $cta['booking_url'] ?? '#' }}"
                 class="mt-6 w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02]"
+                @click="mobileOpen = false"
             >
                 {{ __('site.cta.book_free_assessment') }}
             </a>
