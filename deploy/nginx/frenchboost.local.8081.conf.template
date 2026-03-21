@@ -38,6 +38,14 @@ server {
         fastcgi_pass unix:/run/php/php8.3-fpm.sock;
     }
 
+    # Storage: user-uploaded files served via public/storage symlink
+    location ^~ /storage/ {
+        disable_symlinks off;
+        expires 30d;
+        add_header Cache-Control "public";
+        try_files $uri =404;
+    }
+
     # Deny hidden files
     location ~ /\.(?!well-known).* {
         deny all;

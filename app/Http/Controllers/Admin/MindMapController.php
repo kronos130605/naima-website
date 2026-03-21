@@ -18,7 +18,7 @@ class MindMapController extends Controller
 
     public function index(): View
     {
-        return view('admin.mind-maps.index', $this->service->getAdminIndexData());
+        return view('admin.mind-maps.index', $this->service->getAdminIndexData(request('group')));
     }
 
     public function create(): View

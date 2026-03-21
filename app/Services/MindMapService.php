@@ -17,19 +17,22 @@ class MindMapService
         private readonly MindMapRepository $repo,
     ) {}
 
-    public function getPublicViewData(): array
+    public function getPublicViewData(?string $group = null): array
     {
         return [
-            'maps'   => $this->formatForJs($this->repo->published()),
-            'groups' => $this->groups(),
+            'maps'          => $this->repo->paginatePublished(12, $group ?: null),
+            'groups'        => $this->groups(),
+            'current_group' => $group ?? 'all',
         ];
     }
 
-    public function getAdminIndexData(): array
+    public function getAdminIndexData(?string $group = null): array
     {
         return [
-            'maps'   => $this->repo->allGrouped(),
-            'groups' => ['maternelle', 'primaire', 'college', 'lycee'],
+            'maps'          => $this->repo->paginateAll(15, $group ?: null),
+            'stats'         => $this->repo->stats(),
+            'groups'        => ['maternelle', 'primaire', 'college', 'lycee'],
+            'current_group' => $group ?? '',
         ];
     }
 
@@ -73,9 +76,9 @@ class MindMapService
         ];
     }
 
-    private function formatForJs(Collection $maps): array
+    public function mapForJs(MindMap $m): array
     {
-        return $maps->map(fn (MindMap $m) => [
+        return [
             'id'             => $m->id,
             'group'          => $m->group,
             'level'          => $m->level,
@@ -87,6 +90,6 @@ class MindMapService
             'description_fr' => $m->description_fr,
             'preview'        => $m->preview_image,
             'file'           => $m->file_path,
-        ])->values()->all();
+        ];
     }
 }

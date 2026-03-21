@@ -11,10 +11,24 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <div class="hidden sm:-my-px sm:ms-6 sm:flex sm:items-stretch">
+                    @if(auth()->check() && auth()->user()->isAdmin())
+                        @php
+                            $adminTabs = [
+                                ['label' => 'Dashboard', 'route' => 'dashboard',            'pattern' => 'dashboard'],
+                                ['label' => 'Mind Maps', 'route' => 'admin.mind-maps.index', 'pattern' => 'admin.mind-maps.*'],
+                            ];
+                        @endphp
+                        @foreach($adminTabs as $tab)
+                            @php $isActive = \Illuminate\Support\Str::is($tab['pattern'], request()->route()?->getName() ?? ''); @endphp
+                            <a
+                                href="{{ route($tab['route'], ['locale' => app()->getLocale()]) }}"
+                                class="inline-flex items-center px-4 border-b-2 text-sm font-medium transition-colors {{ $isActive
+                                    ? 'border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-400'
+                                    : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 dark:text-slate-300 dark:hover:text-white dark:hover:border-slate-600' }}"
+                            >{{ $tab['label'] }}</a>
+                        @endforeach
+                    @endif
                 </div>
             </div>
 
@@ -23,13 +37,13 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-700 bg-white/60 hover:text-slate-900 focus:outline-none transition ease-in-out duration-150 dark:bg-slate-950/60 dark:text-slate-200 dark:hover:text-white">
-                            <div>{{ Auth::user()->name }}</div>
+                            <span>{{ Auth::user()->name }}</span>
 
-                            <div class="ms-1">
+                            <span class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
-                            </div>
+                            </span>
                         </button>
                     </x-slot>
 

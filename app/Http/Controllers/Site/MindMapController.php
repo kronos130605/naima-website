@@ -15,7 +15,7 @@ class MindMapController extends Controller
     public function __invoke(): View
     {
         return view('site.mind-maps', array_merge(
-            $this->service->getPublicViewData(),
+            $this->service->getPublicViewData(request('group')),
             [
                 'brand'   => ['name' => 'FrenchBoost'],
                 'cta'     => ['booking_url' => null],
