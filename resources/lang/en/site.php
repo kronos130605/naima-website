@@ -103,6 +103,27 @@ return [
         'modal_preview_soon'  => 'The preview for this mind map will be available soon. You can still download it when the file is ready.',
     ],
 
+    'booking' => [
+        'page_title'        => 'Book Free Assessment',
+        'badge'             => '🎯 100% Free',
+        'title'             => 'Book your free assessment',
+        'subtitle'          => 'Tell us a little about yourself and we\'ll get back to you within 24 hours to schedule your first session.',
+        'name_label'        => 'Full name',
+        'name_placeholder'  => 'Your name',
+        'email_label'       => 'Email address',
+        'email_placeholder' => 'you@example.com',
+        'phone_label'       => 'Phone (optional)',
+        'phone_placeholder' => '+1 555 000 0000',
+        'level_label'       => 'Student level',
+        'level_placeholder' => 'e.g. Grade 6, High school, Adult',
+        'message_label'     => 'Anything else you\'d like us to know?',
+        'message_placeholder' => 'Goals, availability, concerns…',
+        'submit'            => 'Request free assessment',
+        'success_title'     => 'Request received!',
+        'success_body'      => 'Thank you! We\'ll reach out within 24 hours to confirm your free assessment.',
+        'back_home'         => 'Back to home',
+    ],
+
     'coming_soon' => [
         'title'     => 'Coming Soon',
         'subtitle'  => 'This section is under construction. Check back soon for new content!',

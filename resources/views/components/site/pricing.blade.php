@@ -1,3 +1,4 @@
+@php $locale = $locale ?? app()->getLocale(); @endphp
 <section id="pricing" class="relative py-20">
     <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"></div>
     <div class="absolute inset-0 opacity-40 [mask-image:radial-gradient(55%_45%_at_50%_0%,#000_0%,transparent_65%)]">
@@ -51,7 +52,7 @@
                         </ul>
 
                         <a
-                            href="{{ $cta['booking_url'] ?? '#' }}"
+                            href="{{ route('site.booking', ['locale' => $locale]) }}"
                             class="mt-8 w-full inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950 {{ $index === 1 ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg hover:shadow-xl hover:scale-[1.02]' : 'bg-white text-slate-900 border border-blue-200 hover:bg-blue-50 hover:border-blue-300 dark:bg-slate-950 dark:text-slate-100 dark:border-slate-800 dark:hover:bg-slate-900' }}"
                         >
                             {{ __('site.pricing.choose', ['package' => $package['name']]) }}

@@ -1,5 +1,6 @@
 import './bootstrap';
 import './theme';
+import 'htmx.org';
 
 import.meta.glob('../images/logo/*.{png,jpg,jpeg,svg,webp}', { eager: true });
 

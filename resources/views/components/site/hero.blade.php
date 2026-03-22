@@ -1,3 +1,4 @@
+@php $locale = $locale ?? app()->getLocale(); @endphp
 <section class="mx-auto max-w-6xl px-4 py-24">
     <div class="grid gap-12 md:grid-cols-2 md:items-center">
         <div class="space-y-6">
@@ -12,7 +13,7 @@
             </p>
             <div class="flex flex-wrap gap-4">
                 <a
-                    href="{{ $cta['booking_url'] ?? '#' }}"
+                    href="{{ route('site.booking', ['locale' => $locale]) }}"
                     class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-xl hover:shadow-2xl transition-all hover:scale-105"
                 >
                     {{ __('site.cta.book_free_assessment') }}

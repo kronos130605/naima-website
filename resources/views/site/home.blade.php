@@ -33,7 +33,7 @@
     />
 
     <main>
-        <x-site.hero :cta="$cta" :testimonials="$testimonials" />
+        <x-site.hero :cta="$cta" :testimonials="$testimonials" :locale="$locale" />
 
         <x-site.stats :stats="$stats" />
 
@@ -49,13 +49,13 @@
 
         <x-site.resources :resources="$resources" />
 
-        <x-site.pricing :pricing="$pricing" :cta="$cta" />
+        <x-site.pricing :pricing="$pricing" :cta="$cta" :locale="$locale" />
 
         <x-site.faq :faq="$faq" />
 
         <x-site.contact :contact="$contact" />
     </main>
 
-    <x-site.footer :brand="$brand" />
+    <x-site.footer :brand="$brand" :locale="$locale" />
 </body>
 </html>

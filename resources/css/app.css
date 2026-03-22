@@ -1,6 +1,11 @@
 @config "../../tailwind.config.js";
 @import "tailwindcss";
 
+/* HTMX indicator */
+.htmx-indicator { opacity: 0; transition: opacity 200ms ease-in; }
+.htmx-request .htmx-indicator,
+.htmx-request.htmx-indicator { opacity: 1; }
+
 @custom-variant dark (&:where(.dark, .dark *));
 @source "../views/**/*.blade.php";
 @source "../js/**/*.js";

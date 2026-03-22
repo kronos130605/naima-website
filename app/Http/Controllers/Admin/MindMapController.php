@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\UpdateMindMapRequest;
 use App\Models\MindMap;
 use App\Services\MindMapService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class MindMapController extends Controller
@@ -16,9 +17,15 @@ class MindMapController extends Controller
         private readonly MindMapService $service,
     ) {}
 
-    public function index(): View
+    public function index(Request $request)
     {
-        return view('admin.mind-maps.index', $this->service->getAdminIndexData(request('group')));
+        $data = $this->service->getAdminIndexData($request->query('group'));
+
+        if ($request->header('HX-Request')) {
+            return view('admin.partials.mind-maps', $data);
+        }
+
+        return view('admin.mind-maps.index', $data);
     }
 
     public function create(): View

@@ -1,3 +1,5 @@
+@props(['brand' => [], 'locale' => 'en'])
+
 <footer class="bg-slate-900 text-slate-300">
     <div class="mx-auto max-w-6xl px-4 pt-14 pb-8">
         <div class="grid gap-10 md:grid-cols-3 mb-12">
@@ -20,14 +22,14 @@
             <div>
                 <p class="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4">{{ __('site.footer.nav_title') }}</p>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="#about" class="hover:text-white transition-colors">{{ __('site.nav.about') }}</a></li>
-                    <li><a href="#programs" class="hover:text-white transition-colors">{{ __('site.nav.programs') }}</a></li>
-                    <li><a href="#strategy" class="hover:text-white transition-colors">{{ __('site.nav.strategy') }}</a></li>
-                    <li><a href="#testimonials" class="hover:text-white transition-colors">{{ __('site.nav.testimonials') }}</a></li>
-                    <li><a href="#resources" class="hover:text-white transition-colors">{{ __('site.nav.resources') }}</a></li>
-                    <li><a href="#pricing" class="hover:text-white transition-colors">{{ __('site.nav.pricing') }}</a></li>
-                    <li><a href="#faq" class="hover:text-white transition-colors">{{ __('site.nav.faq') }}</a></li>
-                    <li><a href="#contact" class="hover:text-white transition-colors">{{ __('site.nav.contact') }}</a></li>
+                    <li><a href="{{ route('site.about',    ['locale' => $locale]) }}" class="hover:text-white transition-colors">{{ __('site.nav.about') }}</a></li>
+                    <li><a href="{{ route('site.programs', ['locale' => $locale]) }}" class="hover:text-white transition-colors">{{ __('site.nav.programs') }}</a></li>
+                    <li><a href="{{ route('site.method',   ['locale' => $locale]) }}" class="hover:text-white transition-colors">{{ __('site.nav.strategy') }}</a></li>
+                    <li><a href="{{ route('site.mind-maps',['locale' => $locale]) }}" class="hover:text-white transition-colors">{{ __('site.nav.resources') }}</a></li>
+                    <li><a href="{{ route('site.pricing',  ['locale' => $locale]) }}" class="hover:text-white transition-colors">{{ __('site.nav.pricing') }}</a></li>
+                    <li><a href="{{ route('site.faq',      ['locale' => $locale]) }}" class="hover:text-white transition-colors">{{ __('site.nav.faq') }}</a></li>
+                    <li><a href="{{ route('site.contact',  ['locale' => $locale]) }}" class="hover:text-white transition-colors">{{ __('site.nav.contact') }}</a></li>
+                    <li><a href="{{ route('site.booking',  ['locale' => $locale]) }}" class="hover:text-white transition-colors">{{ __('site.cta.book_free_assessment') }}</a></li>
                 </ul>
             </div>
 
@@ -35,8 +37,8 @@
                 <p class="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4">{{ __('site.footer.contact_title') }}</p>
                 <ul class="space-y-3 text-sm">
                     <li class="flex items-center gap-2">
-                        <span class="text-blue-400">📧</span>
-                        <a href="#contact" class="hover:text-white transition-colors">{{ __('site.cta.book_free_assessment') }}</a>
+                        <span class="text-blue-400">📅</span>
+                        <a href="{{ route('site.booking', ['locale' => $locale]) }}" class="hover:text-white transition-colors">{{ __('site.cta.book_free_assessment') }}</a>
                     </li>
                     <li class="flex items-center gap-2">
                         <span class="text-blue-400">🌐</span>

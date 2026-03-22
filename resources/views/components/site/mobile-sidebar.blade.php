@@ -52,7 +52,7 @@
         </div>
 
         <a
-            href="{{ $cta['booking_url'] ?? '#' }}"
+            href="{{ route('site.booking', ['locale' => $locale]) }}"
             class="mt-6 w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02]"
             @click="mobileOpen = false"
         >

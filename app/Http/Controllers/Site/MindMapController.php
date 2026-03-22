@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Services\MindMapService;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class MindMapController extends Controller
@@ -12,16 +13,23 @@ class MindMapController extends Controller
         private readonly MindMapService $service,
     ) {}
 
-    public function __invoke(): View
+    public function __invoke(Request $request): View
     {
-        return view('site.mind-maps', array_merge(
-            $this->service->getPublicViewData(request('group')),
+        $data = array_merge(
+            $this->service->getPublicViewData($request->query('group')),
             [
-                'brand'   => ['name' => 'FrenchBoost'],
-                'cta'     => ['booking_url' => null],
-                'locale'  => app()->getLocale(),
-                'locales' => ['en', 'fr'],
+                'locale' => app()->getLocale(),
             ]
-        ));
+        );
+
+        if ($request->header('HX-Request')) {
+            return view('site.partials.mind-map-cards', $data);
+        }
+
+        return view('site.mind-maps', array_merge($data, [
+            'brand'   => ['name' => 'FrenchBoost'],
+            'cta'     => ['booking_url' => null],
+            'locales' => ['en', 'fr'],
+        ]));
     }
 }

@@ -103,6 +103,27 @@ return [
         'modal_preview_soon'  => 'L\'aperçu de cette carte mentale sera disponible prochainement. Vous pourrez la télécharger dès que le fichier sera prêt.',
     ],
 
+    'booking' => [
+        'page_title'         => 'Réserver une évaluation gratuite',
+        'badge'              => '🎯 100 % gratuit',
+        'title'              => 'Réservez votre évaluation gratuite',
+        'subtitle'           => 'Parlez-nous un peu de vous et nous vous recontacterons dans les 24 heures pour planifier votre première séance.',
+        'name_label'         => 'Nom complet',
+        'name_placeholder'   => 'Votre nom',
+        'email_label'        => 'Adresse e-mail',
+        'email_placeholder'  => 'vous@exemple.com',
+        'phone_label'        => 'Téléphone (facultatif)',
+        'phone_placeholder'  => '+1 555 000 0000',
+        'level_label'        => 'Niveau de l\'élève',
+        'level_placeholder'  => 'ex. 6e année, Lycée, Adulte',
+        'message_label'      => 'Autre chose que vous souhaitez nous faire savoir ?',
+        'message_placeholder' => 'Objectifs, disponibilités, préoccupations…',
+        'submit'             => 'Demander une évaluation gratuite',
+        'success_title'      => 'Demande reçue !',
+        'success_body'       => 'Merci ! Nous vous recontacterons dans les 24 heures pour confirmer votre évaluation gratuite.',
+        'back_home'          => 'Retour à l\'accueil',
+    ],
+
     'coming_soon' => [
         'title'     => 'Bientôt disponible',
         'subtitle'  => 'Cette section est en cours de construction. Revenez bientôt pour du nouveau contenu !',

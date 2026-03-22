@@ -26,15 +26,26 @@
         </div>
 
         {{-- CENTER: desktop nav --}}
-        <nav class="hidden lg:flex items-center gap-1 text-sm font-medium text-slate-700 dark:text-slate-200">
-            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#about">{{ __('site.nav.about') }}</a>
-            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#programs">{{ __('site.nav.programs') }}</a>
-            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#strategy">{{ __('site.nav.strategy') }}</a>
-            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#resources">{{ __('site.nav.resources') }}</a>
-            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#pricing">{{ __('site.nav.pricing') }}</a>
-            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#faq">{{ __('site.nav.faq') }}</a>
-            <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#contact">{{ __('site.nav.contact') }}</a>
-        </nav>
+        @if(request()->routeIs('site.home'))
+            <nav class="hidden lg:flex items-center gap-1 text-sm font-medium text-slate-700 dark:text-slate-200">
+                <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#about">{{ __('site.nav.about') }}</a>
+                <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#programs">{{ __('site.nav.programs') }}</a>
+                <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#strategy">{{ __('site.nav.strategy') }}</a>
+                <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#resources">{{ __('site.nav.resources') }}</a>
+                <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#pricing">{{ __('site.nav.pricing') }}</a>
+                <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#faq">{{ __('site.nav.faq') }}</a>
+                <a class="rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#contact">{{ __('site.nav.contact') }}</a>
+            </nav>
+        @else
+            @php $lnk = 'rounded-lg px-3 py-2 hover:bg-blue-50 hover:text-blue-600 transition-colors dark:hover:bg-slate-800 dark:hover:text-blue-400'; @endphp
+            <nav class="hidden lg:flex items-center gap-1 text-sm font-medium text-slate-700 dark:text-slate-200">
+                <a class="{{ $lnk }}" href="{{ route('site.programs', ['locale' => $locale]) }}">{{ __('site.nav.programs') }}</a>
+                <a class="{{ $lnk }}" href="{{ route('site.method',   ['locale' => $locale]) }}">{{ __('site.nav.strategy') }}</a>
+                <a class="{{ $lnk }}" href="{{ route('site.pricing',  ['locale' => $locale]) }}">{{ __('site.nav.pricing') }}</a>
+                <a class="{{ $lnk }}" href="{{ route('site.mind-maps',['locale' => $locale]) }}">{{ __('site.nav.resources') }}</a>
+                <a class="{{ $lnk }}" href="{{ route('site.contact',  ['locale' => $locale]) }}">{{ __('site.nav.contact') }}</a>
+            </nav>
+        @endif
 
         {{-- RIGHT: utility buttons --}}
         <div class="flex items-center gap-2 shrink-0">
@@ -142,13 +153,6 @@
                 </a>
             @endauth
 
-            {{-- CTA (desktop only) --}}
-            <a
-                href="{{ $cta['booking_url'] ?? '#contact' }}"
-                class="hidden lg:inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:shadow-lg transition-all hover:scale-[1.02] whitespace-nowrap"
-            >
-                {{ __('site.cta.book_free_assessment') }}
-            </a>
         </div>
     </div>
 
@@ -202,28 +206,41 @@
 
                 {{-- Nav links (scrollable) --}}
                 <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-0.5">
-                    {{-- Home page sections --}}
-                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#about" @click="mobileOpen = false">{{ __('site.nav.about') }}</a>
-                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#programs" @click="mobileOpen = false">{{ __('site.nav.programs') }}</a>
-                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#strategy" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
-                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#testimonials" @click="mobileOpen = false">{{ __('site.nav.testimonials') }}</a>
-                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#pricing" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
-                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.home', ['locale' => $locale]) }}#faq" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
+                    @php $ni = 'flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400'; @endphp
+
+                    {{-- Pages --}}
+                    <a class="{{ $ni }}" href="{{ route('site.about',    ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.about') }}</a>
+                    <a class="{{ $ni }}" href="{{ route('site.programs', ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.programs') }}</a>
+                    <a class="{{ $ni }}" href="{{ route('site.method',   ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
+                    <a class="{{ $ni }}" href="{{ route('site.pricing',  ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
+                    <a class="{{ $ni }}" href="{{ route('site.faq',      ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
+                    <a class="{{ $ni }}" href="{{ route('site.contact',  ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
+
+                    {{-- Book Free Assessment --}}
+                    <div class="pt-2 pb-1">
+                        <a
+                            class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-md hover:scale-[1.01] transition-all"
+                            href="{{ route('site.booking', ['locale' => $locale]) }}"
+                            @click="mobileOpen = false"
+                        >
+                            <span class="text-base">📅</span>
+                            {{ __('site.cta.book_free_assessment') }}
+                        </a>
+                    </div>
 
                     {{-- Resources section divider --}}
                     <div class="pt-3 pb-1 px-4">
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{{ __('site.sidebar.resources_title') }}</p>
                     </div>
-                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.mind-maps', ['locale' => $locale]) }}" @click="mobileOpen = false">
+                    <a class="{{ $ni }}" href="{{ route('site.mind-maps', ['locale' => $locale]) }}" @click="mobileOpen = false">
                         <span class="text-base">🗺</span> {{ __('site.sidebar.mind_maps') }}
                     </a>
-                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.videos', ['locale' => $locale]) }}" @click="mobileOpen = false">
+                    <a class="{{ $ni }}" href="{{ route('site.videos', ['locale' => $locale]) }}" @click="mobileOpen = false">
                         <span class="text-base">🎬</span> {{ __('site.sidebar.videos') }}
                     </a>
-                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="{{ route('site.worksheets', ['locale' => $locale]) }}" @click="mobileOpen = false">
+                    <a class="{{ $ni }}" href="{{ route('site.worksheets', ['locale' => $locale]) }}" @click="mobileOpen = false">
                         <span class="text-base">📄</span> {{ __('site.sidebar.worksheets') }}
                     </a>
-                    <a class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400" href="#contact" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
                 </nav>
 
                 {{-- Drawer footer --}}
@@ -272,14 +289,6 @@
                         </a>
                     @endauth
 
-                    {{-- CTA --}}
-                    <a
-                        href="{{ $cta['booking_url'] ?? '#contact' }}"
-                        class="w-full inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl transition-all hover:scale-[1.01]"
-                        @click="mobileOpen = false"
-                    >
-                        {{ __('site.cta.book_free_assessment') }}
-                    </a>
                 </div>
             </div>
         </div>
