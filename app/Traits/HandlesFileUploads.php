@@ -7,13 +7,19 @@ use Illuminate\Support\Facades\Storage;
 
 trait HandlesFileUploads
 {
-    protected function storeUpload(UploadedFile $file, string $folder, string $disk = 'public'): string
+    protected function uploadDisk(): string
     {
-        return $file->store($folder, $disk);
+        return config('filesystems.upload_disk', 'public');
     }
 
-    protected function deleteUpload(?string $path, string $disk = 'public'): void
+    protected function storeUpload(UploadedFile $file, string $folder, string $disk = null): string
     {
+        return $file->store($folder, $disk ?? $this->uploadDisk());
+    }
+
+    protected function deleteUpload(?string $path, string $disk = null): void
+    {
+        $disk = $disk ?? $this->uploadDisk();
         if ($path && Storage::disk($disk)->exists($path)) {
             Storage::disk($disk)->delete($path);
         }
@@ -23,7 +29,7 @@ trait HandlesFileUploads
         ?string $existing,
         ?UploadedFile $newFile,
         string $folder,
-        string $disk = 'public',
+        string $disk = null,
     ): ?string {
         if ($newFile === null) {
             return $existing;

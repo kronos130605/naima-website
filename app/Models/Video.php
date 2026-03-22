@@ -12,7 +12,7 @@ class Video extends Model
         'title_fr',
         'description_en',
         'description_fr',
-        'youtube_url',
+        'video_url',
         'level',
         'topic_en',
         'topic_fr',
@@ -50,9 +50,24 @@ class Video extends Model
         return $locale === 'fr' ? ($this->topic_fr ?: $this->topic_en) : ($this->topic_en ?: $this->topic_fr);
     }
 
+    public function videoSource(): string
+    {
+        $url = $this->video_url ?? '';
+
+        if (str_contains($url, 'youtube.com') || str_contains($url, 'youtu.be')) {
+            return 'youtube';
+        }
+
+        if (str_contains($url, 'vimeo.com')) {
+            return 'vimeo';
+        }
+
+        return 'unknown';
+    }
+
     public function youtubeId(): ?string
     {
-        $url = $this->youtube_url;
+        $url = $this->video_url ?? '';
 
         if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([A-Za-z0-9_-]{11})/', $url, $m)) {
             return $m[1];
@@ -61,19 +76,34 @@ class Video extends Model
         return null;
     }
 
+    public function vimeoId(): ?string
+    {
+        $url = $this->video_url ?? '';
+
+        if (preg_match('/vimeo\.com\/(?:video\/)?(\d+)/', $url, $m)) {
+            return $m[1];
+        }
+
+        return null;
+    }
+
     public function embedUrl(): ?string
     {
-        $id = $this->youtubeId();
-
-        return $id ? "https://www.youtube.com/embed/{$id}" : null;
+        return match ($this->videoSource()) {
+            'youtube' => ($id = $this->youtubeId()) ? "https://www.youtube.com/embed/{$id}" : null,
+            'vimeo'   => ($id = $this->vimeoId())   ? "https://player.vimeo.com/video/{$id}" : null,
+            default   => null,
+        };
     }
 
     public function thumbnailUrl(): string
     {
-        $id = $this->youtubeId();
-
-        return $id
-            ? "https://img.youtube.com/vi/{$id}/hqdefault.jpg"
-            : 'https://placehold.co/480x270?text=Video';
+        return match ($this->videoSource()) {
+            'youtube' => ($id = $this->youtubeId())
+                ? "https://img.youtube.com/vi/{$id}/hqdefault.jpg"
+                : 'https://placehold.co/480x270?text=Video',
+            'vimeo'   => 'https://placehold.co/480x270/1ab7ea/ffffff?text=Vimeo+Video',
+            default   => 'https://placehold.co/480x270?text=Video',
+        };
     }
 }

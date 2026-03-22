@@ -18,7 +18,7 @@ class StoreVideoRequest extends FormRequest
             'title_fr'        => ['required', 'string', 'max:255'],
             'description_en'  => ['nullable', 'string'],
             'description_fr'  => ['nullable', 'string'],
-            'youtube_url'     => ['required', 'url', 'max:500'],
+            'video_url'       => ['required', 'url', 'max:500'],
             'level'           => ['required', 'in:beginner,intermediate,advanced,general'],
             'topic_en'        => ['nullable', 'string', 'max:255'],
             'topic_fr'        => ['nullable', 'string', 'max:255'],

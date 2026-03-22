@@ -60,17 +60,17 @@
                     </div>
                 </div>
 
-                {{-- YouTube --}}
+                {{-- Video Source --}}
                 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 space-y-4">
-                    <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">YouTube</h3>
+                    <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Video</h3>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">YouTube URL <span class="text-red-500">*</span></label>
-                        <input type="url" name="youtube_url" value="{{ old('youtube_url', $video?->youtube_url) }}" required
-                            placeholder="https://www.youtube.com/watch?v=..."
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Video URL <span class="text-red-500">*</span></label>
+                        <input type="url" name="video_url" value="{{ old('video_url', $video?->video_url) }}" required
+                            placeholder="https://www.youtube.com/watch?v=... or https://vimeo.com/..."
                             class="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <p class="mt-1 text-xs text-gray-400">Accepts youtube.com/watch, youtu.be, and /shorts/ links.</p>
+                        <p class="mt-1 text-xs text-gray-400">Accepts YouTube (youtube.com/watch, youtu.be, /shorts/) and Vimeo (vimeo.com/...) links.</p>
                     </div>
-                    @if($video?->youtubeId())
+                    @if($video?->embedUrl())
                         <div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 aspect-video">
                             <iframe
                                 src="{{ $video->embedUrl() }}"

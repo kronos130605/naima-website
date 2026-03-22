@@ -91,7 +91,14 @@
                                         {{ $levelLabels[$video->level] ?? $video->level }}
                                     </span>
                                 </td>
-                                <td class="px-3 py-3 text-gray-500 dark:text-gray-400 text-xs">{{ $video->topic_en }}</td>
+                                <td class="px-3 py-3 text-gray-500 dark:text-gray-400 text-xs">
+                                    {{ $video->topic_en }}
+                                    @php $src = $video->videoSource(); @endphp
+                                    <span class="mt-1 inline-block rounded px-1.5 py-0.5 text-[10px] font-bold
+                                        {{ $src === 'youtube' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300' : ($src === 'vimeo' ? 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-300' : 'bg-gray-100 text-gray-500') }}">
+                                        {{ strtoupper($src) }}
+                                    </span>
+                                </td>
                                 <td class="px-3 py-3 text-center">
                                     <img
                                         src="{{ $video->thumbnailUrl() }}"
