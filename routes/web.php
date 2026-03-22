@@ -7,7 +7,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Site\BookingController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\SitePageController;
+use App\Http\Controllers\Admin\VideoController as AdminVideoController;
+use App\Http\Controllers\Admin\WorksheetController as AdminWorksheetController;
 use App\Http\Controllers\Site\MindMapController;
+use App\Http\Controllers\Site\VideoController;
+use App\Http\Controllers\Site\WorksheetController;
 use App\Http\Middleware\SetLocaleFromRoute;
 use Illuminate\Support\Facades\Route;
 
@@ -36,21 +40,9 @@ Route::middleware(SetLocaleFromRoute::class)
         Route::get('/book-free-assessment', [BookingController::class, 'show'])->name('site.booking');
         Route::post('/book-free-assessment', [BookingController::class, 'store'])->name('site.booking.store');
 
-        Route::get('/videos', fn () => view('site.coming-soon', [
-            'brand'   => ['name' => 'FrenchBoost'],
-            'cta'     => ['booking_url' => null],
-            'locale'  => app()->getLocale(),
-            'locales' => ['en', 'fr'],
-            'page'    => 'videos',
-        ]))->name('site.videos');
+        Route::get('/videos', VideoController::class)->name('site.videos');
 
-        Route::get('/worksheets', fn () => view('site.coming-soon', [
-            'brand'   => ['name' => 'FrenchBoost'],
-            'cta'     => ['booking_url' => null],
-            'locale'  => app()->getLocale(),
-            'locales' => ['en', 'fr'],
-            'page'    => 'worksheets',
-        ]))->name('site.worksheets');
+        Route::get('/worksheets', WorksheetController::class)->name('site.worksheets');
 
         Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
@@ -68,6 +60,22 @@ Route::middleware(SetLocaleFromRoute::class)
 
                 Route::get('/bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
                 Route::patch('/bookings/{id}/status', [AdminBookingController::class, 'updateStatus'])->name('bookings.status');
+
+                Route::get('/videos', [AdminVideoController::class, 'index'])->name('videos.index');
+                Route::get('/videos/create', [AdminVideoController::class, 'create'])->name('videos.create');
+                Route::post('/videos', [AdminVideoController::class, 'store'])->name('videos.store');
+                Route::get('/videos/{video}/edit', [AdminVideoController::class, 'edit'])->name('videos.edit');
+                Route::put('/videos/{video}', [AdminVideoController::class, 'update'])->name('videos.update');
+                Route::delete('/videos/{video}', [AdminVideoController::class, 'destroy'])->name('videos.destroy');
+                Route::patch('/videos/{video}/toggle', [AdminVideoController::class, 'togglePublish'])->name('videos.toggle');
+
+                Route::get('/worksheets', [AdminWorksheetController::class, 'index'])->name('worksheets.index');
+                Route::get('/worksheets/create', [AdminWorksheetController::class, 'create'])->name('worksheets.create');
+                Route::post('/worksheets', [AdminWorksheetController::class, 'store'])->name('worksheets.store');
+                Route::get('/worksheets/{worksheet}/edit', [AdminWorksheetController::class, 'edit'])->name('worksheets.edit');
+                Route::put('/worksheets/{worksheet}', [AdminWorksheetController::class, 'update'])->name('worksheets.update');
+                Route::delete('/worksheets/{worksheet}', [AdminWorksheetController::class, 'destroy'])->name('worksheets.destroy');
+                Route::patch('/worksheets/{worksheet}/toggle', [AdminWorksheetController::class, 'togglePublish'])->name('worksheets.toggle');
             });
 
         Route::middleware('auth')->group(function () {

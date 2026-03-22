@@ -1,8 +1,12 @@
-<div class="py-8 px-4 max-w-7xl mx-auto">
-    <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-6">Bookings</h2>
+<div class="py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+
+    <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Bookings</h2>
+    </div>
 
     {{-- Stats --}}
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         @foreach([
             ['label' => 'Total',     'value' => $stats['total'],     'color' => 'blue'],
             ['label' => 'Pending',   'value' => $stats['pending'],   'color' => 'amber'],
@@ -17,7 +21,7 @@
     </div>
 
     {{-- Status filter --}}
-    <div class="flex flex-wrap gap-2 mb-6">
+    <div class="flex flex-wrap gap-2">
         @foreach([
             ''           => 'All',
             'pending'    => 'Pending',
@@ -122,6 +126,8 @@
     </div>
 
     @if($bookings->hasPages())
-        <div class="mt-6 flex justify-center">{{ $bookings->links() }}</div>
+        <div class="flex justify-center">{{ $bookings->links() }}</div>
     @endif
+
+    </div>
 </div>

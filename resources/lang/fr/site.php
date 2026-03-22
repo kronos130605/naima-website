@@ -103,6 +103,20 @@ return [
         'modal_preview_soon'  => 'L\'aperçu de cette carte mentale sera disponible prochainement. Vous pourrez la télécharger dès que le fichier sera prêt.',
     ],
 
+    'videos' => [
+        'page_title' => 'Vidéos',
+        'badge'      => 'Vidéos',
+        'title'      => 'Vidéos de français',
+        'subtitle'   => 'Regardez des leçons courtes et ciblées pour renforcer ce que vous apprenez en séance.',
+    ],
+
+    'worksheets' => [
+        'page_title' => 'Fiches de travail',
+        'badge'      => 'Fiches',
+        'title'      => 'Fiches de travail',
+        'subtitle'   => 'Téléchargez des fiches d\'exercices imprimables pour pratiquer à votre rythme.',
+    ],
+
     'booking' => [
         'page_title'         => 'Réserver une évaluation gratuite',
         'badge'              => '🎯 100 % gratuit',

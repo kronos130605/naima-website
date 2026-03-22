@@ -246,21 +246,6 @@
                 {{-- Drawer footer --}}
                 <div class="px-5 py-4 border-t border-blue-100 dark:border-slate-700 space-y-3">
 
-                    {{-- Locale switcher --}}
-                    <div class="flex items-center gap-2">
-                        @foreach($locales as $l)
-                            @php $switchPath = $pathWithoutLocale !== '' ? '/' . $l . '/' . $pathWithoutLocale : '/' . $l; @endphp
-                            <a
-                                href="{{ $switchPath }}"
-                                onclick="try{sessionStorage.setItem('restoreScroll','1');sessionStorage.setItem('restoreScrollX',String(window.scrollX||0));sessionStorage.setItem('restoreScrollY',String(window.scrollY||0));}catch(e){};event.preventDefault();window.location.href=this.href+(window.location.hash||'');"
-                                class="flex-1 flex items-center justify-center gap-2 rounded-lg border py-2 text-sm font-medium transition-colors dark:text-slate-200 {{ $l === $locale ? 'border-blue-600 bg-blue-50 text-blue-700 dark:border-blue-500 dark:bg-slate-800' : 'border-slate-200 text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800' }}"
-                            >
-                                <span aria-hidden="true">{{ ($localeFlag[$l] ?? '🌐') }}</span>
-                                <span>{{ strtoupper($l) }}</span>
-                            </a>
-                        @endforeach
-                    </div>
-
                     {{-- Auth state --}}
                     @auth
                         <div class="rounded-xl border border-blue-100 bg-blue-50/50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/50 flex items-center justify-between gap-3">

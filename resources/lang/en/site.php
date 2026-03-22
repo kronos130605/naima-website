@@ -103,6 +103,20 @@ return [
         'modal_preview_soon'  => 'The preview for this mind map will be available soon. You can still download it when the file is ready.',
     ],
 
+    'videos' => [
+        'page_title' => 'Videos',
+        'badge'      => 'Videos',
+        'title'      => 'French Learning Videos',
+        'subtitle'   => 'Watch short, focused lessons to reinforce what you learn in session.',
+    ],
+
+    'worksheets' => [
+        'page_title' => 'Worksheets',
+        'badge'      => 'Worksheets',
+        'title'      => 'French Worksheets',
+        'subtitle'   => 'Download printable exercise sheets to practice at your own pace.',
+    ],
+
     'booking' => [
         'page_title'        => 'Book Free Assessment',
         'badge'             => '🎯 100% Free',

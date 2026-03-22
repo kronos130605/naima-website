@@ -24,6 +24,34 @@
                     </div>
                 </a>
                 <a
+                    href="{{ route('admin.videos.index', ['locale' => app()->getLocale()]) }}"
+                    hx-get="{{ route('admin.videos.index', ['locale' => app()->getLocale()]) }}"
+                    hx-target="#admin-content"
+                    hx-swap="innerHTML"
+                    hx-push-url="true"
+                    class="group flex items-start gap-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all"
+                >
+                    <div class="text-3xl">🎬</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Videos</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Add and publish YouTube lesson videos by level.</p>
+                    </div>
+                </a>
+                <a
+                    href="{{ route('admin.worksheets.index', ['locale' => app()->getLocale()]) }}"
+                    hx-get="{{ route('admin.worksheets.index', ['locale' => app()->getLocale()]) }}"
+                    hx-target="#admin-content"
+                    hx-swap="innerHTML"
+                    hx-push-url="true"
+                    class="group flex items-start gap-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all"
+                >
+                    <div class="text-3xl">📄</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Worksheets</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Upload and publish printable PDF exercise sheets.</p>
+                    </div>
+                </a>
+                <a
                     href="{{ route('admin.bookings.index', ['locale' => app()->getLocale()]) }}"
                     hx-get="{{ route('admin.bookings.index', ['locale' => app()->getLocale()]) }}"
                     hx-target="#admin-content"
@@ -53,6 +81,16 @@
                     class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                     Public mind maps page
+                </a>
+                <a href="{{ route('site.videos', ['locale' => app()->getLocale()]) }}" target="_blank"
+                    class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    Public videos page
+                </a>
+                <a href="{{ route('site.worksheets', ['locale' => app()->getLocale()]) }}" target="_blank"
+                    class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    Public worksheets page
                 </a>
             </div>
         </div>

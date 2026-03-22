@@ -45,7 +45,9 @@
                             $adminTabs = [
                                 ['label' => 'Dashboard', 'route' => 'dashboard',             'urlMatch' => '/dashboard'],
                                 ['label' => 'Mind Maps', 'route' => 'admin.mind-maps.index', 'urlMatch' => '/admin/mind-maps'],
-                                ['label' => 'Bookings',  'route' => 'admin.bookings.index',  'urlMatch' => '/admin/bookings'],
+                                ['label' => 'Videos',     'route' => 'admin.videos.index',     'urlMatch' => '/admin/videos'],
+                                ['label' => 'Worksheets', 'route' => 'admin.worksheets.index', 'urlMatch' => '/admin/worksheets'],
+                                ['label' => 'Bookings',   'route' => 'admin.bookings.index',   'urlMatch' => '/admin/bookings'],
                             ];
                         @endphp
                         @foreach($adminTabs as $tab)
@@ -167,7 +169,9 @@
                     $mobileTabs = [
                         ['label' => 'Dashboard', 'route' => 'dashboard'],
                         ['label' => 'Mind Maps', 'route' => 'admin.mind-maps.index'],
-                        ['label' => 'Bookings',  'route' => 'admin.bookings.index'],
+                        ['label' => 'Videos',     'route' => 'admin.videos.index'],
+                        ['label' => 'Worksheets', 'route' => 'admin.worksheets.index'],
+                        ['label' => 'Bookings',   'route' => 'admin.bookings.index'],
                     ];
                 @endphp
                 @foreach($mobileTabs as $tab)
