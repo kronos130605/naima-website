@@ -7,6 +7,7 @@
                 hx-get="{{ route('admin.worksheets.create', ['locale' => app()->getLocale()]) }}"
                 hx-target="#admin-modal-content"
                 hx-swap="innerHTML"
+                hx-select="#admin-form-content"
                 onclick="document.getElementById('admin-modal-title').textContent='New Worksheet'; window.dispatchEvent(new Event('open-admin-modal'))"
                 class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition-colors"
             >
@@ -120,6 +121,7 @@
                                             hx-get="{{ route('admin.worksheets.edit', ['locale' => app()->getLocale(), 'worksheet' => $worksheet]) }}"
                                             hx-target="#admin-modal-content"
                                             hx-swap="innerHTML"
+                                            hx-select="#admin-form-content"
                                             onclick="document.getElementById('admin-modal-title').textContent='Edit Worksheet'; window.dispatchEvent(new Event('open-admin-modal'))"
                                             class="rounded-lg px-2.5 py-1 text-xs font-medium text-blue-700 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-950/30 transition-colors border border-blue-200 dark:border-blue-800"
                                         >
@@ -151,6 +153,7 @@
                         hx-get="{{ route('admin.worksheets.create', ['locale' => app()->getLocale()]) }}"
                         hx-target="#admin-modal-content"
                         hx-swap="innerHTML"
+                        hx-select="#admin-form-content"
                         onclick="document.getElementById('admin-modal-title').textContent='New Worksheet'; window.dispatchEvent(new Event('open-admin-modal'))"
                         class="mt-4 inline-block text-blue-600 text-sm font-medium hover:underline"
                     >Add your first worksheet →</button>

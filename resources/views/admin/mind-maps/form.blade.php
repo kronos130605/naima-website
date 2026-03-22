@@ -1,4 +1,3 @@
-@unless(request()->header('HX-Request'))
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center gap-3">
@@ -10,9 +9,8 @@
             </h2>
         </div>
     </x-slot>
-@endunless
 
-    <div class="py-8">
+    <div id="admin-form-content" class="py-8">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
             @if($errors->any())
@@ -186,6 +184,4 @@
 
         </div>
     </div>
-@unless(request()->header('HX-Request'))
 </x-app-layout>
-@endunless
