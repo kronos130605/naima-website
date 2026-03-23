@@ -23,9 +23,9 @@ fi
 echo "🗄️ Running migrations..."
 php artisan migrate --force
 
-# Seed database (optional - comment out if not needed)
-# echo "🌱 Seeding database..."
-# php artisan db:seed --force
+# Seed database (safe to run - seeders are idempotent)
+echo "🌱 Seeding database..."
+php artisan db:seed --force
 
 # Cache configuration for production
 echo "💾 Caching configuration..."
