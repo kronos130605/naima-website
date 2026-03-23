@@ -9,14 +9,28 @@ return [
         'partner_logo_alt' => 'Logo partenaire :index',
     ],
     'nav' => [
-        'about' => 'À propos',
-        'programs' => 'Programmes',
-        'strategy' => 'Méthode',
+        'home'         => 'Accueil',
+        'about'        => 'À propos',
+        'programs'     => 'Programmes',
+        'strategy'     => 'Méthode',
         'testimonials' => 'Témoignages',
-        'resources' => 'Ressources',
-        'pricing' => 'Tarifs',
-        'faq' => 'FAQ',
-        'contact' => 'Contact',
+        'resources'    => 'Ressources',
+        'pricing'      => 'Tarifs',
+        'faq'          => 'FAQ',
+        'contact'      => 'Contact',
+    ],
+    'page_title' => [
+        'home'       => 'FrenchBoost — Cours de français en ligne',
+        'about'      => 'À propos — FrenchBoost',
+        'programs'   => 'Programmes — FrenchBoost',
+        'method'     => 'Notre méthode — FrenchBoost',
+        'pricing'    => 'Tarifs — FrenchBoost',
+        'faq'        => 'FAQ — FrenchBoost',
+        'contact'    => 'Contact — FrenchBoost',
+        'mind_maps'  => 'Cartes mentales — FrenchBoost',
+        'videos'     => 'Vidéos — FrenchBoost',
+        'worksheets' => 'Fiches de travail — FrenchBoost',
+        'booking'    => 'Réserver une évaluation gratuite — FrenchBoost',
     ],
     'cta' => [
         'book_free_assessment' => 'Réserver une évaluation gratuite',
@@ -34,6 +48,10 @@ return [
         'highlight_1_body' => 'Qualifications professionnelles en enseignement du français',
         'highlight_2_title' => 'Enseignement passionné',
         'highlight_2_body' => 'Engagée dans la réussite de ses élèves',
+        'hero_title'        => 'À la rencontre de Naima',
+        'hero_body'         => 'Professeure de français expérimentée, dédiée à aider les élèves de tous âges à réaliser leur plein potentiel.',
+        'cta_title'         => 'Prêt(e) à commencer ?',
+        'cta_body'          => 'Réservez une évaluation gratuite et découvrez comment FrenchBoost peut aider votre enfant à réussir.',
     ],
 
     'stats' => [
@@ -44,11 +62,19 @@ return [
     ],
 
     'programs' => [
-        'subtitle' => 'Des cours de français personnalisés pour chaque groupe d\'âge et niveau scolaire, des premiers mots à la littérature avancée.',
+        'subtitle'   => 'Des cours de français personnalisés pour chaque groupe d\'âge et niveau scolaire, des premiers mots à la littérature avancée.',
+        'hero_title' => 'Programmes & Offres',
+        'hero_body'  => 'Des cours de français personnalisés pour chaque niveau, de la maternelle à l\'université.',
+        'cta_title'  => 'Trouvez le programme adapté à votre enfant',
+        'cta_body'   => 'Réservez une évaluation gratuite pour identifier les besoins de votre enfant et trouver le programme le mieux adapté.',
     ],
 
     'strategy' => [
-        'subtitle' => 'Une méthode éprouvée qui combine des techniques traditionnelles et des approches modernes.',
+        'subtitle'   => 'Une méthode éprouvée qui combine des techniques traditionnelles et des approches modernes.',
+        'hero_title' => 'La méthode FrenchBoost',
+        'hero_body'  => 'Apprendre, Appliquer, Progresser — une méthode éprouvée pour booster le français et libérer le plein potentiel.',
+        'cta_title'  => 'Vivez la méthode en direct',
+        'cta_body'   => 'Réservez une évaluation gratuite et découvrez comment Apprendre, Appliquer, Progresser fonctionne dans une vraie séance.',
     ],
 
     'benefits' => [
@@ -60,9 +86,17 @@ return [
     ],
 
     'pricing' => [
-        'most_popular' => 'Le plus populaire',
-        'per_session' => '/séance',
-        'choose' => 'Choisir :package',
+        'most_popular'    => 'Le plus populaire',
+        'per_session'     => '/séance',
+        'choose'          => 'Choisir :package',
+        'hero_title'      => 'Tarifs simples et transparents',
+        'hero_body'       => 'Des formules flexibles pour chaque élève. Sans frais cachés ni engagement long terme.',
+        'questions_title' => 'Questions sur les tarifs ?',
+        'questions_body'  => 'Consultez notre FAQ complète ou contactez-nous directement.',
+        'browse_faq'      => 'Voir la FAQ',
+        'contact_us'      => 'Nous contacter',
+        'help_title'      => 'Vous hésitez entre les formules ?',
+        'help_body'       => 'Commencez par une évaluation gratuite — nous vous aiderons à trouver la formule idéale.',
     ],
 
     'resources' => [
@@ -75,7 +109,11 @@ return [
     ],
 
     'faq' => [
-        'subtitle' => 'Réponses aux questions fréquentes sur les cours de français.',
+        'subtitle'    => 'Réponses aux questions fréquentes sur les cours de français.',
+        'hero_title'  => 'Foire aux questions',
+        'hero_body'   => 'Tout ce que vous devez savoir sur les cours FrenchBoost — séances, planning, tarifs et plus encore.',
+        'still_title' => 'Vous avez encore des questions ?',
+        'still_body'  => 'Nous sommes là pour vous aider. Contactez-nous ou réservez une évaluation gratuite pour discuter avec Naima.',
     ],
 
     'contact' => [
@@ -86,7 +124,11 @@ return [
         'form_name_placeholder' => 'Votre nom',
         'form_email_placeholder' => 'Votre email',
         'form_message_placeholder' => 'Votre message',
-        'form_submit' => 'Envoyer',
+        'form_submit'            => 'Envoyer',
+        'hero_title'             => 'Prenons contact',
+        'hero_body'              => "Une question ou envie d'en savoir plus\u00a0? Nous serions ravis de vous entendre.",
+        'cta_title'              => 'Prêt(e) à commencer à apprendre ?',
+        'cta_body'               => "Évitez les allers-retours \u2014 réservez votre évaluation gratuite directement et commencez dès maintenant.",
     ],
 
     'mind_maps' => [
@@ -104,17 +146,37 @@ return [
     ],
 
     'videos' => [
-        'page_title' => 'Vidéos',
-        'badge'      => 'Vidéos',
-        'title'      => 'Vidéos de français',
-        'subtitle'   => 'Regardez des leçons courtes et ciblées pour renforcer ce que vous apprenez en séance.',
+        'page_title'         => 'Vidéos',
+        'badge'              => 'Vidéos',
+        'title'              => 'Vidéos de français',
+        'subtitle'           => 'Regardez des leçons courtes et ciblées pour renforcer ce que vous apprenez en séance.',
+        'filter_all'         => 'Tout',
+        'level_beginner'     => 'Débutant (K–3)',
+        'level_intermediate' => 'Intermédiaire (4–8)',
+        'level_advanced'     => 'Avancé (9–12)',
+        'level_general'      => 'Général',
+        'empty_title'        => 'Vidéos bientôt disponibles',
+        'empty_body'         => 'Nous préparons une bibliothèque de courtes leçons de français. Revenez bientôt !',
+        'cta_title'          => 'Vous souhaitez un accompagnement personnalisé ?',
+        'cta_body'           => 'Les vidéos sont un excellent complément — combinez-les avec des séances en direct pour de meilleurs résultats.',
     ],
 
     'worksheets' => [
-        'page_title' => 'Fiches de travail',
-        'badge'      => 'Fiches',
-        'title'      => 'Fiches de travail',
-        'subtitle'   => 'Téléchargez des fiches d\'exercices imprimables pour pratiquer à votre rythme.',
+        'page_title'         => 'Fiches de travail',
+        'badge'              => 'Fiches',
+        'title'              => 'Fiches de travail',
+        'subtitle'           => 'Téléchargez des fiches d\'exercices imprimables pour pratiquer à votre rythme.',
+        'filter_all'         => 'Tout',
+        'level_beginner'     => 'Débutant (K–3)',
+        'level_intermediate' => 'Intermédiaire (4–8)',
+        'level_advanced'     => 'Avancé (9–12)',
+        'level_general'      => 'Général',
+        'empty_title'        => 'Fiches bientôt disponibles',
+        'empty_body'         => 'Nous préparons une bibliothèque de fiches d\'exercices imprimables. Revenez bientôt !',
+        'download_pdf'       => 'Télécharger le PDF',
+        'coming_soon'        => 'Bientôt disponible',
+        'cta_title'          => 'Prêt(e) à commencer ?',
+        'cta_body'           => 'Les fiches complètent les séances en direct — réservez une évaluation gratuite pour aller plus loin.',
     ],
 
     'booking' => [

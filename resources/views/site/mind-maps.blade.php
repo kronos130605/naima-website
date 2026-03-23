@@ -1,4 +1,4 @@
-<x-site-layout :title="__('site.mind_maps.page_title') . ' — FrenchBoost'" :brand="$brand" :cta="$cta" :locale="$locale" :locales="$locales">
+<x-site-layout :title="__('site.page_title.mind_maps')" :brand="$brand" :cta="$cta" :locale="$locale" :locales="$locales">
 
     @php $lang = $locale === 'fr' ? 'fr' : 'en'; @endphp
 

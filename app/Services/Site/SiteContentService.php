@@ -13,9 +13,10 @@ class SiteContentService
 
     public function getHomeViewData(): array
     {
-        $data = $this->homeContentRepository->get();
+        $locale = app()->getLocale();
+        $data = $this->homeContentRepository->get($locale);
 
-        $data['locale'] = app()->getLocale();
+        $data['locale'] = $locale;
         $data['locales'] = ['en', 'fr'];
 
         return $data;

@@ -9,14 +9,28 @@ return [
         'partner_logo_alt' => 'Partner logo :index',
     ],
     'nav' => [
-        'about' => 'About',
-        'programs' => 'Programs',
-        'strategy' => 'Method',
+        'home'         => 'Home',
+        'about'        => 'About',
+        'programs'     => 'Programs',
+        'strategy'     => 'Method',
         'testimonials' => 'Testimonials',
-        'resources' => 'Resources',
-        'pricing' => 'Pricing',
-        'faq' => 'FAQ',
-        'contact' => 'Contact',
+        'resources'    => 'Resources',
+        'pricing'      => 'Pricing',
+        'faq'          => 'FAQ',
+        'contact'      => 'Contact',
+    ],
+    'page_title' => [
+        'home'       => 'FrenchBoost — Online French Tutoring',
+        'about'      => 'About — FrenchBoost',
+        'programs'   => 'Programs — FrenchBoost',
+        'method'     => 'Our Method — FrenchBoost',
+        'pricing'    => 'Pricing — FrenchBoost',
+        'faq'        => 'FAQ — FrenchBoost',
+        'contact'    => 'Contact — FrenchBoost',
+        'mind_maps'  => 'Mind Maps — FrenchBoost',
+        'videos'     => 'Videos — FrenchBoost',
+        'worksheets' => 'Worksheets — FrenchBoost',
+        'booking'    => 'Book Free Assessment — FrenchBoost',
     ],
     'cta' => [
         'book_free_assessment' => 'Book free assessment',
@@ -29,11 +43,15 @@ return [
     ],
 
     'about' => [
-        'subtitle' => 'Meet your dedicated French tutor and discover the personalized approach that sets FrenchBoost apart',
+        'subtitle'          => 'Meet your dedicated French tutor and discover the personalized approach that sets FrenchBoost apart',
         'highlight_1_title' => 'Certified Instructor',
-        'highlight_1_body' => 'Professional French teaching credentials',
+        'highlight_1_body'  => 'Professional French teaching credentials',
         'highlight_2_title' => 'Passionate Teaching',
-        'highlight_2_body' => 'Dedicated to student success',
+        'highlight_2_body'  => 'Dedicated to student success',
+        'hero_title'        => 'Meet Naima',
+        'hero_body'         => 'Experienced French tutor dedicated to helping students of all ages reach their full potential.',
+        'cta_title'         => 'Ready to get started?',
+        'cta_body'          => 'Book a free assessment session and discover how FrenchBoost can help your child succeed.',
     ],
 
     'stats' => [
@@ -44,11 +62,19 @@ return [
     ],
 
     'programs' => [
-        'subtitle' => 'Personalized French lessons for every age group and school level, from first words to advanced literature.',
+        'subtitle'  => 'Personalized French lessons for every age group and school level, from first words to advanced literature.',
+        'hero_title' => 'Programs & Offerings',
+        'hero_body'  => 'Personalized French tutoring programs designed for every level, from kindergarten to university.',
+        'cta_title'  => 'Find the right program for your child',
+        'cta_body'   => 'Book a free assessment to identify your child\'s needs and find the best-fit program.',
     ],
 
     'strategy' => [
-        'subtitle' => 'Our proven methodology combines traditional techniques with modern learning approaches',
+        'subtitle'   => 'Our proven methodology combines traditional techniques with modern learning approaches',
+        'hero_title' => 'The FrenchBoost Method',
+        'hero_body'  => 'Learn, Apply, Grow — a proven method designed to help learners boost their French skills and unlock their full potential.',
+        'cta_title'  => 'Experience the method first-hand',
+        'cta_body'   => 'Book a free assessment and see how Learn, Apply, Grow works in a real session.',
     ],
 
     'benefits' => [
@@ -60,9 +86,17 @@ return [
     ],
 
     'pricing' => [
-        'most_popular' => 'Most Popular',
-        'per_session' => '/session',
-        'choose' => 'Choose :package',
+        'most_popular'    => 'Most Popular',
+        'per_session'     => '/session',
+        'choose'          => 'Choose :package',
+        'hero_title'      => 'Simple, Transparent Pricing',
+        'hero_body'       => 'Flexible plans for every student. No hidden fees, no long-term commitments required.',
+        'questions_title' => 'Pricing Questions?',
+        'questions_body'  => 'Check our full FAQ or reach out directly.',
+        'browse_faq'      => 'Browse the FAQ',
+        'contact_us'      => 'Contact us',
+        'help_title'      => 'Not sure which plan is right?',
+        'help_body'       => 'Start with a free assessment — we\'ll help you find the perfect fit.',
     ],
 
     'resources' => [
@@ -75,18 +109,26 @@ return [
     ],
 
     'faq' => [
-        'subtitle' => 'Find answers to common questions about French tutoring',
+        'subtitle'    => 'Find answers to common questions about French tutoring',
+        'hero_title'  => 'Frequently Asked Questions',
+        'hero_body'   => 'Everything you need to know about FrenchBoost tutoring — sessions, scheduling, pricing, and more.',
+        'still_title' => 'Still have questions?',
+        'still_body'  => 'We\'re happy to help. Reach out directly or book a free assessment to chat with Naima.',
     ],
 
     'contact' => [
-        'subtitle' => 'Ready to start your French learning journey? Get in touch today!',
-        'email_label' => 'Email',
-        'phone_label' => 'Phone',
-        'form_title' => 'Send us a message',
-        'form_name_placeholder' => 'Your name',
+        'subtitle'               => 'Ready to start your French learning journey? Get in touch today!',
+        'email_label'            => 'Email',
+        'phone_label'            => 'Phone',
+        'form_title'             => 'Send us a message',
+        'form_name_placeholder'  => 'Your name',
         'form_email_placeholder' => 'Your email',
         'form_message_placeholder' => 'Your message',
-        'form_submit' => 'Send Message',
+        'form_submit'            => 'Send Message',
+        'hero_title'             => 'Get in Touch',
+        'hero_body'              => 'Have a question or want to learn more? We\'d love to hear from you.',
+        'cta_title'              => 'Ready to start learning?',
+        'cta_body'               => 'Skip the back-and-forth — book your free assessment directly and get started right away.',
     ],
 
     'mind_maps' => [
@@ -104,17 +146,37 @@ return [
     ],
 
     'videos' => [
-        'page_title' => 'Videos',
-        'badge'      => 'Videos',
-        'title'      => 'French Learning Videos',
-        'subtitle'   => 'Watch short, focused lessons to reinforce what you learn in session.',
+        'page_title'         => 'Videos',
+        'badge'              => 'Videos',
+        'title'              => 'French Learning Videos',
+        'subtitle'           => 'Watch short, focused lessons to reinforce what you learn in session.',
+        'filter_all'         => 'All',
+        'level_beginner'     => 'Beginner (K–3)',
+        'level_intermediate' => 'Intermediate (4–8)',
+        'level_advanced'     => 'Advanced (9–12)',
+        'level_general'      => 'General',
+        'empty_title'        => 'Videos coming soon',
+        'empty_body'         => 'We\'re working on a library of short French lessons. Check back soon!',
+        'cta_title'          => 'Want personalised guidance?',
+        'cta_body'           => 'Videos are a great supplement — combine them with live tutoring for the best results.',
     ],
 
     'worksheets' => [
-        'page_title' => 'Worksheets',
-        'badge'      => 'Worksheets',
-        'title'      => 'French Worksheets',
-        'subtitle'   => 'Download printable exercise sheets to practice at your own pace.',
+        'page_title'         => 'Worksheets',
+        'badge'              => 'Worksheets',
+        'title'              => 'French Worksheets',
+        'subtitle'           => 'Download printable exercise sheets to practice at your own pace.',
+        'filter_all'         => 'All',
+        'level_beginner'     => 'Beginner (K–3)',
+        'level_intermediate' => 'Intermediate (4–8)',
+        'level_advanced'     => 'Advanced (9–12)',
+        'level_general'      => 'General',
+        'empty_title'        => 'Worksheets coming soon',
+        'empty_body'         => 'We\'re building a library of printable exercises. Check back soon!',
+        'download_pdf'       => 'Download PDF',
+        'coming_soon'        => 'Coming soon',
+        'cta_title'          => 'Ready to get started?',
+        'cta_body'           => 'Worksheets complement live sessions — book a free assessment to take the next step.',
     ],
 
     'booking' => [

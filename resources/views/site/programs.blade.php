@@ -1,4 +1,4 @@
-<x-site-layout title="Programs — FrenchBoost" :brand="$brand" :cta="$cta" :locale="$locale" :locales="$locales">
+<x-site-layout :title="__('site.page_title.programs')" :brand="$brand" :cta="$cta" :locale="$locale" :locales="$locales">
 
     {{-- Hero --}}
     <section class="bg-gradient-to-br from-emerald-600 via-teal-600 to-blue-700 py-16 px-4">
@@ -10,10 +10,10 @@
                 🎓 {{ __('site.nav.programs') }}
             </div>
             <h1 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
-                Programs & Offerings
+                {{ __('site.programs.hero_title') }}
             </h1>
             <p class="mt-4 text-lg text-emerald-100 max-w-xl mx-auto">
-                Personalized French tutoring programs designed for every level, from kindergarten to university.
+                {{ __('site.programs.hero_body') }}
             </p>
         </div>
     </section>
@@ -27,8 +27,8 @@
     {{-- CTA --}}
     <section class="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-slate-900 dark:to-slate-800 py-16 px-4">
         <div class="mx-auto max-w-2xl text-center">
-            <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Find the right program for your child</h2>
-            <p class="mt-3 text-slate-600 dark:text-slate-300">Book a free assessment to identify your child's needs and find the best-fit program.</p>
+            <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">{{ __('site.programs.cta_title') }}</h2>
+            <p class="mt-3 text-slate-600 dark:text-slate-300">{{ __('site.programs.cta_body') }}</p>
             <a
                 href="{{ route('site.booking', ['locale' => $locale]) }}"
                 class="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-8 py-3 text-base font-semibold text-white shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"

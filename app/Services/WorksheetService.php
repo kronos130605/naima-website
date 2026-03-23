@@ -20,7 +20,7 @@ class WorksheetService
         return [
             'worksheets'    => $this->repo->paginateAll(15, $level),
             'stats'         => $this->repo->stats(),
-            'levels'        => ['beginner', 'intermediate', 'advanced', 'general'],
+            'levels'        => array_keys(config('frenchboost.levels')),
             'current_level' => $level ?? '',
         ];
     }
@@ -29,7 +29,7 @@ class WorksheetService
     {
         return [
             'grouped' => $this->repo->publishedGrouped(),
-            'levels'  => ['beginner', 'intermediate', 'advanced', 'general'],
+            'levels'  => array_keys(config('frenchboost.levels')),
         ];
     }
 

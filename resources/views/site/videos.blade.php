@@ -1,4 +1,4 @@
-<x-site-layout title="{{ __('site.videos.page_title') }} — FrenchBoost" :brand="$brand" :cta="$cta" :locale="$locale" :locales="$locales">
+<x-site-layout :title="__('site.page_title.videos')" :brand="$brand" :cta="$cta" :locale="$locale" :locales="$locales">
 
     @php $lang = $locale === 'fr' ? 'fr' : 'en'; @endphp
 
@@ -30,9 +30,9 @@
                 {{-- Empty state --}}
                 <div class="text-center py-20">
                     <div class="text-7xl mb-6">🎬</div>
-                    <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">Videos coming soon</h2>
+                    <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">{{ __('site.videos.empty_title') }}</h2>
                     <p class="text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-                        We're working on a library of short French lessons. Check back soon!
+                        {{ __('site.videos.empty_body') }}
                     </p>
                     <a
                         href="{{ route('site.booking', ['locale' => $locale]) }}"
@@ -44,10 +44,10 @@
             @else
                 @php
                     $levelLabels = [
-                        'beginner'     => $locale === 'fr' ? 'Débutant (K–3)'      : 'Beginner (K–3)',
-                        'intermediate' => $locale === 'fr' ? 'Intermédiaire (4–8)' : 'Intermediate (4–8)',
-                        'advanced'     => $locale === 'fr' ? 'Avancé (9–12)'       : 'Advanced (9–12)',
-                        'general'      => $locale === 'fr' ? 'Général'              : 'General',
+                        'beginner'     => __('site.videos.level_beginner'),
+                        'intermediate' => __('site.videos.level_intermediate'),
+                        'advanced'     => __('site.videos.level_advanced'),
+                        'general'      => __('site.videos.level_general'),
                     ];
                     $allLevels = $grouped->keys()->toArray();
                 @endphp
@@ -58,7 +58,7 @@
                         @click="activeLevel = 'all'"
                         :class="activeLevel === 'all' ? 'bg-rose-600 text-white border-rose-600' : 'bg-white text-slate-600 border-slate-200 hover:border-rose-300 hover:text-rose-600 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-600'"
                         class="rounded-full px-4 py-1.5 text-sm font-semibold border transition-colors"
-                    >All</button>
+                    >{{ __('site.videos.filter_all') }}</button>
                     @foreach($allLevels as $lvl)
                         <button
                             @click="activeLevel = '{{ $lvl }}'"
@@ -137,8 +137,8 @@
     {{-- CTA --}}
     <section class="bg-gradient-to-br from-rose-50 to-pink-50 dark:from-slate-900 dark:to-slate-800 py-16 px-4">
         <div class="mx-auto max-w-2xl text-center">
-            <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Want personalised guidance?</h2>
-            <p class="mt-3 text-slate-600 dark:text-slate-300">Videos are a great supplement — combine them with live tutoring for the best results.</p>
+            <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">{{ __('site.videos.cta_title') }}</h2>
+            <p class="mt-3 text-slate-600 dark:text-slate-300">{{ __('site.videos.cta_body') }}</p>
             <a
                 href="{{ route('site.booking', ['locale' => $locale]) }}"
                 class="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 px-8 py-3 text-base font-semibold text-white shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"

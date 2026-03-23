@@ -1,4 +1,4 @@
-<x-site-layout :title="__('site.booking.page_title') . ' — FrenchBoost'" :brand="$brand" :cta="$cta" :locale="$locale" :locales="$locales">
+<x-site-layout :title="__('site.page_title.booking')" :brand="$brand" :cta="$cta" :locale="$locale" :locales="$locales">
 
     {{-- Hero --}}
     <section class="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 py-16 px-4">

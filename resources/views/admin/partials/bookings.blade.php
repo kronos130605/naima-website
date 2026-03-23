@@ -2,16 +2,16 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
 
     <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Bookings</h2>
+        <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100">{{ __('admin.bookings.title') }}</h2>
     </div>
 
     {{-- Stats --}}
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         @foreach([
-            ['label' => 'Total',     'value' => $stats['total'],     'color' => 'blue'],
-            ['label' => 'Pending',   'value' => $stats['pending'],   'color' => 'amber'],
-            ['label' => 'Contacted', 'value' => $stats['contacted'], 'color' => 'indigo'],
-            ['label' => 'Confirmed', 'value' => $stats['confirmed'], 'color' => 'green'],
+            ['label' => __('admin.bookings.stat_total'),     'value' => $stats['total'],     'color' => 'blue'],
+            ['label' => __('admin.bookings.stat_pending'),   'value' => $stats['pending'],   'color' => 'amber'],
+            ['label' => __('admin.bookings.stat_contacted'), 'value' => $stats['contacted'], 'color' => 'indigo'],
+            ['label' => __('admin.bookings.stat_confirmed'), 'value' => $stats['confirmed'], 'color' => 'green'],
         ] as $s)
             <div class="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 text-center shadow-sm">
                 <div class="text-2xl font-bold text-{{ $s['color'] }}-600 dark:text-{{ $s['color'] }}-400">{{ $s['value'] }}</div>
@@ -23,11 +23,11 @@
     {{-- Status filter --}}
     <div class="flex flex-wrap gap-2">
         @foreach([
-            ''           => 'All',
-            'pending'    => 'Pending',
-            'contacted'  => 'Contacted',
-            'confirmed'  => 'Confirmed',
-            'cancelled'  => 'Cancelled',
+            ''           => __('admin.bookings.filter_all'),
+            'pending'    => __('admin.bookings.status_pending'),
+            'contacted'  => __('admin.bookings.status_contacted'),
+            'confirmed'  => __('admin.bookings.status_confirmed'),
+            'cancelled'  => __('admin.bookings.status_cancelled'),
         ] as $value => $label)
             <a
                 href="{{ route('admin.bookings.index', ['locale' => app()->getLocale(), 'status' => $value ?: null]) }}"
@@ -46,13 +46,13 @@
         <table class="min-w-full text-sm">
             <thead>
                 <tr class="border-b border-slate-100 dark:border-slate-700 text-left text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide">
-                    <th class="px-4 py-3 font-medium">Name</th>
-                    <th class="px-4 py-3 font-medium">Email</th>
-                    <th class="px-4 py-3 font-medium hidden sm:table-cell">Level</th>
-                    <th class="px-4 py-3 font-medium hidden md:table-cell">Lang</th>
-                    <th class="px-4 py-3 font-medium">Status</th>
-                    <th class="px-4 py-3 font-medium hidden lg:table-cell">Date</th>
-                    <th class="px-4 py-3 font-medium">Actions</th>
+                    <th class="px-4 py-3 font-medium">{{ __('admin.bookings.table_name') }}</th>
+                    <th class="px-4 py-3 font-medium">{{ __('admin.bookings.table_email') }}</th>
+                    <th class="px-4 py-3 font-medium hidden sm:table-cell">{{ __('admin.bookings.table_level') }}</th>
+                    <th class="px-4 py-3 font-medium hidden md:table-cell">{{ __('admin.bookings.table_lang') }}</th>
+                    <th class="px-4 py-3 font-medium">{{ __('admin.bookings.table_status') }}</th>
+                    <th class="px-4 py-3 font-medium hidden lg:table-cell">{{ __('admin.bookings.table_date') }}</th>
+                    <th class="px-4 py-3 font-medium">{{ __('admin.bookings.table_actions') }}</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
@@ -85,7 +85,7 @@
                                 ];
                             @endphp
                             <span class="rounded-full px-2 py-0.5 text-xs font-semibold {{ $colors[$booking->status] ?? '' }}">
-                                {{ ucfirst($booking->status) }}
+                                {{ __('admin.bookings.status_' . $booking->status) }}
                             </span>
                         </td>
                         <td class="px-4 py-3 text-xs text-slate-400 hidden lg:table-cell">
@@ -100,7 +100,7 @@
                                     class="rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-xs px-2 py-1 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
                                 >
                                     @foreach(['pending', 'contacted', 'confirmed', 'cancelled'] as $s)
-                                        <option value="{{ $s }}" @selected($booking->status === $s)>{{ ucfirst($s) }}</option>
+                                        <option value="{{ $s }}" @selected($booking->status === $s)>{{ __('admin.bookings.status_' . $s) }}</option>
                                     @endforeach
                                 </select>
                             </form>
@@ -117,7 +117,7 @@
                     <tr>
                         <td colspan="7" class="px-4 py-16 text-center text-slate-400">
                             <div class="text-4xl mb-2">📭</div>
-                            <p class="text-sm">No booking requests yet.</p>
+                            <p class="text-sm">{{ __('admin.bookings.no_bookings') }}</p>
                         </td>
                     </tr>
                 @endforelse

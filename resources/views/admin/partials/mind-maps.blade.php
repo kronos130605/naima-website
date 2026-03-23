@@ -2,17 +2,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
 
         <div class="flex items-center justify-between">
-            <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Mind Maps</h2>
+            <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100">{{ __('admin.mind_maps.title') }}</h2>
             <button
                 hx-get="{{ route('admin.mind-maps.create', ['locale' => app()->getLocale()]) }}"
                 hx-target="#admin-modal-content"
                 hx-swap="innerHTML"
                 hx-select="#admin-form-content"
-                onclick="document.getElementById('admin-modal-title').textContent='New Mind Map'; window.dispatchEvent(new Event('open-admin-modal'))"
+                onclick="document.getElementById('admin-modal-title').textContent='{{ __('admin.mind_maps.new_mind_map') }}'; window.dispatchEvent(new Event('open-admin-modal'))"
                 class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition-colors"
             >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                New Mind Map
+                {{ __('admin.mind_maps.new_mind_map') }}
             </button>
         </div>
 
@@ -25,29 +25,24 @@
 
         {{-- Stats --}}
         @php
-            $groupLabels = [
-                'maternelle' => 'Maternelle',
-                'primaire'   => 'Primaire',
-                'college'    => 'Collège',
-                'lycee'      => 'Lycée',
-            ];
+            $groupLabels = array_map(fn($label) => explode(' / ', $label)[0], config('frenchboost.mind_map_group_labels'));
         @endphp
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 text-center shadow-sm">
                 <p class="text-2xl font-extrabold text-gray-900 dark:text-white">{{ $stats['total'] }}</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Total</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ __('admin.common.total') }}</p>
             </div>
             <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 text-center shadow-sm">
                 <p class="text-2xl font-extrabold text-green-600">{{ $stats['published'] }}</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Published</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ __('admin.common.published') }}</p>
             </div>
             <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 text-center shadow-sm">
                 <p class="text-2xl font-extrabold text-amber-500">{{ $stats['total'] - $stats['published'] }}</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Drafts</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ __('admin.common.drafts') }}</p>
             </div>
             <div class="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 text-center shadow-sm">
                 <p class="text-2xl font-extrabold text-blue-600">{{ $stats['groups'] }}</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Groups</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ __('admin.mind_maps.table_group') }}</p>
             </div>
         </div>
 
@@ -58,7 +53,7 @@
                 hx-get="{{ route('admin.mind-maps.index', ['locale' => app()->getLocale()]) }}"
                 hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true"
                 class="rounded-full px-3.5 py-1.5 text-xs font-semibold border transition-colors {{ $current_group === '' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300 hover:text-blue-600 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600' }}"
-            >All</a>
+            >{{ __('admin.common.all') }}</a>
             @foreach($groups as $key)
                 <a
                     href="{{ route('admin.mind-maps.index', ['locale' => app()->getLocale(), 'group' => $key]) }}"
@@ -75,14 +70,14 @@
                 <table class="w-full text-sm">
                     <thead class="text-xs uppercase text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/40">
                         <tr>
-                            <th class="px-5 py-3 text-left">Title</th>
-                            <th class="px-3 py-3 text-left">Group</th>
-                            <th class="px-3 py-3 text-left">Level</th>
-                            <th class="px-3 py-3 text-left">Topic</th>
-                            <th class="px-3 py-3 text-center">Preview</th>
+                            <th class="px-5 py-3 text-left">{{ __('admin.mind_maps.table_title') }}</th>
+                            <th class="px-3 py-3 text-left">{{ __('admin.mind_maps.table_group') }}</th>
+                            <th class="px-3 py-3 text-left">{{ __('admin.mind_maps.table_level') }}</th>
+                            <th class="px-3 py-3 text-left">{{ __('admin.mind_maps.table_topic') }}</th>
+                            <th class="px-3 py-3 text-center">{{ __('admin.mind_maps.table_preview') }}</th>
                             <th class="px-3 py-3 text-center">PDF</th>
-                            <th class="px-3 py-3 text-center">Status</th>
-                            <th class="px-3 py-3 text-right">Actions</th>
+                            <th class="px-3 py-3 text-center">{{ __('admin.common.status') }}</th>
+                            <th class="px-3 py-3 text-right">{{ __('admin.common.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-50 dark:divide-gray-700/50">
@@ -121,7 +116,7 @@
                                     <form method="POST" action="{{ route('admin.mind-maps.toggle', ['locale' => app()->getLocale(), 'mindMap' => $map]) }}">
                                         @csrf @method('PATCH')
                                         <button type="submit" class="rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors {{ $map->is_published ? 'bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-300' : 'bg-amber-100 text-amber-700 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-300' }}">
-                                            {{ $map->is_published ? 'Published' : 'Draft' }}
+                                            {{ $map->is_published ? __('admin.common.published') : __('admin.common.draft') }}
                                         </button>
                                     </form>
                                 </td>
@@ -132,15 +127,15 @@
                                             hx-target="#admin-modal-content"
                                             hx-swap="innerHTML"
                                             hx-select="#admin-form-content"
-                                            onclick="document.getElementById('admin-modal-title').textContent='Edit Mind Map'; window.dispatchEvent(new Event('open-admin-modal'))"
+                                            onclick="document.getElementById('admin-modal-title').textContent='{{ __('admin.mind_maps.edit_mind_map') }}'; window.dispatchEvent(new Event('open-admin-modal'))"
                                             class="rounded-lg px-2.5 py-1 text-xs font-medium text-blue-700 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-950/30 transition-colors border border-blue-200 dark:border-blue-800"
                                         >
-                                            Edit
+                                            {{ __('admin.common.edit') }}
                                         </button>
-                                        <form method="POST" action="{{ route('admin.mind-maps.destroy', ['locale' => app()->getLocale(), 'mindMap' => $map]) }}" onsubmit="return confirm('Delete this mind map?')">
+                                        <form method="POST" action="{{ route('admin.mind-maps.destroy', ['locale' => app()->getLocale(), 'mindMap' => $map]) }}" onsubmit="return confirm('{{ __('admin.mind_maps.delete_confirm') }}')">
                                             @csrf @method('DELETE')
                                             <button type="submit" class="rounded-lg px-2.5 py-1 text-xs font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30 transition-colors border border-red-200 dark:border-red-800">
-                                                Delete
+                                                {{ __('admin.common.delete') }}
                                             </button>
                                         </form>
                                     </div>
@@ -159,15 +154,15 @@
             @else
                 <div class="py-16 text-center">
                     <div class="text-5xl mb-4">🗺</div>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">No mind maps found.</p>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">{{ __('admin.mind_maps.no_mind_maps') }}</p>
                     <button
                         hx-get="{{ route('admin.mind-maps.create', ['locale' => app()->getLocale()]) }}"
                         hx-target="#admin-modal-content"
                         hx-swap="innerHTML"
                         hx-select="#admin-form-content"
-                        onclick="document.getElementById('admin-modal-title').textContent='New Mind Map'; window.dispatchEvent(new Event('open-admin-modal'))"
+                        onclick="document.getElementById('admin-modal-title').textContent='{{ __('admin.mind_maps.new_mind_map') }}'; window.dispatchEvent(new Event('open-admin-modal'))"
                         class="mt-4 inline-block text-blue-600 text-sm font-medium hover:underline"
-                    >Create your first one →</button>
+                    >{{ __('admin.mind_maps.add_first') }}</button>
                 </div>
             @endif
         </div>

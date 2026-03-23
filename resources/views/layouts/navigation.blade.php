@@ -42,13 +42,7 @@
                 <div class="hidden sm:-my-px sm:ms-6 sm:flex sm:items-stretch">
                     @if(auth()->check() && auth()->user()->isAdmin())
                         @php
-                            $adminTabs = [
-                                ['label' => 'Dashboard', 'route' => 'dashboard',             'urlMatch' => '/dashboard'],
-                                ['label' => 'Mind Maps', 'route' => 'admin.mind-maps.index', 'urlMatch' => '/admin/mind-maps'],
-                                ['label' => 'Videos',     'route' => 'admin.videos.index',     'urlMatch' => '/admin/videos'],
-                                ['label' => 'Worksheets', 'route' => 'admin.worksheets.index', 'urlMatch' => '/admin/worksheets'],
-                                ['label' => 'Bookings',   'route' => 'admin.bookings.index',   'urlMatch' => '/admin/bookings'],
-                            ];
+                            $adminTabs = config('frenchboost.admin_nav');
                         @endphp
                         @foreach($adminTabs as $tab)
                             <a
@@ -62,7 +56,7 @@
                                     ? 'border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-400'
                                     : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 dark:text-slate-300 dark:hover:text-white dark:hover:border-slate-600'"
                                 class="inline-flex items-center px-4 border-b-2 text-sm font-medium transition-colors"
-                            >{{ $tab['label'] }}</a>
+                            >{{ __('admin.nav.' . $tab['label_key']) }}</a>
                         @endforeach
                         <span id="tab-spinner" class="htmx-indicator inline-flex items-center px-2 text-blue-500">
                             <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
@@ -134,9 +128,21 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit', ['locale' => $locale])">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
+                        @if(auth()->user()->isAdmin())
+                            <x-dropdown-link
+                                hx-get="{{ route('admin.settings', ['locale' => $locale]) }}"
+                                hx-target="#admin-content"
+                                hx-swap="innerHTML"
+                                hx-push-url="true"
+                                href="{{ route('admin.settings', ['locale' => $locale]) }}"
+                            >
+                                {{ __('Settings') }}
+                            </x-dropdown-link>
+                        @else
+                            <x-dropdown-link :href="route('profile.edit', ['locale' => $locale])">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+                        @endif
 
                         <form method="POST" action="{{ route('logout', ['locale' => $locale]) }}">
                             @csrf
@@ -166,17 +172,11 @@
         <div class="pt-2 pb-3 space-y-1">
             @if(auth()->check() && auth()->user()->isAdmin())
                 @php
-                    $mobileTabs = [
-                        ['label' => 'Dashboard', 'route' => 'dashboard'],
-                        ['label' => 'Mind Maps', 'route' => 'admin.mind-maps.index'],
-                        ['label' => 'Videos',     'route' => 'admin.videos.index'],
-                        ['label' => 'Worksheets', 'route' => 'admin.worksheets.index'],
-                        ['label' => 'Bookings',   'route' => 'admin.bookings.index'],
-                    ];
+                    $mobileTabs = config('frenchboost.admin_nav');
                 @endphp
                 @foreach($mobileTabs as $tab)
                     <x-responsive-nav-link :href="route($tab['route'], ['locale' => $locale])" :active="request()->routeIs($tab['route'])">
-                        {{ $tab['label'] }}
+                        {{ __('admin.nav.' . $tab['label_key']) }}
                     </x-responsive-nav-link>
                 @endforeach
             @endif
@@ -189,9 +189,15 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit', ['locale' => $locale])">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+                @if(auth()->user()->isAdmin())
+                    <x-responsive-nav-link :href="route('admin.settings', ['locale' => $locale])">
+                        {{ __('Settings') }}
+                    </x-responsive-nav-link>
+                @else
+                    <x-responsive-nav-link :href="route('profile.edit', ['locale' => $locale])">
+                        {{ __('Profile') }}
+                    </x-responsive-nav-link>
+                @endif
 
                 <form method="POST" action="{{ route('logout', ['locale' => $locale]) }}">
                     @csrf

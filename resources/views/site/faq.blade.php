@@ -1,4 +1,4 @@
-<x-site-layout title="FAQ — FrenchBoost" :brand="$brand" :cta="$cta" :locale="$locale" :locales="$locales">
+<x-site-layout :title="__('site.page_title.faq')" :brand="$brand" :cta="$cta" :locale="$locale" :locales="$locales">
 
     {{-- Hero --}}
     <section class="bg-gradient-to-br from-cyan-600 via-sky-600 to-blue-700 py-16 px-4">
@@ -10,10 +10,10 @@
                 💬 {{ __('site.nav.faq') }}
             </div>
             <h1 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
-                Frequently Asked Questions
+                {{ __('site.faq.hero_title') }}
             </h1>
             <p class="mt-4 text-lg text-cyan-100 max-w-xl mx-auto">
-                Everything you need to know about FrenchBoost tutoring — sessions, scheduling, pricing, and more.
+                {{ __('site.faq.hero_body') }}
             </p>
         </div>
     </section>
@@ -24,8 +24,8 @@
     {{-- Still have questions? --}}
     <section class="py-16 px-4 bg-slate-50 dark:bg-slate-900">
         <div class="mx-auto max-w-2xl text-center">
-            <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Still have questions?</h2>
-            <p class="mt-3 text-slate-600 dark:text-slate-300">We're happy to help. Reach out directly or book a free assessment to chat with Naima.</p>
+            <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">{{ __('site.faq.still_title') }}</h2>
+            <p class="mt-3 text-slate-600 dark:text-slate-300">{{ __('site.faq.still_body') }}</p>
             <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
                 <a
                     href="{{ route('site.contact', ['locale' => $locale]) }}"

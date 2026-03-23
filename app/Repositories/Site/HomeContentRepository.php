@@ -4,7 +4,12 @@ namespace App\Repositories\Site;
 
 class HomeContentRepository
 {
-    public function get(): array
+    public function get(string $locale = 'en'): array
+    {
+        return $locale === 'fr' ? $this->getFr() : $this->getEn();
+    }
+
+    private function getEn(): array
     {
         return [
             'brand' => [
@@ -197,6 +202,210 @@ class HomeContentRepository
                     [
                         'q' => "What's your favorite quote?",
                         'a' => '"It always seems impossible until it’s done." — Nelson Mandela',
+                    ],
+                ],
+            ],
+            'contact' => [
+                'title' => 'Contact',
+                'email' => null,
+                'phone' => null,
+            ],
+        ];
+    }
+
+    private function getFr(): array
+    {
+        return [
+            'brand' => [
+                'name' => 'FrenchBoost',
+            ],
+            'cta' => [
+                'booking_url' => null,
+            ],
+            'about' => [
+                'title' => 'Qui suis-je ?',
+                'body' => "Bonjour ! Je m'appelle Naima, tutrice en ligne expérimentée ayant travaillé avec des apprenants de la maternelle à l'université, accumulant plus de 4 000 heures d'expérience en tutorat.\n\nAyant étudié en France et animée par ma passion pour l'apprentissage, alimentée par ma propre éducation et mon expérience professionnelle, je m'efforce d'inspirer le même enthousiasme chez mes élèves.\n\nJ'ai une vaste expérience dans l'accompagnement d'élèves de tous horizons, y compris ceux confrontés au TDAH, à l'anxiété liée aux examens et aux barrières linguistiques, les aidant à renforcer leur confiance et leurs compétences. Cette expérience me permet de rencontrer les élèves là où ils en sont et de les guider vers des progrès significatifs.\n\nAprès des années de tutorat, j'ai développé la méthode FrenchBoost : Apprendre, Appliquer, Progresser, une approche conçue pour aider les apprenants à booster leurs compétences en français et libérer leur plein potentiel.",
+            ],
+            'strategy' => [
+                'title' => 'La méthode FrenchBoost : Apprendre, Appliquer, Progresser.',
+                'items' => [
+                    [
+                        'key' => 'learn',
+                        'title' => 'Apprendre',
+                        'body' => "Les leçons sont personnalisées selon le niveau et le style d'apprentissage de chaque élève, gardant chaque enfant engagé dans un environnement amusant et positif qui rend l'apprentissage du français agréable et efficace.",
+                    ],
+                    [
+                        'key' => 'apply',
+                        'title' => 'Appliquer',
+                        'body' => "Les élèves appliquent activement les compétences et stratégies qu'ils ont apprises à travers des projets interdisciplinaires et diverses activités, tout en améliorant leur communication en français.",
+                    ],
+                    [
+                        'key' => 'grow',
+                        'title' => 'Progresser',
+                        'body' => "Les élèves renforcent leur confiance en eux et leurs compétences en français tout en développant des compétences du 21e siècle — comme la planification, la recherche, la synthèse, la résolution de problèmes, la pensée critique et la créativité — qu'ils peuvent utiliser au quotidien, à l'école et au-delà, les préparant à un succès durable.",
+                    ],
+                ],
+            ],
+            'benefits' => [
+                'title' => 'FrenchBoost peut offrir à votre enfant des avantages pour toute une vie.',
+                'items' => [
+                    [
+                        'key' => 'quality',
+                        'title' => 'Qualité de l\'enseignement',
+                        'body' => 'Offrez à votre enfant des cours de français en ligne qui rendent l\'apprentissage amusant, engageant et facile à comprendre.',
+                    ],
+                    [
+                        'key' => 'results',
+                        'title' => 'Progrès et Résultats',
+                        'body' => 'Regardez votre enfant s\'améliorer en communication française et en compétences du 21e siècle.',
+                    ],
+                    [
+                        'key' => 'flexibility',
+                        'title' => 'Flexibilité et Commodité',
+                        'body' => 'Détendez-vous en sachant que les cours en ligne s\'adaptent à votre emploi du temps, peuvent être ajustés pour les changements de dernière minute et rendent l\'apprentissage sans stress.',
+                    ],
+                ],
+            ],
+            'pricing' => [
+                'title' => 'Tarifs',
+                'subtitle' => 'Cours de français en ligne, niveaux K à 12.',
+                'currency' => null,
+                'packages' => [
+                    [
+                        'name' => 'Formule Tartelette',
+                        'details' => [
+                            'Niveaux K-12',
+                            'Formation 1-à-1 35$ par heure',
+                        ],
+                    ],
+                    [
+                        'name' => 'Formule Macaron',
+                        'details' => [
+                            'Niveaux K-12',
+                            'Formation 1-à-1 8 heures pour 240$ — 30$ par heure',
+                        ],
+                    ],
+                    [
+                        'name' => 'Formule Croissant',
+                        'details' => [
+                            'Niveaux 1-12',
+                            'Cours de conversation en groupe pour débutants',
+                            '2 heures pour 50$',
+                            'Dates : (À déterminer)',
+                        ],
+                    ],
+                ],
+            ],
+            'stats' => [
+                'items' => [
+                    ['value' => '4 000+', 'lang_key' => 'label_hours'],
+                    ['value' => 'K–12',   'lang_key' => 'label_grades'],
+                    ['value' => '100%',   'lang_key' => 'label_online'],
+                    ['value' => '5★',     'lang_key' => 'label_rating'],
+                ],
+            ],
+            'programs' => [
+                'title' => 'Programmes pour tous les niveaux',
+                'items' => [
+                    [
+                        'title'  => 'Débutant',
+                        'grades' => 'Maternelle – 3e année',
+                        'body'   => 'Une introduction ludique et immersive au français — alphabet, couleurs, nombres, salutations et phrases simples dans un environnement amusant et sans stress.',
+                        'tags'   => ['Vocabulaire', 'Prononciation', 'Phonétique', 'Chansons et Jeux'],
+                    ],
+                    [
+                        'title'  => 'Intermédiaire',
+                        'grades' => '4e année – 8e année',
+                        'body'   => 'Grammaire structurée, compréhension de lecture et expression orale pour aider les élèves à développer leur aisance et exceller dans les programmes scolaires de français.',
+                        'tags'   => ['Grammaire', 'Lecture', 'Écriture', 'Compétences orales'],
+                    ],
+                    [
+                        'title'  => 'Avancé',
+                        'grades' => '9e année – 12e année',
+                        'body'   => 'Préparation ciblée aux examens du secondaire et aux évaluations provinciales, avec un accent sur la rédaction de dissertations, l\'analyse littéraire et la conversation avancée.',
+                        'tags'   => ['Préparation aux examens', 'Rédaction', 'Littérature', 'Débat'],
+                    ],
+                ],
+            ],
+            'testimonials' => [
+                'title' => 'Ce que disent les familles',
+                'items' => [
+                    [
+                        'name'   => 'Sarah M.',
+                        'role'   => 'Parent d\'un élève de 5e année',
+                        'rating' => 5,
+                        'body'   => 'Naima est absolument merveilleuse ! Ma fille est passée de la crainte du cours de français à l\'attente de chaque leçon. Ses notes se sont considérablement améliorées en deux mois.',
+                    ],
+                    [
+                        'name'   => 'James T.',
+                        'role'   => 'Parent d\'un élève de 10e année',
+                        'rating' => 5,
+                        'body'   => 'L\'approche personnalisée a fait toute la différence. Naima a identifié exactement où mon fils avait des difficultés et a créé un plan qui a fonctionné. Il a réussi son examen provincial haut la main.',
+                    ],
+                    [
+                        'name'   => 'Priya K.',
+                        'role'   => 'Parent d\'un élève de 2e année',
+                        'rating' => 5,
+                        'body'   => 'Naima est formidable ! Les leçons sont claires, personnalisées et motivantes. Mon enfant est toujours enthousiaste d\'apprendre de nouveaux mots et chansons en français.',
+                    ],
+                    [
+                        'name'   => 'Marc D.',
+                        'role'   => 'Élève de 12e année',
+                        'rating' => 5,
+                        'body'   => 'J\'étais complètement perdu dans mon cours de français et Naima m\'a aidé à me remettre sur les rails rapidement. Son style d\'enseignement est patient et super clair. Meilleur investissement avant mes examens finaux.',
+                    ],
+                    [
+                        'name'   => 'Linda C.',
+                        'role'   => 'Parent d\'un élève de 7e année',
+                        'rating' => 5,
+                        'body'   => 'Horaires flexibles et qualité exceptionnelle. Naima s\'adapte à notre emploi du temps chargé et vient toujours préparée avec des activités engageantes. Je recommande vivement !',
+                    ],
+                    [
+                        'name'   => 'Aisha R.',
+                        'role'   => 'Parent de deux élèves',
+                        'rating' => 5,
+                        'body'   => 'Mes deux enfants ont des cours avec Naima et les résultats ont été remarquables pour tous les deux, même s\'ils sont à des niveaux très différents. Elle s\'adapte si bien.',
+                    ],
+                ],
+            ],
+            'resources' => [
+                'title' => 'Ressources d\'apprentissage gratuites',
+                'items' => [],
+            ],
+            'faq' => [
+                'title' => 'FAQ',
+                'items' => [
+                    [
+                        'q' => 'Qu\'est-ce que la méthode FrenchBoost ?',
+                        'a' => "Ce cadre se concentre sur les besoins et les forces de chaque élève. Il encourage des objectifs clairs, des habitudes d'apprentissage positives et une expérience d'apprentissage engageante qui aide les élèves à devenir des locuteurs français confiants tout en développant leur réussite à l'école et au-delà.",
+                    ],
+                    [
+                        'q' => 'Pourquoi êtes-vous devenue professeure de français ?',
+                        'a' => "J'aime apprendre et partager la joie et les opportunités qui viennent avec l'apprentissage d'une nouvelle langue. Une langue devient encore plus intéressante lorsqu'elle est liée à la culture, à la nourriture, aux expressions idiomatiques et à l'histoire. Enseigner une nouvelle langue est une véritable passion pour moi.",
+                    ],
+                    [
+                        'q' => 'Comment les séances sont-elles organisées ?',
+                        'a' => 'Nous travaillerons ensemble pour trouver une date qui convient à tous les deux, donc je ferai de mon mieux pour m\'adapter à votre emploi du temps.',
+                    ],
+                    [
+                        'q' => 'Où nous retrouverons-nous pour notre cours en ligne ?',
+                        'a' => 'J\'utiliserai Google Meet ou Zoom pour les séances.',
+                    ],
+                    [
+                        'q' => 'À quoi ressemblera ma première leçon ?',
+                        'a' => 'Je créerai un plan personnalisé basé sur vos besoins et objectifs. Tout au long du cours, j\'utiliserai une variété d\'outils pour vous garder engagé et motivé vers l\'atteinte de vos objectifs.',
+                    ],
+                    [
+                        'q' => 'Comment puis-je payer ?',
+                        'a' => 'Les paiements peuvent être effectués par virement bancaire après chaque leçon. Pour les forfaits, le paiement doit être effectué avant le début du cours.',
+                    ],
+                    [
+                        'q' => 'Quelle est la procédure si j\'annule un cours ?',
+                        'a' => 'Je comprends que des événements imprévus comme la maladie peuvent survenir. Cependant, si vous allez manquer une séance ou devez la reprogrammer, veuillez me prévenir au moins 24h à l\'avance. Sinon, vous serez facturé le montant total. Merci de votre compréhension et coopération.',
+                    ],
+                    [
+                        'q' => 'Quelle est votre citation préférée ?',
+                        'a' => '"Cela semble toujours impossible jusqu\'à ce que ce soit fait." — Nelson Mandela',
                     ],
                 ],
             ],

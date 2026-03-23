@@ -31,7 +31,7 @@ class MindMapService
         return [
             'maps'          => $this->repo->paginateAll(15, $group ?: null),
             'stats'         => $this->repo->stats(),
-            'groups'        => ['maternelle', 'primaire', 'college', 'lycee'],
+            'groups'        => config('frenchboost.mind_map_groups'),
             'current_group' => $group ?? '',
         ];
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MindMapController as AdminMindMapController;
+use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Site\BookingController;
 use App\Http\Controllers\Site\HomeController;
@@ -76,6 +77,8 @@ Route::middleware(SetLocaleFromRoute::class)
                 Route::put('/worksheets/{worksheet}', [AdminWorksheetController::class, 'update'])->name('worksheets.update');
                 Route::delete('/worksheets/{worksheet}', [AdminWorksheetController::class, 'destroy'])->name('worksheets.destroy');
                 Route::patch('/worksheets/{worksheet}/toggle', [AdminWorksheetController::class, 'togglePublish'])->name('worksheets.toggle');
+
+                Route::get('/settings', [AdminSettingsController::class, 'index'])->name('settings');
             });
 
         Route::middleware('auth')->group(function () {

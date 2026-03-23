@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ $brand['name'] ?? 'FrenchBoost' }}</title>
+    <title>{{ __('site.page_title.home') }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/theme.js', 'resources/js/app.js'])
 </head>

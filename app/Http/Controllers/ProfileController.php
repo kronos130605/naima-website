@@ -34,7 +34,10 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $locale = app()->getLocale();
+        $route  = $request->user()->isAdmin() ? 'admin.settings' : 'profile.edit';
+
+        return Redirect::route($route, ['locale' => $locale])->with('status', 'profile-updated');
     }
 
     /**
