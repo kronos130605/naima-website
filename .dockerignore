@@ -53,7 +53,7 @@ Dockerfile*
 .dockerignore
 
 # Deployment
-deploy/
+# deploy/ - NEEDED for Docker build
 scripts/
 
 # Misc
