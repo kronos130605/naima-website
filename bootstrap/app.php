@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Middleware\SetLocaleFromRoute;
+use App\Http\Middleware\TrustProxies;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -23,6 +24,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'setLocaleFromRoute' => SetLocaleFromRoute::class,
             'admin'              => EnsureUserIsAdmin::class,
         ]);
+
+        // Trust proxies for HTTPS detection (Render.com)
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
