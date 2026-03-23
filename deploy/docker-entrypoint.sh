@@ -12,34 +12,46 @@ envsubst '${PORT}' < /etc/nginx/http.d/default.conf > /tmp/default.conf
 mv /tmp/default.conf /etc/nginx/http.d/default.conf
 
 # Wait for PostgreSQL to be ready
-if [ "$DB_CONNECTION" = "pgsql" ]; then
+if [ "$DB_CONNECTION" = "pgsql" ] && [ -n "$DATABASE_URL" ]; then
     echo "⏳ Waiting for PostgreSQL database..."
     
-    # Install postgresql-client for pg_isready
+    # Update Alpine package cache and install postgresql-client
+    apk update
     apk add --no-cache postgresql-client
     
-    # Wait up to 60 seconds for database
-    RETRIES=60
-    until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USERNAME" > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
+    # Parse DATABASE_URL to get host
+    # Format: postgresql://user:pass@host:port/database
+    DB_HOST_FROM_URL=$(echo "$DATABASE_URL" | sed -n 's/.*@\([^:]*\):.*/\1/p')
+    DB_PORT_FROM_URL=$(echo "$DATABASE_URL" | sed -n 's/.*:\([0-9]*\)\/.*/\1/p')
+    
+    echo "Connecting to PostgreSQL at $DB_HOST_FROM_URL:$DB_PORT_FROM_URL..."
+    
+    # Wait up to 30 seconds for database (reduced from 60)
+    RETRIES=30
+    until pg_isready -h "$DB_HOST_FROM_URL" -p "$DB_PORT_FROM_URL" > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
         echo "Waiting for PostgreSQL, $((RETRIES--)) remaining attempts..."
         sleep 1
     done
     
     if [ $RETRIES -eq 0 ]; then
-        echo "❌ PostgreSQL did not become ready in time"
-        exit 1
+        echo "⚠️  PostgreSQL connection timeout - continuing anyway (migrations will fail if DB is not ready)"
+    else
+        echo "✅ PostgreSQL is ready!"
     fi
-    
-    echo "✅ PostgreSQL is ready!"
 fi
+
+# Clear config before migrations (important for DATABASE_URL parsing)
+echo "⚙️  Clearing config cache..."
+php artisan config:clear
 
 # Run migrations
 echo "🔄 Running migrations..."
 php artisan migrate --force --no-interaction || {
-    echo "⚠️  Migration failed, but continuing..."
+    echo "⚠️  Migration failed - database may not be ready yet"
+    echo "⚠️  You may need to run migrations manually: php artisan migrate --force"
 }
 
-# Clear and cache config
+# Cache config after migrations
 echo "⚙️  Optimizing application..."
 php artisan config:cache
 php artisan route:cache
