@@ -94,6 +94,7 @@ RUN apk add --no-cache --virtual .build-deps \
     oniguruma-dev \
     icu-dev \
     postgresql-dev \
+    sqlite-dev \
     freetype-dev \
     libjpeg-turbo-dev \
     libwebp-dev && \
