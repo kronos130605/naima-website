@@ -85,7 +85,8 @@ RUN apk add --no-cache \
     libjpeg-turbo \
     libwebp \
     nginx \
-    supervisor
+    supervisor \
+    gettext
 
 # Install PHP extensions (same as base)
 RUN apk add --no-cache --virtual .build-deps \
