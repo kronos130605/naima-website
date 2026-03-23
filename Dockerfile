@@ -15,10 +15,17 @@ RUN apk add --no-cache \
     postgresql-dev \
     mysql-client \
     nginx \
-    supervisor
+    supervisor \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev
 
 # Install PHP extensions
-RUN docker-php-ext-install \
+RUN docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+        --with-webp && \
+    docker-php-ext-install \
     pdo_mysql \
     pdo_pgsql \
     pdo_sqlite \
@@ -74,6 +81,9 @@ RUN apk add --no-cache \
     oniguruma \
     icu-libs \
     postgresql-libs \
+    freetype \
+    libjpeg-turbo \
+    libwebp \
     nginx \
     supervisor
 
@@ -83,7 +93,14 @@ RUN apk add --no-cache --virtual .build-deps \
     libzip-dev \
     oniguruma-dev \
     icu-dev \
-    postgresql-dev && \
+    postgresql-dev \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev && \
+    docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+        --with-webp && \
     docker-php-ext-install \
     pdo_mysql \
     pdo_pgsql \
