@@ -1,0 +1,86 @@
+services:
+  # Web Service
+  - type: web
+    name: naima-website
+    runtime: docker
+    plan: starter
+    region: oregon
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: APP_NAME
+        value: FrenchBoost
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        sync: false
+      - key: LOG_CHANNEL
+        value: stack
+      - key: LOG_LEVEL
+        value: error
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: naima-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: naima-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: naima-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: naima-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: naima-db
+          property: password
+      - key: SESSION_DRIVER
+        value: database
+      - key: SESSION_LIFETIME
+        value: 120
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: FILESYSTEM_DISK
+        value: local
+      - key: UPLOAD_DISK
+        value: public
+      - key: MAIL_MAILER
+        value: log
+    healthCheckPath: /health
+    autoDeploy: true
+
+  # PostgreSQL Database
+  - type: pserv
+    name: naima-db
+    runtime: postgresql
+    plan: starter
+    region: oregon
+    ipAllowList: []
+    databaseName: naima_production
+    databaseUser: naima_user
+
+# Optional: Background Worker (for queue processing)
+# Uncomment if you need a separate worker process
+# - type: worker
+#   name: naima-worker
+#   runtime: docker
+#   plan: starter
+#   region: oregon
+#   branch: main
+#   dockerfilePath: ./Dockerfile.worker
+#   dockerContext: .
+#   envVars:
+#     - fromGroup: naima-website

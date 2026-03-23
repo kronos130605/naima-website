@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: naima-website:latest
+    container_name: naima-app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - DB_CONNECTION=sqlite
+      - QUEUE_CONNECTION=database
+      - SESSION_DRIVER=database
+      - CACHE_STORE=database
+    volumes:
+      # Mount storage for persistent data
+      - ./storage:/var/www/html/storage
+      # Mount database
+      - ./database/database.sqlite:/var/www/html/database/database.sqlite
+      # Mount .env file (create from .env.example)
+      - ./.env:/var/www/html/.env
+    networks:
+      - naima-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: MySQL database (if you prefer MySQL over SQLite)
+  # Uncomment this section and update DB_CONNECTION in .env
+  # mysql:
+  #   image: mysql:8.0
+  #   container_name: naima-mysql
+  #   restart: unless-stopped
+  #   environment:
+  #     MYSQL_DATABASE: naima_db
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     MYSQL_USER: naima
+  #     MYSQL_PASSWORD: secret
+  #   volumes:
+  #     - mysql-data:/var/lib/mysql
+  #   networks:
+  #     - naima-network
+  #   ports:
+  #     - "3306:3306"
+
+  # Optional: PostgreSQL database
+  # postgres:
+  #   image: postgres:16-alpine
+  #   container_name: naima-postgres
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_DB: naima_db
+  #     POSTGRES_USER: naima
+  #     POSTGRES_PASSWORD: secret
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   networks:
+  #     - naima-network
+  #   ports:
+  #     - "5432:5432"
+
+networks:
+  naima-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  postgres-data:
