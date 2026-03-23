@@ -1,167 +1,58 @@
-# Multi-stage build for Laravel 12 with PHP 8.3
-FROM php:8.3-fpm-alpine AS base
+FROM php:8.3-fpm
 
-# Install system dependencies
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     git \
     curl \
-    libpng-dev \
-    libzip-dev \
     zip \
     unzip \
-    sqlite-dev \
-    oniguruma-dev \
-    icu-dev \
-    postgresql-dev \
-    mysql-client \
-    nginx \
-    supervisor \
-    freetype-dev \
-    libjpeg-turbo-dev \
-    libwebp-dev
-
-# Install PHP extensions
-RUN docker-php-ext-configure gd \
-        --with-freetype \
-        --with-jpeg \
-        --with-webp && \
-    docker-php-ext-install \
-    pdo_mysql \
-    pdo_pgsql \
-    pdo_sqlite \
-    mbstring \
-    zip \
-    exif \
-    pcntl \
-    bcmath \
-    gd \
-    intl
-
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Set working directory
-WORKDIR /var/www/html
-
-# Copy composer files
-COPY composer.json composer.lock ./
-
-# Install PHP dependencies (no dev dependencies in production)
-RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
-
-# ============================================
-# Node build stage for Vite assets
-# ============================================
-FROM node:20-alpine AS node-builder
-
-WORKDIR /app
-
-# Copy package files
-COPY package*.json ./
-
-# Install dependencies
-RUN npm ci
-
-# Copy application files needed for build
-COPY . .
-
-# Build Vite assets
-RUN npm run build
-
-# ============================================
-# Final production stage
-# ============================================
-FROM php:8.3-fpm-alpine
-
-# Install runtime dependencies
-RUN apk add --no-cache \
-    libpng \
-    libzip \
-    sqlite-libs \
-    oniguruma \
-    icu-libs \
-    postgresql-libs \
-    freetype \
-    libjpeg-turbo \
-    libwebp \
-    nginx \
-    supervisor \
-    gettext
-
-# Install PHP extensions (same as base)
-RUN apk add --no-cache --virtual .build-deps \
-    libpng-dev \
+    libpq-dev \
+    libonig-dev \
+    libxml2-dev \
     libzip-dev \
-    oniguruma-dev \
-    icu-dev \
-    postgresql-dev \
-    sqlite-dev \
-    freetype-dev \
-    libjpeg-turbo-dev \
-    libwebp-dev && \
-    docker-php-ext-configure gd \
-        --with-freetype \
-        --with-jpeg \
-        --with-webp && \
-    docker-php-ext-install \
-    pdo_mysql \
-    pdo_pgsql \
-    pdo_sqlite \
-    mbstring \
-    zip \
-    exif \
-    pcntl \
-    bcmath \
-    gd \
-    intl && \
-    apk del .build-deps
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    nginx \
+    supervisor \
+    netcat-openbsd
 
-# Copy Composer from official image
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install pdo pdo_pgsql mbstring bcmath opcache zip gd exif
 
-# Set working directory
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
 WORKDIR /var/www/html
-
-# Copy vendor from base stage
-COPY --from=base /var/www/html/vendor ./vendor
-
-# Copy application files
 COPY . .
 
-# Copy built assets from node-builder
-COPY --from=node-builder /app/public/build ./public/build
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
 
-# Generate optimized autoloader
-RUN composer dump-autoload --optimize --no-dev
+# Create before build
+RUN mkdir -p public/build
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 755 /var/www/html/storage && \
-    chmod -R 755 /var/www/html/bootstrap/cache
+# Give permissions
+RUN chown -R www-data:www-data public/build
 
-# Copy nginx configuration
-COPY deploy/nginx/default.conf /etc/nginx/http.d/default.conf
+# Install Node.js dependencies and build assets
+RUN npm install \
+    && rm -rf public/build \
+    && npm run build \
+    && ls -R public/build
 
-# Copy supervisor configuration
-COPY deploy/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# Clear Laravel log file for fresh deploy
+RUN mkdir -p storage/logs \
+    && touch storage/logs/laravel.log \
+    && chown -R www-data:www-data storage bootstrap/cache
 
-# Create necessary directories
-RUN mkdir -p /var/www/html/storage/logs && \
-    mkdir -p /var/www/html/storage/framework/sessions && \
-    mkdir -p /var/www/html/storage/framework/views && \
-    mkdir -p /var/www/html/storage/framework/cache && \
-    chown -R www-data:www-data /var/www/html/storage
+COPY ./deploy/nginx/naima.conf /etc/nginx/sites-available/default
+COPY ./deploy/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./deploy/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
-# Copy entrypoint script
-COPY deploy/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+EXPOSE 80
 
-# Render.com uses PORT environment variable (default to 80)
-ENV PORT=80
-EXPOSE $PORT
-
-# Use entrypoint script to handle initialization
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-
-# Start supervisor (manages nginx + php-fpm + queue worker)
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/usr/local/bin/start.sh"]
