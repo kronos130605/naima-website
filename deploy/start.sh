@@ -19,14 +19,7 @@ if [ ! -z "$DATABASE_URL" ]; then
     fi
 fi
 
-# Clear caches (safe to run at startup)
-echo "🧹 Clearing caches..."
-php artisan config:clear 2>/dev/null || true
-php artisan cache:clear 2>/dev/null || true
-php artisan view:clear 2>/dev/null || true
-php artisan route:clear 2>/dev/null || true
-
-# Run migrations
+# Run migrations (without clearing cache first - let Laravel parse DATABASE_URL)
 echo "🗄️ Running migrations..."
 php artisan migrate --force
 
