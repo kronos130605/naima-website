@@ -8,15 +8,16 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/theme.js', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
         <div
-            class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"
+            class="min-h-screen bg-gradient-to-br from-blue-100 via-yellow-50 to-purple-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"
             x-data="{ adminModalOpen: false }"
             @open-admin-modal.window="adminModalOpen = true"
             @close-admin-modal.window="adminModalOpen = false"
