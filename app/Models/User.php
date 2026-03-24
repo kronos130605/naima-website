@@ -14,6 +14,15 @@ class User extends Authenticatable
         return (bool) $this->is_admin;
     }
 
+    public function getThemePreference(): string
+    {
+        if ($this->theme_preference) {
+            return $this->theme_preference;
+        }
+        
+        return SiteSetting::get('default_theme', 'new');
+    }
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
@@ -27,6 +36,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'theme_preference',
     ];
 
     /**

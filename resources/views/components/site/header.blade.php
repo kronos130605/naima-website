@@ -43,6 +43,7 @@
                 <a class="{{ $lnk }}" href="{{ route('site.method',   ['locale' => $locale]) }}">{{ __('site.nav.strategy') }}</a>
                 <a class="{{ $lnk }}" href="{{ route('site.pricing',  ['locale' => $locale]) }}">{{ __('site.nav.pricing') }}</a>
                 <a class="{{ $lnk }}" href="{{ route('site.mind-maps',['locale' => $locale]) }}">{{ __('site.nav.resources') }}</a>
+                <a class="{{ $lnk }}" href="{{ route('site.testimonials', ['locale' => $locale]) }}">{{ __('site.nav.testimonials') }}</a>
                 <a class="{{ $lnk }}" href="{{ route('site.contact',  ['locale' => $locale]) }}">{{ __('site.nav.contact') }}</a>
             </nav>
         @endif
@@ -215,6 +216,7 @@
                     <a class="{{ $ni }}" href="{{ route('site.method',   ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.strategy') }}</a>
                     <a class="{{ $ni }}" href="{{ route('site.pricing',  ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.pricing') }}</a>
                     <a class="{{ $ni }}" href="{{ route('site.faq',      ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.faq') }}</a>
+                    <a class="{{ $ni }}" href="{{ route('site.testimonials', ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.testimonials') }}</a>
                     <a class="{{ $ni }}" href="{{ route('site.contact',  ['locale' => $locale]) }}" @click="mobileOpen = false">{{ __('site.nav.contact') }}</a>
 
                     {{-- Book Free Assessment --}}

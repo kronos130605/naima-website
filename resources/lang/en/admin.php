@@ -12,6 +12,7 @@ return [
         'videos' => 'Videos',
         'worksheets' => 'Worksheets',
         'bookings' => 'Bookings',
+        'testimonials' => 'Testimonials',
         'settings' => 'Settings',
     ],
 
