@@ -7,7 +7,7 @@
 ])
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', $locale) }}">
+<html lang="{{ str_replace('_', '-', $locale) }}" class="theme-{{ auth()->check() ? auth()->user()->getThemePreference() : \App\Models\SiteSetting::get('default_theme', 'new') }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
