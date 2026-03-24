@@ -4,10 +4,14 @@ use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MindMapController as AdminMindMapController;
 use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
+use App\Http\Controllers\Admin\TestimonialPostController as AdminTestimonialPostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Site\BookingController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\SitePageController;
+use App\Http\Controllers\Site\TestimonialPostController;
+use App\Http\Controllers\Site\TestimonialsController;
+use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\Admin\VideoController as AdminVideoController;
 use App\Http\Controllers\Admin\WorksheetController as AdminWorksheetController;
 use App\Http\Controllers\Site\MindMapController;
@@ -45,6 +49,10 @@ Route::middleware(SetLocaleFromRoute::class)
 
         Route::get('/worksheets', WorksheetController::class)->name('site.worksheets');
 
+        Route::get('/testimonials', TestimonialsController::class)->name('site.testimonials');
+
+        Route::post('/testimonials', [TestimonialPostController::class, 'store'])->middleware('auth')->name('site.testimonials.store');
+
         Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
         Route::middleware(['auth', 'verified', 'admin'])
@@ -78,13 +86,21 @@ Route::middleware(SetLocaleFromRoute::class)
                 Route::delete('/worksheets/{worksheet}', [AdminWorksheetController::class, 'destroy'])->name('worksheets.destroy');
                 Route::patch('/worksheets/{worksheet}/toggle', [AdminWorksheetController::class, 'togglePublish'])->name('worksheets.toggle');
 
+                Route::get('/testimonials', [AdminTestimonialPostController::class, 'index'])->name('testimonials.index');
+                Route::patch('/testimonials/{testimonialPost}/toggle', [AdminTestimonialPostController::class, 'toggleVisibility'])->name('testimonials.toggle');
+                Route::post('/testimonials/{testimonialPost}/up', [AdminTestimonialPostController::class, 'moveUp'])->name('testimonials.up');
+                Route::post('/testimonials/{testimonialPost}/down', [AdminTestimonialPostController::class, 'moveDown'])->name('testimonials.down');
+                Route::delete('/testimonials/{testimonialPost}', [AdminTestimonialPostController::class, 'destroy'])->name('testimonials.destroy');
+
                 Route::get('/settings', [AdminSettingsController::class, 'index'])->name('settings');
+                Route::post('/settings/default-theme', [AdminSettingsController::class, 'updateDefaultTheme'])->name('settings.default-theme');
             });
 
         Route::middleware('auth')->group(function () {
             Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
             Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
             Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+            Route::post('/theme', [ThemeController::class, 'update'])->name('theme.update');
         });
 
         require __DIR__.'/auth.php';

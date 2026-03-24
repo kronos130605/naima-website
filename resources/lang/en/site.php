@@ -24,6 +24,7 @@ return [
         'about'      => 'About — FrenchBoost',
         'programs'   => 'Programs — FrenchBoost',
         'method'     => 'Our Method — FrenchBoost',
+        'testimonials' => 'Testimonials — FrenchBoost',
         'pricing'    => 'Pricing — FrenchBoost',
         'faq'        => 'FAQ — FrenchBoost',
         'contact'    => 'Contact — FrenchBoost',

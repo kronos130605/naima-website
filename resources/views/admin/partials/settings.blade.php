@@ -57,6 +57,73 @@
             </form>
         </div>
 
+        {{-- Default Theme Setting --}}
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 space-y-5">
+            <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('Default Site Theme') }}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Set the default theme for all new users and visitors.') }}</p>
+
+            @if(session('success'))
+                <div class="rounded-lg bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-800 dark:bg-green-950/30 dark:border-green-800 dark:text-green-300">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <form method="post" action="{{ route('admin.settings.default-theme', ['locale' => app()->getLocale()]) }}" class="space-y-4">
+                @csrf
+
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input 
+                                id="theme-new" 
+                                name="default_theme" 
+                                type="radio" 
+                                value="new" 
+                                {{ ($defaultTheme ?? 'new') === 'new' ? 'checked' : '' }}
+                                class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 dark:border-gray-600 dark:bg-gray-700"
+                            >
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="theme-new" class="font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('New Theme (Colorful)') }}
+                            </label>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                {{ __('Modern, vibrant design with playful colors and animations.') }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input 
+                                id="theme-normal" 
+                                name="default_theme" 
+                                type="radio" 
+                                value="normal" 
+                                {{ ($defaultTheme ?? 'new') === 'normal' ? 'checked' : '' }}
+                                class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 dark:border-gray-600 dark:bg-gray-700"
+                            >
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="theme-normal" class="font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('Normal Theme (Classic)') }}
+                            </label>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                {{ __('Clean, professional design from previous versions.') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="rounded-lg bg-blue-600 px-5 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        {{ __('Save Default Theme') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+
         {{-- Update Password --}}
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 space-y-5">
             <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{{ __('admin.settings.password_title') }}</h3>

@@ -2,6 +2,7 @@
 
 namespace App\Services\Site;
 
+use App\Models\TestimonialPost;
 use App\Repositories\Site\HomeContentRepository;
 
 class SiteContentService
@@ -18,6 +19,22 @@ class SiteContentService
 
         $data['locale'] = $locale;
         $data['locales'] = ['en', 'fr'];
+
+        $dynamicTestimonials = TestimonialPost::visible()
+            ->forLocale($locale)
+            ->ordered()
+            ->get()
+            ->map(fn($post) => [
+                'name' => $post->name,
+                'role' => $post->role,
+                'rating' => $post->rating,
+                'body' => $post->body,
+            ])
+            ->toArray();
+
+        if (!empty($dynamicTestimonials)) {
+            $data['testimonials']['items'] = $dynamicTestimonials;
+        }
 
         return $data;
     }

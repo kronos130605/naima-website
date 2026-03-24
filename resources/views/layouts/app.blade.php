@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="theme-{{ auth()->check() ? auth()->user()->getThemePreference() : \App\Models\SiteSetting::get('default_theme', 'new') }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,15 +8,22 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/theme.js', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+        @php
+            $designTheme = auth()->check()
+                ? auth()->user()->getThemePreference()
+                : \App\Models\SiteSetting::get('default_theme', 'new');
+            $isNewDesign = $designTheme === 'new';
+        @endphp
         <div
-            class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"
+            class="min-h-screen {{ $isNewDesign ? 'bg-gradient-to-br from-blue-100 via-yellow-50 to-purple-100' : 'bg-gradient-to-br from-blue-50 via-white to-indigo-50' }} dark:from-slate-950 dark:via-slate-900 dark:to-slate-950"
             x-data="{ adminModalOpen: false }"
             @open-admin-modal.window="adminModalOpen = true"
             @close-admin-modal.window="adminModalOpen = false"

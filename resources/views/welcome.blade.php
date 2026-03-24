@@ -22,12 +22,24 @@
     <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
         <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
+                <nav class="flex items-center justify-between gap-4">
+                    {{-- Logo --}}
+                    <a href="/" class="flex items-center gap-2">
+                        <img src="{{ Vite::asset('resources/images/logo/logo_1_light.png') }}" alt="Laravel" class="h-8 w-auto object-contain dark:hidden" />
+                        <img src="{{ Vite::asset('resources/images/logo/logo_1_dark.png') }}" alt="Laravel" class="h-8 w-auto object-contain hidden dark:block" />
+                    </a>
+
+                    {{-- Auth buttons --}}
+                    <div class="flex items-center gap-4">
                     @auth
                         <div class="hidden sm:flex flex-col items-end leading-tight">
                             <span class="font-semibold text-[#1b1b18] dark:text-[#EDEDEC]">{{ Auth::user()->name }}</span>
                             <span class="text-[12px] text-[#706f6c] dark:text-[#A1A09A]">{{ Auth::user()->email }}</span>
                         </div>
+
+                        <a href="{{ route('site.testimonials', ['locale' => app()->getLocale()]) }}#submit" class="inline-flex items-center justify-center rounded-xl border border-blue-200 bg-white/80 backdrop-blur px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-all hover:bg-blue-50 hover:border-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-100 dark:hover:bg-slate-900 dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950">
+                            {{ __('Leave a testimonial') }}
+                        </a>
 
                         <a href="{{ route('dashboard') }}" class="inline-flex items-center justify-center rounded-xl border border-blue-200 bg-white/80 backdrop-blur px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition-all hover:bg-blue-50 hover:border-blue-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-100 dark:hover:bg-slate-900 dark:focus-visible:ring-blue-400/40 dark:focus-visible:ring-offset-slate-950">
                             {{ __('Dashboard') }}
@@ -54,6 +66,7 @@
                             </a>
                         @endif
                     @endauth
+                    </div>
                 </nav>
             @endif
         </header>

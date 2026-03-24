@@ -65,6 +65,20 @@
                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ __('admin.dashboard.bookings_desc') }}</p>
                     </div>
                 </a>
+                <a
+                    href="{{ route('admin.testimonials.index', ['locale' => app()->getLocale()]) }}"
+                    hx-get="{{ route('admin.testimonials.index', ['locale' => app()->getLocale()]) }}"
+                    hx-target="#admin-content"
+                    hx-swap="innerHTML"
+                    hx-push-url="true"
+                    class="group flex items-start gap-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all"
+                >
+                    <div class="text-3xl">💬</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ __('Testimonials') }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ __('Manage user testimonials') }}</p>
+                    </div>
+                </a>
             </div>
         </div>
 
